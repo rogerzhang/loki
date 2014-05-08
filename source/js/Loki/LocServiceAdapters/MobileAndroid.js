@@ -101,22 +101,21 @@ Uize.module ({
 						Uize.map (
 							Uize.Data.NameValueRecords.fromHash (_strings),
 							function (_record) {
-								var _value = _record.value;
+								var
+									_name = _record.name,
+									_value = _record.value
+								;
 								return (
-									'\t<string name="' + _value + '">' +
-									(
-										Uize.isArray (_value)
-											? (
-												'\n' +
-												Uize.map (
-													_value,
-													function (_value) {return '\t\t<item>' + _encodeHtml (_value) + '</item>'}
-												).join ('\n') +
-												'\t'
-											)
-											: _encodeHtml (_value)
-									) +
-									'</string>'
+									Uize.isArray (_value)
+										? (
+											'\t<string-array name="' + _name + '">\n' +
+											Uize.map (
+												_value,
+												function (_value) {return '\t\t<item>' + _encodeHtml (_value) + '</item>\n'}
+											).join ('') +
+											'\t</string-array>'
+										)
+										: '\t<string name="' + _name + '">' + _encodeHtml (_value) + '</string>'
 								);
 							}
 						).join ('\n') +
