@@ -77,6 +77,16 @@ Uize.module ({
 										return (_isTag (_node,'xliff:g') ? _node.childNodes.nodes [0] : _node).text || '';
 									}
 								).join ('');
+							} else if (_isTag (_node,'string-array')) {
+								var _stringsArray = _strings [_getStringName ()] = [];
+								Uize.forEach (
+									_node.childNodes.nodes,
+									function (_node) {
+										if (_isTag (_node,'item'))
+											_stringsArray.push (_node.childNodes.nodes [0].text)
+										;
+									}
+								);
 							}
 						}
 					);
@@ -91,7 +101,23 @@ Uize.module ({
 						Uize.map (
 							Uize.Data.NameValueRecords.fromHash (_strings),
 							function (_record) {
-								return '\t<string name="' + _record.name + '">' + _encodeHtml (_record.value) + '</string>';
+								var _value = _record.value;
+								return (
+									'\t<string name="' + _value + '">' +
+									(
+										Uize.isArray (_value)
+											? (
+												'\n' +
+												Uize.map (
+													_value,
+													function (_value) {return '\t\t<item>' + _encodeHtml (_value) + '</item>'}
+												).join ('\n') +
+												'\t'
+											)
+											: _encodeHtml (_value)
+									) +
+									'</string>'
+								);
 							}
 						).join ('\n') +
 						'</resources>\n'
