@@ -14,7 +14,7 @@ Uize.module ({
 				punctuation:/[\?!\.;,&=\-\(\)\[\]"]+/,
 				number:/\d+(?:\.\d+)?/,
 				whitespace:/\s+/,
-				htmlTag:/<.+?>/,
+				htmlTag:/<(?:.|[\r\n\f])+?>/,
 				wordSplitter:/({htmlTag}|{whitespace}|{punctuation}|{number})/
 			})
 		;
