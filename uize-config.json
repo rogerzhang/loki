@@ -37,7 +37,10 @@
 					'pseudo'
 				],
 				primaryLanguage:'en-US',
-				pseudoLocale:'pseudo'
+				pseudoLocale:'pseudo',
+				pseudoLocalization:{
+					expansion:1.2
+				}
 			},
 			projects:{
 				ServiceWeb:{
@@ -60,7 +63,10 @@
 				},
 				ServiceWebHtmlTemplates:{
 					serviceAdapter:'Loki.LocServiceAdapters.ServiceWebHtmlTemplates',
-					rootFolderPath:'../git-repos/rc-web/WEB/src/desktop'
+					rootFolderPath:'../git-repos/rc-web/WEB/src/desktop',
+					pseudoLocalization:{
+						wrapper:''
+					}
 				},
 				MobileWeb:{
 					serviceAdapter:'Loki.LocServiceAdapters.MobileWeb',
