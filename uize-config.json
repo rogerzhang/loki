@@ -58,6 +58,10 @@
 					serviceAdapter:'Loki.LocServiceAdapters.ServiceWebJedi',
 					rootFolderPath:'../svn/rc/amarosa_trunk/JEDI/localStorage/rc-web/dictionaries'
 				},
+				ServiceWebHtmlTemplates:{
+					serviceAdapter:'Loki.LocServiceAdapters.ServiceWebHtmlTemplates',
+					rootFolderPath:'../git-repos/rc-web/WEB/src/desktop'
+				},
 				MobileWeb:{
 					serviceAdapter:'Loki.LocServiceAdapters.MobileWeb',
 					rootFolderPath:'../git-repos/rc-web/WEB/src/mobile/core/js/src'
