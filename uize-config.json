@@ -59,7 +59,8 @@
 				},
 				ServiceWebJedi:{
 					serviceAdapter:'Loki.LocServiceAdapters.ServiceWebJedi',
-					rootFolderPath:'../svn/rc/amarosa_trunk/JEDI/localStorage/rc-web/dictionaries'
+					rootFolderPath:'../svn/rc/amarosa_trunk/JEDI/localStorage/rc-web/dictionaries',
+					codeFolderPath:'../svn/rc/amarosa_trunk/JEDI/localStorage/rc-web/repository/browser'
 				},
 				ServiceWebHtmlTemplates:{
 					serviceAdapter:'Loki.LocServiceAdapters.ServiceWebHtmlTemplates',

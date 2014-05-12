@@ -4,7 +4,10 @@ Uize.module ({
 		'Uize.Util.RegExpComposition',
 		'Uize.Parse.JavaProperties.Document',
 		'Uize.Parse.JavaProperties.Property',
-		'Uize.Data.Flatten'
+		'Uize.Data.Flatten',
+		'Uize.Services.FileSystem',
+		'Uize.Str.Search',
+		'Uize.Json'
 	],
 	superclass:'Uize.Services.LocAdapter',
 	builder:function (_superclass) {
@@ -76,6 +79,84 @@ Uize.module ({
 						}
 					);
 					return _javaPropertiesDocument.serialize ();
+				},
+
+				usage:function (_params,_callback) {
+					var
+						m = this,
+						_allReferencesLookup = {},
+						_codeFolderPath = m.project.codeFolderPath,
+						_fileSystem = Uize.Services.FileSystem.singleton (),
+						_referencingFiles = _fileSystem.getFiles ({
+							path:_codeFolderPath,
+							pathMatcher:/\.xhtml$/,
+							recursive:true
+						})
+					;
+
+					m.prepareToExecuteMethod (_referencingFiles.length + 3);
+
+					/*** build lookup of string references ***/
+						Uize.forEach (
+							_referencingFiles,
+							function (_filePath) {
+								Uize.forEach (
+									Uize.Str.Search.search (
+										_fileSystem.readFile ({path:_codeFolderPath + '/' + _filePath}),
+										/#\{messages\[['"]([^'"]+)['"]\]\}/
+									),
+									function (_match) {
+										var _stringId = _match [1];
+										(_allReferencesLookup [_stringId] || (_allReferencesLookup [_stringId] = [])).push ({
+											filePath:_filePath,
+											start:_match.start,
+											end:_match.end,
+											startChar:_match.startChar,
+											endChar:_match.endChar
+										});
+									}
+								);
+								m.stepCompleted ('scanned for resource string references in file: ' + _filePath);
+							}
+						);
+
+					/*** gather resources for primary language ***/
+						var _primaryLanguageResources = m.gatherResources ();
+						m.stepCompleted ('gathered resources for primary language');
+
+					/*** analyze resource string usage ***/
+						var
+							_unreferenced = [],
+							_references = {}
+						;
+						Uize.Data.Flatten.flatten (
+							_primaryLanguageResources,
+							function (_path) {
+								var
+									_stringId = _path.slice (1).join ('.'),
+									_stringReferences = _allReferencesLookup [_stringId]
+								;
+								if (_stringReferences) {
+									_references [_stringId] = _stringReferences;
+								} else {
+									_unreferenced.push (_stringId);
+								}
+							}
+						)
+						m.stepCompleted ('analyzed resource usage');
+
+					/*** write report file ***/
+						var _usageReportFilePath = m.workingFolderPath + 'metrics/usage-report.json'
+						_fileSystem.writeFile ({
+							path:_usageReportFilePath,
+							contents:Uize.Json.to ({
+								unreferenced:_unreferenced,
+								references:_references
+							})
+						});
+						m.stepCompleted ('created usage report file: ' + _usageReportFilePath);
+
+					_callback ();
 				}
 			},
 
