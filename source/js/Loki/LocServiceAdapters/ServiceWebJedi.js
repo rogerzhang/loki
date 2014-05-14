@@ -51,34 +51,11 @@ Uize.module ({
 				},
 
 				parseResourceFile:function (_resourceFileText) {
-					var _strings = {};
-					Uize.forEach (
-						(new Uize.Parse.JavaProperties.Document (_resourceFileText)).items,
-						function (_item) {
-							if (_item.name && _item.value)
-								_strings [_item.name.name] = _item.value.value
-							;
-						}
-					);
-					_strings = Uize.Data.Flatten.unflatten (_strings,'.');
-					return _strings;
+					return Uize.Data.Flatten.unflatten (Uize.Parse.JavaProperties.Document.toHash (_resourceFileText),'.');
 				},
 
 				serializeResourceFile:function (_strings) {
-					var
-						_javaPropertiesDocument = new Uize.Parse.JavaProperties.Document (),
-						_items = _javaPropertiesDocument.items
-					;
-					Uize.forEach (
-						Uize.Data.Flatten.flatten (_strings,'.'),
-						function (_stringValue,_stringKey) {
-							var _property = new Uize.Parse.JavaProperties.Property ('key=value');
-							_property.name.name = _stringKey;
-							_property.value.value = _stringValue;
-							_items.push (_property);
-						}
-					);
-					return _javaPropertiesDocument.serialize ();
+					return Uize.Parse.JavaProperties.Document.fromHash (Uize.Data.Flatten.flatten (_strings,'.'));
 				},
 
 				usage:function (_params,_callback) {
@@ -109,10 +86,9 @@ Uize.module ({
 										var _stringId = _match [1];
 										(_allReferencesLookup [_stringId] || (_allReferencesLookup [_stringId] = [])).push ({
 											filePath:_filePath,
+											reference:_match [0],
 											start:_match.start,
-											end:_match.end,
-											startChar:_match.startChar,
-											endChar:_match.endChar
+											end:_match.end
 										});
 									}
 								);
@@ -127,7 +103,8 @@ Uize.module ({
 					/*** analyze resource string usage ***/
 						var
 							_unreferenced = [],
-							_references = {}
+							_references = {},
+							_multiReferenced = {}
 						;
 						Uize.Data.Flatten.flatten (
 							_primaryLanguageResources,
@@ -138,6 +115,9 @@ Uize.module ({
 								;
 								if (_stringReferences) {
 									_references [_stringId] = _stringReferences;
+									if (_stringReferences.length > 1)
+										_multiReferenced [_stringId] = _stringReferences.length
+									;
 								} else {
 									_unreferenced.push (_stringId);
 								}
@@ -151,6 +131,7 @@ Uize.module ({
 							path:_usageReportFilePath,
 							contents:Uize.Json.to ({
 								unreferenced:_unreferenced,
+								multiReferenced:_multiReferenced,
 								references:_references
 							})
 						});
