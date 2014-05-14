@@ -2,8 +2,7 @@ Uize.module ({
 	name:'Loki.LocServiceAdapters.ServiceWebJedi',
 	required:[
 		'Uize.Util.RegExpComposition',
-		'Uize.Parse.JavaProperties.Document',
-		'Uize.Parse.JavaProperties.Property',
+		'Uize.Data.JavaProperties',
 		'Uize.Data.Flatten',
 		'Uize.Services.FileSystem',
 		'Uize.Str.Search',
@@ -51,11 +50,11 @@ Uize.module ({
 				},
 
 				parseResourceFile:function (_resourceFileText) {
-					return Uize.Data.Flatten.unflatten (Uize.Parse.JavaProperties.Document.toHash (_resourceFileText),'.');
+					return Uize.Data.Flatten.unflatten (Uize.Data.JavaProperties.from (_resourceFileText),'.');
 				},
 
 				serializeResourceFile:function (_strings) {
-					return Uize.Parse.JavaProperties.Document.fromHash (Uize.Data.Flatten.flatten (_strings,'.'));
+					return Uize.Data.JavaProperties.to (Uize.Data.Flatten.flatten (_strings,'.'));
 				},
 
 				usage:function (_params,_callback) {
