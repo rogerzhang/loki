@@ -92,11 +92,13 @@
 			presets:{
 				i18nAlert:{
 					pathMatcher:/\.js$/,
-					matcher:/alert\s*\(('[^']+'|"[^"]+")/
+					matcher:/alert\s*\(('[^']+'|"[^"]+")/,
+					pathFilter:/(^|\/)rclibtest\//
 				},
 				i18nButtonLabel:{
 					pathMatcher:/\.js$/,
 					matcher:/text\s*:\s('[^']+'|"[^"]+")/,
+					pathFilter:/(^|\/)rclibtest\//,
 					description:
 						'reveals likely cases of inline (non-externalized) strings, particularly in cases where labels are being provided for buttons'
 				},
@@ -106,7 +108,10 @@
 				},
 				i18nHtml:{
 					pathMatcher:/\.js$/,
-					pathFilter:/\/((en|lang|en_UK|fr_CA|pseudo)(-\d+)?|omniture)\.js$/,
+					pathFilter:[
+						/\/((en|lang|en_UK|fr_CA|pseudo)(-\d+)?|omniture)\.js$/,
+						/(^|\/)rclibtest\//
+					],
 					matcher:/<\w[^<>\n\r]*>\s*\w+(\s+\w+)*\b|\b(\w+\s+)*\w+\s*<\/?\w+>/
 				},
 				i18nStringsWithHtml:{
@@ -119,6 +124,7 @@
 				},
 				i18nTitleProperty:{
 					pathMatcher:/\.js$/,
+					pathFilter:/(^|\/)rclibtest\//,
 					matcher:/title\s*:\s('[^']+'|"[^"]+")/
 				},
 				i18nStyleInResources:{
@@ -127,6 +133,7 @@
 				},
 				i18nResourceConcat:{
 					pathMatcher:/\.js$/,
+					pathFilter:/(^|\/)rclibtest\//,
 					matcher:/(\w'|\w)\s*\+\s*RC\.Lang\.(\w+\.)+?[A-Z]+(_[A-Z]+)*\b|\bRC\.Lang\.(\w+\.)+?[A-Z]+(_[A-Z]+)*\s*\+\s*(\w'|\w)/,
 					description:'reveals instances of resource string concatenation expressions (most matches are cases of concatenation of resource strings with HTML-containing string literals, while a very few cases have possible grammar implications)'
 				},
@@ -154,16 +161,13 @@
 					pathMatcher:/\/(en|lang)(-\d+)?\.js$/,
 					matcher:/\{\d+\}/i
 				},
-				i18nJediPropertyRefs:{
-					pathMatcher:/\.(xhtml|java)$/,
-					matcher:/#\{messages\[(['"])[^'"]+\1\]\}/
-				},
 				commentedOutCode:{
 					pathMatcher:/\.js$/,
 					matcher:/\/\*[^\*].*?[\{\}:;].*?\*\/|(\s*\/\/.*\r?\n)*\/\/.*?[\{\}:;].*\r?\n(\s*\/\/.*\r?\n)*|\/\/.*?[\{\}:;].*/
 				},
 				nakedAlerts:{
 					pathMatcher:/\.js$/,
+					pathFilter:/(^|\/)rclibtest\//,
 					matcher:/[\s\{]alert\s*\(/
 				},
 				wastefulRcUiMessageCalls:{
