@@ -2,7 +2,9 @@ Uize.module ({
 	name:'Loki.LocServiceAdapters.ServiceWeb',
 	required:[
 		'Uize.Json',
-		'Uize.Util.RegExpComposition'
+		'Uize.Util.RegExpComposition',
+		'Uize.Services.FileSystem',
+		'Uize.Str.Search'
 	],
 	superclass:'Uize.Services.LocAdapter',
 	builder:function (_superclass) {
@@ -25,7 +27,15 @@ Uize.module ({
 				htmlTag:/<(?:.|[\r\n\f])+?>/,
 				token:/\{[^\}]+\}/,
 				wordSplitter:/({htmlTag}|{token}|{whitespace}|{punctuation}|{number})/
-			})
+			}),
+			_stringReferenceRegExpComposition = Uize.Util.RegExpComposition ({
+				identifier:/[a-zA-Z_$][a-zA-Z0-9_$]*/,
+				reference:/(?:RC\.Lang\.{identifier}|langCommon|langLocal)(?:\.{identifier})+/,
+				referenceWithCapture:/({reference})/,
+				langLocalDeclarationWithCapture:/langLocal\s*=\s*(RC\.Lang(?:\.{identifier})+)/
+			}),
+			_langCommonRegExp = /^langCommon\./,
+			_langLocalRegExp = /^langLocal\./
 		;
 
 		return _superclass.subclass ({
@@ -99,6 +109,56 @@ Uize.module ({
 							);
 						}
 					).join ('\n\n');
+				},
+
+				getReferencingCodeFiles:function () {
+					return Uize.Services.FileSystem.singleton ().getFiles ({
+						path:this.project.rootFolderPath,
+						pathMatcher:/\.js$/,
+						recursive:true
+					});
+				},
+
+				getReferencesFromCodeFile:function (_filePath) {
+					/* NOTE:
+						This method is not yet reliable, since there is no easy pattern that can be used to find references. There is no simple convention that is used when referencing resource strings in SW's JS code. There is a mixture of complete path dereferences and capturing of local and common resource string objects, and the local variables used for capturing the references are not consistently named. Furthermore, some modules assign langLocal and langCommon properties on the instance, and then subclasses use these references, so in the subclasses there is no assignment statement that can be used to determine the namespace.
+					*/
+					var
+						_referencesLookup = {},
+						_fileText = Uize.Services.FileSystem.singleton ().readFile ({
+							path:this.project.rootFolderPath + '/' + _filePath
+						}),
+						_langLocal
+					;
+					Uize.forEach (
+						Uize.Str.Search.search (
+							_fileText,
+							_stringReferenceRegExpComposition.get ('referenceWithCapture')
+						),
+						function (_match) {
+							var _stringId = _match [1];
+							if (_langCommonRegExp.test (_stringId)) {
+								_stringId = _stringId.replace (_langLocalRegExp,'RC.Lang.Common.');
+							} else if (_langLocalRegExp.test (_stringId)) {
+								if (!_langLocal) {
+									var _langLocalMatch = _fileText.match (
+										new RegExp (
+											_stringReferenceRegExpComposition.get ('langLocalDeclarationWithCapture').source
+										)
+									);
+									_langLocal = (_langLocalMatch ? _langLocalMatch [1] : 'RC.Lang.ZZZ') + '.';
+								}
+								_stringId = _stringId.replace (_langLocalRegExp,_langLocal);
+							}
+							(_referencesLookup [_stringId] || (_referencesLookup [_stringId] = [])).push ({
+								filePath:_filePath,
+								reference:_match [0],
+								start:_match.start,
+								end:_match.end
+							});
+						}
+					);
+					return _referencesLookup;
 				}
 			},
 
