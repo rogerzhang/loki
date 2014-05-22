@@ -5,8 +5,7 @@ Uize.module ({
 		'Uize.Data.JavaProperties',
 		'Uize.Data.Flatten',
 		'Uize.Services.FileSystem',
-		'Uize.Str.Search',
-		'Uize.Json'
+		'Uize.Str.Search'
 	],
 	superclass:'Uize.Services.LocAdapter',
 	builder:function (_superclass) {
