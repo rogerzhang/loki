@@ -32,7 +32,7 @@ Uize.module ({
 				},
 
 				isBrandResourceString:function (_resourceStringPath,_resourceStringText) {
-					return /-\d+$/.test (_resourceStringPath [_resourceStringPath.length - 1]);
+					return _resourceStringPath [0] == 'Brands';
 				},
 
 				isResourceFile:function (_filePath) {
