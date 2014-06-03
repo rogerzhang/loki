@@ -69,6 +69,18 @@
 						wrapper:''
 					}
 				},
+				MicRecorder:{
+					serviceAdapter:'Loki.LocServiceAdapters.MicRecorder',
+					rootFolderPath:'../git-repos/rc-web/WEB/player/com/ringcentral/i18n',
+					/* NOTE: should be updated to support standard BCP47 language codes */
+						languages:[
+							'en',
+							'en-UK',
+							'fr-CA',
+							'pseudo'
+						],
+						primaryLanguage:'en'
+				},
 				MobileWeb:{
 					serviceAdapter:'Loki.LocServiceAdapters.MobileWeb',
 					rootFolderPath:'../git-repos/rc-web/WEB/src/mobile/core/js/src'
