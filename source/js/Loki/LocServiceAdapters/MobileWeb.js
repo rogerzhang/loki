@@ -34,6 +34,10 @@ Uize.module ({
 					return _resourceStringPath [0] == 'BRANDS';
 				},
 
+				stringHasHtml:function () {
+					return false;
+				},
+
 				isTranslatableString:function (_stringInfo) {
 					return (
 						!/(Email$|URL$)/.test (_stringInfo.key) &&
