@@ -1,3 +1,8 @@
+/* TODO
+	- add metrics for strings that contain HTML with inline style
+		- maybe this can be done through some extensibility hook in the loc adapter base class that can allow the subclass to perform this additional, project-specific analysis
+*/
+
 Uize.module ({
 	name:'Loki.LocServiceAdapters.ServiceWeb',
 	required:[
@@ -64,6 +69,10 @@ Uize.module ({
 						!/(^BRAND_ID$|^FAX_SETTING_EMAIL$|EMERGENCY_NUMBER|_VIDEO_ID$|_IMG$)/.test (_stringInfo.key) &&
 						!/^(https?:\/\/)/.test (_stringInfo.value)
 					);
+				},
+
+				isStringKeyValid:function (_path) {
+					return /^[A-Z][A-Z0-9$]*(_[A-Z0-9$]+)*$/.test (_path [_path.length - 1]);
 				},
 
 				isResourceFile:function (_filePath) {
