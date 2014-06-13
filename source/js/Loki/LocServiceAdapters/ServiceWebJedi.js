@@ -13,6 +13,7 @@ Uize.module ({
 
 		var
 			_resourceFileRegExp = /(^|\/)(messages)(\.properties)$/,
+			_brandResourceStringRegExp = /-(\d+)$/,
 			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition ({
 				punctuation:/[\?!\.;,&=\-\(\)\[\]"]+/,
 				number:/\d+(?:\.\d+)?/,
@@ -41,7 +42,14 @@ Uize.module ({
 				},
 
 				isBrandResourceString:function (_resourceStringPath,_resourceStringText) {
-					return /-\d+$/.test (_resourceStringPath [_resourceStringPath.length - 1]);
+					return _brandResourceStringRegExp.test (_resourceStringPath [_resourceStringPath.length - 1]);
+				},
+
+				getStringBrand:function (_resourceStringPath,_resourceStringText) {
+					var _brandedMatch =
+						(_resourceStringPath [_resourceStringPath.length - 1]).match (_brandResourceStringRegExp)
+					;
+					return _brandedMatch ? _brandedMatch [1] : '';
 				},
 
 				isResourceFile:function (_filePath) {

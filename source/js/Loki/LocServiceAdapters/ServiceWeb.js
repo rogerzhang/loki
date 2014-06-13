@@ -17,6 +17,7 @@ Uize.module ({
 
 		var
 			_resourceFileRegExp = /(^|\/)(en|lang)(-\d+)?(\.js)$/,
+			_brandResourceFileRegExp = /(?:^|\/)(?:en|lang)-(\d+)\.js$/,
 			_dereferenceRegExpComposition = Uize.Util.RegExpComposition ({
 				allowedDereference:/RC(\.[a-zA-Z0-9_$]+)+/,
 				dereference:/([:\+]\s*)({allowedDereference})\b/,
@@ -61,7 +62,12 @@ Uize.module ({
 				},
 
 				isBrandResourceFile:function (_filePath) {
-					return /(^|\/)(en|lang)(-\d+)\.js$/.test (_filePath);
+					return _brandResourceFileRegExp.test (_filePath);
+				},
+
+				getResourceFileBrand:function (_filePath) {
+					var _brandedMatch = _filePath.match (_brandResourceFileRegExp);
+					return _brandedMatch ? _brandedMatch [1] : '';
 				},
 
 				isTranslatableString:function (_stringInfo) {

@@ -7,6 +7,7 @@ Uize.module ({
 
 		var
 			_resourceFileRegExp = /\.html$/,
+			_brandResourceFileRegExp = /-(\d+)\.html$/,
 			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition ({
 				punctuation:/[\?!\.;,&=\-\(\)\[\]"]+/,
 				number:/\d+(?:\.\d+)?/,
@@ -29,7 +30,12 @@ Uize.module ({
 				},
 
 				isBrandResourceFile:function (_filePath) {
-					return /-\d+\.html$/.test (_filePath);
+					return _brandResourceFileRegExp.test (_filePath);
+				},
+
+				getResourceFileBrand:function (_filePath) {
+					var _brandedMatch = _filePath.match (_brandResourceFileRegExp);
+					return _brandedMatch ? _brandedMatch [1] : '';
 				},
 
 				isResourceFile:function (_filePath) {

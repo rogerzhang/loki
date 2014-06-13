@@ -35,6 +35,10 @@ Uize.module ({
 					return _resourceStringPath [0] == 'Brands';
 				},
 
+				getStringBrand:function (_resourceStringPath,_resourceStringText) {
+					return _resourceStringPath [0] == 'Brands' ? _resourceStringPath [1] + '' : '';
+				},
+
 				isResourceFile:function (_filePath) {
 					return _resourceFileRegExp.test (_filePath);
 				},

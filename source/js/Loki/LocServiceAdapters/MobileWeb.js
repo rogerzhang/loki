@@ -34,6 +34,10 @@ Uize.module ({
 					return _resourceStringPath [0] == 'BRANDS';
 				},
 
+				getStringBrand:function (_resourceStringPath,_resourceStringText) {
+					return _resourceStringPath [0] == 'BRANDS' ? _resourceStringPath [1] + '' : '';
+				},
+
 				stringHasHtml:function () {
 					return false;
 				},
