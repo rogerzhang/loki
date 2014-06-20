@@ -54,27 +54,41 @@ Uize.module ({
 						_localizerMethodRegExp = new RegExp ('(' + _localizerMethods.join ('|') + ')\\s*\\(\\s*@','g'),
 						_fileSystem = Uize.Services.FileSystem.singleton (),
 						_sourceRootPath = '../svn/rc/IOS-TELUS-RESKINNING',
-						_stringLiteralParser = new Uize.Parse.Code.StringLiteral
+						_stringLiteralParser = new Uize.Parse.Code.StringLiteral,
+						_filesToScan = _fileSystem.getFiles ({
+							path:_sourceRootPath,
+							pathMatcher:/\.m$/,
+							recursive:true
+						}),
+						_filesToScanLength = _filesToScan.length
 					;
-					_fileSystem.getFiles ({
-						path:_sourceRootPath,
-						pathMatcher:function (_path) {
-							if (/\.m$/.test (_path)) {
-								_localizerMethodRegExp.lastIndex = 0;
-								var
-									_sourceFileText = _fileSystem.readFile ({path:_sourceRootPath + '/' + _path}),
-									_match
-								;
-								while (_match = _localizerMethodRegExp.exec (_sourceFileText)) {
-									_stringLiteralParser.parse (_sourceFileText,_match.index + _match [0].length);
-									var _string = _stringLiteralParser.value;
-									_strings [_string] = _string;
-								}
+					m.prepareToExecuteMethod (_filesToScan.length + 2);
+					m.stepCompleted ('Obtain list of source code files to scan: ' + _filesToScanLength + ' files');
+					Uize.forEach (
+						_filesToScan,
+						function (_filePath) {
+							_localizerMethodRegExp.lastIndex = 0;
+							var
+								_totalExtractedStrings = 0,
+								_sourceFileText = _fileSystem.readFile ({path:_sourceRootPath + '/' + _filePath}),
+								_match
+							;
+							while (_match = _localizerMethodRegExp.exec (_sourceFileText)) {
+								_stringLiteralParser.parse (_sourceFileText,_match.index + _match [0].length);
+								var _string = _stringLiteralParser.value;
+								_strings [_string] = _string;
+								_totalExtractedStrings++;
 							}
-						},
-						recursive:true
-					});
-					 m.distributeResources (_resources,'en-US');
+							m.stepCompleted (
+								'Scanned file and extracted strings' + ' ' +
+								(_totalExtractedStrings ? '█' : ':') + ' ' +
+								_filePath +
+								(_totalExtractedStrings ? ' -- ' + _totalExtractedStrings + ' EXTRACTED' : '')
+							);
+						}
+					);
+					m.distributeResources (_resources,m.project.primaryLanguage);
+					m.stepCompleted ('Updated resource files for primary language');
 					_callback ();
 				},
 
