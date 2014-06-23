@@ -20,14 +20,23 @@ Uize.module ({
 				specifier:/%{lengthModifierAndCode}/,
 				specifierWithCapture:/%({lengthModifierAndCode})/
 			}),
+			_tokenRegExpComposition = Uize.Util.RegExpComposition ({
+				macOsStringFormatSpecifier:_macOsStringFormatSpecifierRegExpComposition.get ('specifier'),
+				macOsStringFormatSpecifierWithCapture:
+					_macOsStringFormatSpecifierRegExpComposition.get ('specifierWithCapture'),
+				brandTokenName:/[a-zA-Z_0-9]+/,
+				brandToken:/<{brandTokenName}>/,
+				brandTokenWithNameCapture:/<({brandTokenName})>/,
+				token:/{macOsStringFormatSpecifier}|{brandToken}/,
+				tokenWithNameCapture:/{macOsStringFormatSpecifierWithCapture}|{brandTokenWithNameCapture}/,
+			}),
 			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition ({
-				punctuation:/[\?!\.;,&=\-\(\)\[\]"<>]+/,
+				punctuation:/[\?!\.;,&=\-\(\)\[\]"<>]/,
 				number:/\d+(?:\.\d+)?/,
 				whitespace:/\s+/,
 				brandToken:/<[a-zA-Z_0-9]+>/,
-				token:_macOsStringFormatSpecifierRegExpComposition.get ('specifier'),
-				tokenWithNameCapture:_macOsStringFormatSpecifierRegExpComposition.get ('specifierWithCapture'),
-				wordSplitter:/({whitespace}|{token}|{brandToken}|{punctuation}|{number})/
+				token:_tokenRegExpComposition.get ('token'),
+				wordSplitter:/({whitespace}|{token}|{punctuation}|{number})/
 			})
 		;
 
@@ -121,7 +130,7 @@ Uize.module ({
 			},
 
 			instanceProperties:{
-				tokenRegExp:_wordSplitterRegExpComposition.get ('tokenWithNameCapture'),
+				tokenRegExp:_tokenRegExpComposition.get ('tokenWithNameCapture'),
 				wordSplitter:_wordSplitterRegExpComposition.get ('wordSplitter')
 			}
 		});
