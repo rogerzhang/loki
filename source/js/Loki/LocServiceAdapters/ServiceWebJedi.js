@@ -15,7 +15,7 @@ Uize.module ({
 			_resourceFileRegExp = /(^|\/)(messages)(\.properties)$/,
 			_brandResourceStringRegExp = /-(\d+)$/,
 			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition ({
-				punctuation:/[\?!\.;,&=\-\(\)\[\]"]+/,
+				punctuation:/[\?!\.;,&=\-\(\)\[\]"]/,
 				number:/\d+(?:\.\d+)?/,
 				whitespace:/\s+/,
 				htmlTag:/<(?:.|[\r\n\f])+?>/,

@@ -27,7 +27,7 @@ Uize.module ({
 			_dereferenceRegExp = _dereferenceRegExpComposition.get ('dereference'),
 			_dereferenceTokenRegExp = _dereferenceRegExpComposition.get ('dereferenceToken'),
 			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition ({
-				punctuation:/[\?!\.;,&=\-\(\)\[\]"]+/,
+				punctuation:/[\?!\.;,&=\-\(\)\[\]"]/,
 				number:/\d+(?:\.\d+)?/,
 				whitespace:/\s+/,
 				htmlTag:/<(?:.|[\r\n\f])+?>/,

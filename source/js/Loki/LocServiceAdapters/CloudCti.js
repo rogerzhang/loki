@@ -11,7 +11,7 @@ Uize.module ({
 		var
 			_resourceFileRegExp = /(^|\/)(en)(\.js)$/,
 			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition ({
-				punctuation:/[\?!\.;,&=\-\(\)\[\]"]+/,
+				punctuation:/[\?!\.;,&=\-\(\)\[\]"]/,
 				number:/\d+(?:\.\d+)?/,
 				whitespace:/\s+/,
 				htmlTag:/<(?:.|[\r\n\f])+?>/,

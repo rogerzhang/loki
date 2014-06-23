@@ -9,7 +9,7 @@ Uize.module ({
 			_resourceFileRegExp = /\.html$/,
 			_brandResourceFileRegExp = /-(\d+)\.html$/,
 			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition ({
-				punctuation:/[\?!\.;,&=\-\(\)\[\]"]+/,
+				punctuation:/[\?!\.;,&=\-\(\)\[\]"]/,
 				number:/\d+(?:\.\d+)?/,
 				whitespace:/\s+/,
 				htmlTag:/<(?:.|[\r\n\f])+?>/,

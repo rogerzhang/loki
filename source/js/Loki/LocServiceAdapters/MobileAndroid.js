@@ -25,7 +25,7 @@ Uize.module ({
 				placeholderWithCapture:/%({specifier})/
 			}),
 			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition ({
-				punctuation:/[\?!\.;,&=\-\(\)\[\]"<>]+/,
+				punctuation:/[\?!\.;,&=\-\(\)\[\]"<>]/,
 				number:/\d+(?:\.\d+)?/,
 				whitespace:/\s+/,
 				token:_printfFormatPlaceholderRegExpComposition.get ('placeholder'),

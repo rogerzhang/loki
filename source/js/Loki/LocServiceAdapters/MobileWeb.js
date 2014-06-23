@@ -11,7 +11,7 @@ Uize.module ({
 		var
 			_resourceFilePathRegExp = /(^|\/)en_US(\/messages\.js)$/,
 			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition ({
-				punctuation:/[\?!\.;,&=\-\(\)\[\]"<>]+/,
+				punctuation:/[\?!\.;,&=\-\(\)\[\]"<>]/,
 				number:/\d+(?:\.\d+)?/,
 				whitespace:/\s+/,
 				tokenName:/[\da-zA-Z]+/,
