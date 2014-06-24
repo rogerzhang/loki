@@ -44,13 +44,11 @@ Uize.module ({
 			instanceMethods:{
 				extract:function (_params,_callback) {
 					/* TODO:
-						- need a starting folder that may be different from root folder for resource files
-							- so, this would need to be configurable in the config section for this project
-						- need to know where to put extermalized strings
 						- need to add support for extracting strings from .xib files
 					*/
 					var
 						m = this,
+						_project = m.project,
 						_strings = {},
 						_resources = {'RCSoftPhoneApp/Localizations/en.lproj/Localizable.strings':_strings},
 						_localizerMethods = [
@@ -62,10 +60,10 @@ Uize.module ({
 						],
 						_localizerMethodRegExp = new RegExp ('(' + _localizerMethods.join ('|') + ')\\s*\\(\\s*@','g'),
 						_fileSystem = Uize.Services.FileSystem.singleton (),
-						_sourceRootPath = '../svn/rc/IOS-TELUS-RESKINNING',
+						_codeFolderPath = _project.codeFolderPath || _project.rootFolderPath,
 						_stringLiteralParser = new Uize.Parse.Code.StringLiteral,
 						_filesToScan = _fileSystem.getFiles ({
-							path:_sourceRootPath,
+							path:_codeFolderPath,
 							pathMatcher:/\.m$/,
 							recursive:true
 						}),
@@ -79,7 +77,7 @@ Uize.module ({
 							_localizerMethodRegExp.lastIndex = 0;
 							var
 								_totalExtractedStrings = 0,
-								_sourceFileText = _fileSystem.readFile ({path:_sourceRootPath + '/' + _filePath}),
+								_sourceFileText = _fileSystem.readFile ({path:_codeFolderPath + '/' + _filePath}),
 								_match
 							;
 							while (_match = _localizerMethodRegExp.exec (_sourceFileText)) {
@@ -96,7 +94,7 @@ Uize.module ({
 							);
 						}
 					);
-					m.distributeResources (_resources,m.project.primaryLanguage);
+					m.distributeResources (_resources,_project.primaryLanguage);
 					m.stepCompleted ('Updated resource files for primary language');
 					_callback ();
 				},
