@@ -70,7 +70,7 @@ Uize.module ({
 						_filesToScanLength = _filesToScan.length
 					;
 					m.prepareToExecuteMethod (_filesToScan.length + 2);
-					m.stepCompleted ('Obtain list of source code files to scan: ' + _filesToScanLength + ' files');
+					m.stepCompleted ('Obtained list of source code files to scan: ' + _filesToScanLength + ' files');
 					Uize.forEach (
 						_filesToScan,
 						function (_filePath) {

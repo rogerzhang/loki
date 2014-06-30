@@ -40,7 +40,8 @@
 				pseudoLocale:'en-ZZ',
 				pseudoLocalization:{
 					expansion:1.15
-				}
+				},
+				translationJobFileFormat:'xliff' // csv | xliff
 			},
 			projects:{
 				ServiceWeb:{
