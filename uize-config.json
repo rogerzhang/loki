@@ -32,7 +32,7 @@
 			common:{
 				languages:[
 					'en-US',
-					'en-UK',
+					'en-GB',
 					'fr-CA',
 					'en-ZZ'
 				],
@@ -52,7 +52,7 @@
 					/* NOTE: Service Web should be updated to support standard BCP47 language codes */
 						languages:[
 							'en',
-							'en-UK',
+							'en-GB',
 							'fr-CA',
 							'en-ZZ'
 						],
@@ -76,7 +76,7 @@
 					/* NOTE: should be updated to support standard BCP47 language codes */
 						languages:[
 							'en',
-							'en-UK',
+							'en-GB',
 							'fr-CA',
 							'en-ZZ'
 						],
@@ -122,7 +122,7 @@
 				i18nHtml:{
 					pathMatcher:/\.js$/,
 					pathFilter:[
-						/\/((en|lang|en_UK|fr_CA|en-ZZ)(-\d+)?|omniture)\.js$/,
+						/\/((en|lang|en_GB|fr_CA|en-ZZ)(-\d+)?|omniture)\.js$/,
 						/(^|\/)rclibtest\//
 					],
 					matcher:/<\w[^<>\n\r]*>\s*\w+(\s+\w+)*\b|\b(\w+\s+)*\w+\s*<\/?\w+>/
