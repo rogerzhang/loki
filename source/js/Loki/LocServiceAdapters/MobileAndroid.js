@@ -82,9 +82,10 @@ Uize.module ({
 								Uize.forEach (
 									_node.childNodes.nodes,
 									function (_node) {
-										if (_isTag (_node,'item'))
-											_stringsArray.push (_node.childNodes.nodes [0].text)
-										;
+										if (_isTag (_node,'item')) {
+											var _textNode = _node.childNodes.nodes [0];
+											_stringsArray.push (_textNode ? _textNode.text : '');
+										}
 									}
 								);
 							}
