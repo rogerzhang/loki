@@ -1,10 +1,8 @@
 Uize.module ({
 	name:'Loki.LocServiceAdapters.MobileAndroid',
 	required:[
-		'Uize.Parse.Xml.NodeList',
-		'Uize.Util.Html.Encode',
-		'Uize.Data.NameValueRecords',
-		'Uize.Util.RegExpComposition'
+		'Uize.Util.RegExpComposition',
+		'Uize.Loc.FileFormats.AndroidStrings'
 	],
 	superclass:'Uize.Services.LocAdapter',
 	builder:function (_superclass) {
@@ -30,7 +28,8 @@ Uize.module ({
 				whitespace:/\s+/,
 				token:_printfFormatPlaceholderRegExpComposition.get ('placeholder'),
 				wordSplitter:/(^@.+$|{whitespace}|{token}|{punctuation}|{number})/
-			})
+			}),
+			_Uize_Loc_FileFormats_AndroidStrings = Uize.Loc.FileFormats.AndroidStrings
 		;
 
 		return _superclass.subclass ({
@@ -54,74 +53,11 @@ Uize.module ({
 				},
 
 				parseResourceFile:function (_resourceFileText) {
-					function _isTag (_node,_tagName) {
-						return _node.tagName && _node.tagName.serialize () == _tagName;
-					}
-					var
-						_xliffNodeList = new Uize.Parse.Xml.NodeList (_resourceFileText.replace (/<\?.*?\?>/,'')),
-						_strings = {}
-					;
-					Uize.forEach (
-						Uize.findRecord (
-							_xliffNodeList.nodes,
-							function (_node) {return _isTag (_node,'resources')}
-						).childNodes.nodes,
-						function (_node) {
-							function _getStringName () {
-								return _node.tagAttributes.attributes [0].value.value;
-							}
-							if (_isTag (_node,'string')) {
-								_strings [_getStringName ()] = Uize.map (
-									_node.childNodes.nodes,
-									function (_node) {
-										return (_isTag (_node,'xliff:g') ? _node.childNodes.nodes [0] : _node).text || '';
-									}
-								).join ('');
-							} else if (_isTag (_node,'string-array')) {
-								var _stringsArray = _strings [_getStringName ()] = [];
-								Uize.forEach (
-									_node.childNodes.nodes,
-									function (_node) {
-										if (_isTag (_node,'item')) {
-											var _textNode = _node.childNodes.nodes [0];
-											_stringsArray.push (_textNode ? _textNode.text : '');
-										}
-									}
-								);
-							}
-						}
-					);
-					return _strings;
+					return _Uize_Loc_FileFormats_AndroidStrings.from (_resourceFileText);
 				},
 
 				serializeResourceFile:function (_strings) {
-					var _encodeHtml = Uize.Util.Html.Encode.encode;
-					return (
-						'<?xml version="1.0" encoding="utf-8"?>\n' +
-						'<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">\n' +
-						Uize.map (
-							Uize.Data.NameValueRecords.fromHash (_strings),
-							function (_record) {
-								var
-									_name = _record.name,
-									_value = _record.value
-								;
-								return (
-									Uize.isArray (_value)
-										? (
-											'\t<string-array name="' + _name + '">\n' +
-											Uize.map (
-												_value,
-												function (_value) {return '\t\t<item>' + _encodeHtml (_value) + '</item>\n'}
-											).join ('') +
-											'\t</string-array>'
-										)
-										: '\t<string name="' + _name + '">' + _encodeHtml (_value) + '</string>'
-								);
-							}
-						).join ('\n') +
-						'</resources>\n'
-					);
+					return _Uize_Loc_FileFormats_AndroidStrings.to (_strings);
 				}
 			},
 
