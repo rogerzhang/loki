@@ -30,7 +30,7 @@
 		'Uize.Build.Loc':{
 			workingFolder:'loc',
 			common:{
-				languages:['en-US','en-GB','fr-CA'],
+				languages:[],
 				brandLanguages:{
 					3420:['en-US'],         // AT&T
 					3610:['en-US'],         // RC Canada
@@ -52,7 +52,6 @@
 					//rootFolderPath:'../svn/rc/amarosa_6-4_XMN_FT1/WEB/src/desktop',
 
 					/* NOTE: Service Web should be updated to support standard BCP47 language codes */
-						languages:['en','en-GB','fr-CA'],
 						brandLanguages:{
 							3420:['en'],         // AT&T
 							3610:['en'],         // RC Canada
@@ -79,7 +78,6 @@
 					rootFolderPath:'../git-repos/rc-web/WEB/player/com/ringcentral/i18n',
 
 					/* NOTE: should be updated to support standard BCP47 language codes */
-						languages:['en','en-GB','fr-CA'],
 						brandLanguages:{
 							3420:['en'],         // AT&T
 							3610:['en'],         // RC Canada
