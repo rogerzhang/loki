@@ -30,12 +30,14 @@
 		'Uize.Build.Loc':{
 			workingFolder:'loc',
 			common:{
-				languages:[
-					'en-US',
-					'en-GB',
-					'fr-CA',
-					'en-ZZ'
-				],
+				languages:['en-US','en-GB','fr-CA'],
+				brandLanguages:{
+					3420:['en-US'],         // AT&T
+					3610:['en-US'],         // RC Canada
+					3710:['en-GB'],         // RC UK
+					3810:['en-US'],         // ClearWire
+					7310:['en-US','fr-CA']  // TELUS
+				},
 				primaryLanguage:'en-US',
 				pseudoLocale:'en-ZZ',
 				pseudoLocalization:{
@@ -50,12 +52,14 @@
 					//rootFolderPath:'../svn/rc/amarosa_6-4_XMN_FT1/WEB/src/desktop',
 
 					/* NOTE: Service Web should be updated to support standard BCP47 language codes */
-						languages:[
-							'en',
-							'en-GB',
-							'fr-CA',
-							'en-ZZ'
-						],
+						languages:['en','en-GB','fr-CA'],
+						brandLanguages:{
+							3420:['en'],         // AT&T
+							3610:['en'],         // RC Canada
+							3710:['en-GB'],      // RC UK
+							3810:['en'],         // ClearWire
+							7310:['en','fr-CA']  // TELUS
+						},
 						primaryLanguage:'en'
 				},
 				ServiceWebJedi:{
@@ -73,13 +77,16 @@
 				MicRecorder:{
 					serviceAdapter:'Loki.LocServiceAdapters.MicRecorder',
 					rootFolderPath:'../git-repos/rc-web/WEB/player/com/ringcentral/i18n',
+
 					/* NOTE: should be updated to support standard BCP47 language codes */
-						languages:[
-							'en',
-							'en-GB',
-							'fr-CA',
-							'en-ZZ'
-						],
+						languages:['en','en-GB','fr-CA'],
+						brandLanguages:{
+							3420:['en'],         // AT&T
+							3610:['en'],         // RC Canada
+							3710:['en-GB'],      // RC UK
+							3810:['en'],         // ClearWire
+							7310:['en','fr-CA']  // TELUS
+						},
 						primaryLanguage:'en'
 				},
 				MobileWeb:{
@@ -122,7 +129,7 @@
 				i18nHtml:{
 					pathMatcher:/\.js$/,
 					pathFilter:[
-						/\/((en|lang|en_GB|fr_CA|en-ZZ)(-\d+)?|omniture)\.js$/,
+						/\/((en|lang|en-GB|fr-CA|en-ZZ)(-\d+)?|omniture)\.js$/,
 						/(^|\/)rclibtest\//
 					],
 					matcher:/<\w[^<>\n\r]*>\s*\w+(\s+\w+)*\b|\b(\w+\s+)*\w+\s*<\/?\w+>/
