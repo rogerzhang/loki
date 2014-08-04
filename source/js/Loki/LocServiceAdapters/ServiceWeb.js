@@ -47,13 +47,26 @@ Uize.module ({
 		return _superclass.subclass ({
 			instanceMethods:{
 				getLanguageResourcePath:function (_primaryLanguageResourcePath,_language) {
-					var m = this;
+					var
+						m = this,
+						_project = m.project
+					;
 					return _primaryLanguageResourcePath.replace (
 						_resourceFileRegExp,
 						function (_match,_folderPath,_fileLangCode,_brandSuffix,_fileExtension) {
+							var
+								_isPrimaryLanguage = _language == _project.primaryLanguage,
+								_langCodeForFilename = _isPrimaryLanguage && _project.useOldPrimaryLanguageFileNaming
+									? 'en'
+									: _language.replace ('-','_')
+							;
 							return (
 								_folderPath +
-								(_fileLangCode == 'lang' && _language == m.project.primaryLanguage ? 'lang' : _language) +
+								(
+									_project.useOldCommonLangFileNaming && _fileLangCode == 'lang'
+										? 'lang' + (_isPrimaryLanguage ? '' : '-' + _langCodeForFilename)
+										: _langCodeForFilename
+								) +
 								(_brandSuffix || '') +
 								_fileExtension
 							);

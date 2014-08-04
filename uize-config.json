@@ -49,17 +49,9 @@
 				ServiceWeb:{
 					serviceAdapter:'Loki.LocServiceAdapters.ServiceWeb',
 					rootFolderPath:'../git-repos/rc-web/WEB/src/desktop',
-					//rootFolderPath:'../svn/rc/amarosa_6-4_XMN_FT1/WEB/src/desktop',
-
-					/* NOTE: Service Web should be updated to support standard BCP47 language codes */
-						brandLanguages:{
-							3420:['en'],         // AT&T
-							3610:['en'],         // RC Canada
-							3710:['en-GB'],      // RC UK
-							3810:['en'],         // ClearWire
-							7310:['en','fr-CA']  // TELUS
-						},
-						primaryLanguage:'en'
+					useOldCommonLangFileNaming:true,
+					useOldPrimaryLanguageFileNaming:true,
+					//rootFolderPath:'../svn/rc/amarosa_6-4_XMN_FT1/WEB/src/desktop'
 				},
 				ServiceWebJedi:{
 					serviceAdapter:'Loki.LocServiceAdapters.ServiceWebJedi',
@@ -75,17 +67,7 @@
 				},
 				MicRecorder:{
 					serviceAdapter:'Loki.LocServiceAdapters.MicRecorder',
-					rootFolderPath:'../git-repos/rc-web/WEB/player/com/ringcentral/i18n',
-
-					/* NOTE: should be updated to support standard BCP47 language codes */
-						brandLanguages:{
-							3420:['en'],         // AT&T
-							3610:['en'],         // RC Canada
-							3710:['en-GB'],      // RC UK
-							3810:['en'],         // ClearWire
-							7310:['en','fr-CA']  // TELUS
-						},
-						primaryLanguage:'en'
+					rootFolderPath:'../git-repos/rc-web/WEB/player/com/ringcentral/i18n'
 				},
 				MobileWeb:{
 					serviceAdapter:'Loki.LocServiceAdapters.MobileWeb',
