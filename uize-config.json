@@ -32,6 +32,7 @@
 			common:{
 				languages:[],
 				brandLanguages:{
+					1210:['en-US'],         // RingCentral
 					3420:['en-US'],         // AT&T
 					3610:['en-US'],         // RC Canada
 					3710:['en-GB'],         // RC UK
