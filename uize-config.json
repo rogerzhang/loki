@@ -86,6 +86,10 @@
 				CloudCti:{
 					serviceAdapter:'Loki.LocServiceAdapters.CloudCti',
 					rootFolderPath:'../svn/rc/simplion-opencti-0a0e6250af6b/js/lang'
+				},
+				GwFunnels:{
+					serviceAdapter:'Loki.LocServiceAdapters.GwFunnels',
+					rootFolderPath:'../git-ods/funnels'
 				}
 			}
 		},
