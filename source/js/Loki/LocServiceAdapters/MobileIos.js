@@ -106,7 +106,7 @@ Uize.module ({
 					);
 				},
 
-				isBrandResourceString:function (_resourceStringPath,_resourceStringText) {
+				isBrandResourceString:function (_resourceStringPath) {
 					return false;
 				},
 

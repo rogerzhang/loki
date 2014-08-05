@@ -41,11 +41,11 @@ Uize.module ({
 					);
 				},
 
-				isBrandResourceString:function (_resourceStringPath,_resourceStringText) {
+				isBrandResourceString:function (_resourceStringPath) {
 					return _brandResourceStringRegExp.test (_resourceStringPath [_resourceStringPath.length - 1]);
 				},
 
-				getStringBrand:function (_resourceStringPath,_resourceStringText) {
+				getStringBrand:function (_resourceStringPath) {
 					var _brandedMatch =
 						(_resourceStringPath [_resourceStringPath.length - 1]).match (_brandResourceStringRegExp)
 					;

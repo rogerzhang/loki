@@ -31,11 +31,11 @@ Uize.module ({
 					);
 				},
 
-				isBrandResourceString:function (_resourceStringPath,_resourceStringText) {
+				isBrandResourceString:function (_resourceStringPath) {
 					return _resourceStringPath [0] == 'Brands';
 				},
 
-				getStringBrand:function (_resourceStringPath,_resourceStringText) {
+				getStringBrand:function (_resourceStringPath) {
 					return _resourceStringPath [0] == 'Brands' ? _resourceStringPath [1] + '' : '';
 				},
 
