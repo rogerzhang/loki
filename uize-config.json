@@ -110,7 +110,7 @@
 				i18nHtml:{
 					pathMatcher:/\.js$/,
 					pathFilter:[
-						/\/((en|lang|en-GB|fr-CA|en-ZZ)(-\d+)?|omniture)\.js$/,
+						/\/((en|lang|en_GB|fr_CA|en_ZZ)(-\d+)?|omniture)\.js$/,
 						/(^|\/)rclibtest\//
 					],
 					matcher:/<\w[^<>\n\r]*>\s*\w+(\s+\w+)*\b|\b(\w+\s+)*\w+\s*<\/?\w+>/
