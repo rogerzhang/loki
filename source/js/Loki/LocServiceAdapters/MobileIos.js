@@ -106,10 +106,6 @@ Uize.module ({
 					);
 				},
 
-				isBrandResourceString:function (_resourceStringPath) {
-					return false;
-				},
-
 				isTranslatableString:function (_stringInfo) {
 					return true;
 				},

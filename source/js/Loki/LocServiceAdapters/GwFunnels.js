@@ -31,10 +31,6 @@ Uize.module ({
 					);
 				},
 
-				isBrandResourceString:function (_resourceStringPath) {
-					return !!this.getStringBrand (_resourceStringPath);
-				},
-
 				getStringBrand:function (_resourceStringPath) {
 					/* NOTE:
 						It's unfortunate that we have to do this kind of hackery to try to determine the brand for a resource string, but the GW funnel code does not have a more definitive / deliberate provision for brand-specific resource at this stage.

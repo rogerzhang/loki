@@ -29,10 +29,6 @@ Uize.module ({
 					);
 				},
 
-				isBrandResourceFile:function (_filePath) {
-					return _brandResourceFileRegExp.test (_filePath);
-				},
-
 				getResourceFileBrand:function (_filePath) {
 					var _brandedMatch = _filePath.match (_brandResourceFileRegExp);
 					return _brandedMatch ? _brandedMatch [1] : '';

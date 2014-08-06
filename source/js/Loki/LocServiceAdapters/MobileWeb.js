@@ -30,10 +30,6 @@ Uize.module ({
 					);
 				},
 
-				isBrandResourceString:function (_resourceStringPath) {
-					return _resourceStringPath [0] == 'BRANDS';
-				},
-
 				getStringBrand:function (_resourceStringPath) {
 					return _resourceStringPath [0] == 'BRANDS' ? _resourceStringPath [1] + '' : '';
 				},
