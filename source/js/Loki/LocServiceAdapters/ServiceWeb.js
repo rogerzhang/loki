@@ -91,7 +91,7 @@ Uize.module ({
 				},
 
 				isResourceFile:function (_filePath) {
-					return _resourceFileRegExp.test (_filePath);
+					return !/^widgets\//.test (_filePath) && _resourceFileRegExp.test (_filePath);
 				},
 
 				parseResourceFile:function (_resourceFileText) {
