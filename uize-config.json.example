@@ -50,8 +50,6 @@
 				ServiceWeb:{
 					serviceAdapter:'Loki.LocServiceAdapters.ServiceWeb',
 					rootFolderPath:'../git-repos/rc-web/WEB/src/desktop',
-					useOldCommonLangFileNaming:true,
-					useOldPrimaryLanguageFileNaming:true,
 					//rootFolderPath:'../svn/rc/amarosa_6-4_XMN_FT1/WEB/src/desktop'
 				},
 				ServiceWebJedi:{

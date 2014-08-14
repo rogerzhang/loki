@@ -16,8 +16,8 @@ Uize.module ({
 		'use strict';
 
 		var
-			_resourceFileRegExp = /(^|\/)(en|lang)(-\d+)?(\.js)$/,
-			_brandResourceFileRegExp = /(?:^|\/)(?:en|lang)-(\d+)\.js$/,
+			_resourceFileRegExp = /(^|\/)(en_US)(-\d+)?(\.js)$/,
+			_brandResourceFileRegExp = /(?:^|\/)en_US-(\d+)\.js$/,
 			_dereferenceRegExpComposition = Uize.Util.RegExpComposition ({
 				allowedDereference:/RC(\.[a-zA-Z0-9_$]+)+/,
 				dereference:/([:\+]\s*)({allowedDereference})\b/,
@@ -47,29 +47,10 @@ Uize.module ({
 		return _superclass.subclass ({
 			instanceMethods:{
 				getLanguageResourcePath:function (_primaryLanguageResourcePath,_language) {
-					var
-						m = this,
-						_project = m.project
-					;
 					return _primaryLanguageResourcePath.replace (
 						_resourceFileRegExp,
 						function (_match,_folderPath,_fileLangCode,_brandSuffix,_fileExtension) {
-							var
-								_isPrimaryLanguage = _language == _project.primaryLanguage,
-								_langCodeForFilename = _isPrimaryLanguage && _project.useOldPrimaryLanguageFileNaming
-									? 'en'
-									: _language.replace ('-','_')
-							;
-							return (
-								_folderPath +
-								(
-									_project.useOldCommonLangFileNaming && _fileLangCode == 'lang'
-										? 'lang' + (_isPrimaryLanguage ? '' : '-' + _langCodeForFilename)
-										: _langCodeForFilename
-								) +
-								(_brandSuffix || '') +
-								_fileExtension
-							);
+							return _folderPath + _language.replace ('-','_') + (_brandSuffix || '') + _fileExtension;
 						}
 					);
 				},
