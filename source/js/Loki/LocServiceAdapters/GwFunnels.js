@@ -9,7 +9,7 @@ Uize.module ({
 		'use strict';
 
 		var
-			_resourceFilePathRegExp = /(^|\/)en\/US(\.php)$/,
+			_resourceFilePathRegExp = /(^|\/)(en\/US|en_us\/common)(\.php)$/,
 			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition ({
 				punctuation:/[\?!\.;,&=\-\(\)\[\]"<>]/,
 				number:/\d+(?:\.\d+)?/,
@@ -27,7 +27,17 @@ Uize.module ({
 				getLanguageResourcePath:function (_primaryLanguageResourcePath,_language) {
 					return _primaryLanguageResourcePath.replace (
 						_resourceFilePathRegExp,
-						'$1' + _language.replace ('-','/') + '$2'
+						function (_match,_start,_folderLanguageCode,_fileExtension) {
+							return (
+								_start +
+								(
+									_folderLanguageCode == 'en/US'
+										? _language.replace ('-','/')
+										: _language.replace ('-','_').toLowerCase () + '/common'
+								) +
+								_fileExtension
+							);
+						}
 					);
 				},
 
@@ -52,12 +62,16 @@ Uize.module ({
 							? Uize.Json.from (
 								_resourceFileText
 									.replace (  // replace leading with open curly brace
-										/^<\?php(\s*\r?\n)*\s*return\s+array\s*\(/,
-											'{'
-										)
+										/^(.*(\r?\n))*.*array\s*\(/,
+										'{'
+									)
 									.replace (  // replace trailing with close curly brace
 										/,?(\s*\r?\n)*\s*\)\s*;(\s*\r?\n)*\s*$/,
 										'}'
+									)
+									.replace (  // replace linebreaks and leading padding to eliminate multi-line strings
+										/(\n|\r|\r\n)+\s+/g,
+										' '
 									)
 									.replace (  // replace "' => '" with "':'"
 										/(['"])\s*=>\s*\1/g,
@@ -66,6 +80,22 @@ Uize.module ({
 							)
 							: {}
 					);
+				},
+
+				gatherResources:function () {
+					/* NOTE:
+						Normally, it is not necessary for adapters to override the adapter base class' implementation of this method, but in the GwFunnels project we have some Yii resource files for the primary language where the values are empty and are expected to be defaulted to the key. This is different to the contents of the resource files for the non-Yii PHP code, where the value is always filled and equal to the key.
+
+						We don't want to always default the empty values to the keys in the parseResourceFile method, because that method is also used for parsing the resource files for other, non-primary languages, and we want empty values in those resource files to potentially indicate missing translations.
+					*/
+					var _primaryLanguageResources = _superclass.doMy (this,'gatherResources');
+					Uize.forEach (
+						_primaryLanguageResources,
+						function (_resourceFileStrings,_resourceFileSubPath) {
+							Uize.map (_resourceFileStrings,'value || key',_resourceFileStrings);
+						}
+					);
+					return _primaryLanguageResources;
 				},
 
 				serializeResourceFile:function (_messages) {
