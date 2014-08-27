@@ -2,7 +2,9 @@ Uize.module ({
 	name:'Loki.LocServiceAdapters.MobileAndroid',
 	required:[
 		'Uize.Util.RegExpComposition',
-		'Uize.Loc.FileFormats.AndroidStrings'
+		'Uize.Loc.FileFormats.AndroidStrings',
+		'Uize.Services.FileSystem',
+		'Uize.Str.Search'
 	],
 	superclass:'Uize.Services.LocAdapter',
 	builder:function (_superclass) {
@@ -58,6 +60,36 @@ Uize.module ({
 
 				serializeResourceFile:function (_strings) {
 					return _Uize_Loc_FileFormats_AndroidStrings.to (_strings);
+				},
+
+				getReferencingCodeFiles:function () {
+					return Uize.Services.FileSystem.singleton ().getFiles ({
+						path:this.project.codeFolderPath,
+						pathMatcher:/\.(java|xml)$/,
+						recursive:true
+					});
+				},
+
+				getReferencesFromCodeFile:function (_filePath) {
+					var _referencesLookup = {};
+					Uize.forEach (
+						Uize.Str.Search.search (
+							Uize.Services.FileSystem.singleton ().readFile ({
+								path:this.project.codeFolderPath + '/' + _filePath
+							}),
+							/\.xml$/.test (_filePath) ? /@string\/([a-zA-Z0-9_$]+)/ : /\bR\.string\.([a-zA-Z0-9_$]+)/
+						),
+						function (_match) {
+							var _stringId = _match [1];
+							(_referencesLookup [_stringId] || (_referencesLookup [_stringId] = [])).push ({
+								filePath:_filePath,
+								reference:_match [0],
+								start:_match.start,
+								end:_match.end
+							});
+						}
+					);
+					return _referencesLookup;
 				}
 			},
 
