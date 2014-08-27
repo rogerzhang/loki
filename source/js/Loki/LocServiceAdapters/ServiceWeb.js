@@ -125,6 +125,8 @@ Uize.module ({
 				},
 
 				getReferencesFromCodeFile:function (_filePath) {
+					throw new Error ('The implementation of the getReferencesFromCodeFile method is not reliable.');
+
 					/* NOTE:
 						This method is not yet reliable, since there is no easy pattern that can be used to find references. There is no simple convention that is used when referencing resource strings in SW's JS code. There is a mixture of complete path dereferences and capturing of local and common resource string objects, and the local variables used for capturing the references are not consistently named. Furthermore, some modules assign langLocal and langCommon properties on the instance, and then subclasses use these references, so in the subclasses there is no assignment statement that can be used to determine the namespace.
 					*/
