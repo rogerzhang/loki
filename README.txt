@@ -41,17 +41,21 @@ Quick Start Guide
 		node [pathToUize]build.js Uize.Build.Loc project=ServiceWeb method=export console=verbose
 		.........................................................................................
 
-		If this command executes correctly, you will find various language resources files, as follows...
+		You should find various language resources files, as follows...
 
-		- en-GB.json
-		- en-US.json -- the primary language resource strings
-		- fr-CA.json
-		- en-ZZ.json -- the pseudo-localized resource strings
+		- loc/ServiceWeb/en-GB.json
+		- loc/ServiceWeb/en-US.json -- the primary language resource strings
+		- loc/ServiceWeb/fr-CA.json
+		- loc/ServiceWeb/en-ZZ.json -- the pseudo-localized resource strings
 
 		If no previous translations have been made for the non-primary languages, then the string values for all the strings will be empty / blank. The pseudo-localized string are automatically generated during the export process, since no translation is needed as they are derived from the primary language strings.
 
 		Importing the Pseudo-localized Strings
 			Once you have executed the "export" method and you have the generated pseudo-localized resources file, you need to import the pseudo-localized strings back into your project's codebase.
+
+			.........................................................................................
+			node [pathToUize]build.js Uize.Build.Loc project=ServiceWeb method=import console=verbose
+			.........................................................................................
 
 			Ideally, the project being localized would fully support pseudo-locales, so that the pseudo-locale is selectable at runtime.
 
@@ -61,4 +65,26 @@ Quick Start Guide
 				- you will be temporarily changing all the primary language resource files, so make sure you can revert your changes later once you've tested pseudo-localization
 				- use the "pseudoLocalize" localization method to pseudo-localize the resource strings in the resource files of the primary language
 				- now, build and launch the application as you normally would in the primary language - you should see all the pseudo-localized strings in the UI
+
+	Exporting Translation Jobs
+		In order to export translation job files that can be sent to translators for translation, you should perform the following steps...
+
+		Export the latest resource strings from the project...
+
+		.........................................................................................
+		node [pathToUize]build.js Uize.Build.Loc project=ServiceWeb method=export console=verbose
+		.........................................................................................
+
+		Export the translation jobs for the project...
+
+		.............................................................................................
+		node [pathToUize]build.js Uize.Build.Loc project=ServiceWeb method=exportJobs console=verbose
+		.............................................................................................
+
+		You should find various translation job files, as follows...
+
+		- loc/ServiceWeb/jobs/en-GB.xlf
+		- loc/ServiceWeb/jobs/fr-CA.xlf
+
+		You will not find translation job files in the "jobs" folder for "en-US" (the primary language) or "en-ZZ" (the pseudo-locale).
 
