@@ -65,7 +65,7 @@ Uize.module ({
 				getReferencingCodeFiles:function () {
 					return Uize.Services.FileSystem.singleton ().getFiles ({
 						path:this.project.codeFolderPath,
-						pathMatcher:/\.xhtml$/,
+						pathMatcher:/\.(xhtml|java)$/,
 						recursive:true
 					});
 				},
