@@ -55,7 +55,7 @@
 				ServiceWebJedi:{
 					serviceAdapter:'Loki.LocServiceAdapters.ServiceWebJedi',
 					rootFolderPath:'../svn/rc/amarosa_trunk/JEDI/localStorage/rc-web/dictionaries',
-					codeFolderPath:'../svn/rc/amarosa_trunk/JEDI/localStorage/rc-web/repository/browser'
+					codeFolderPath:'../svn/rc/amarosa_trunk/JEDI'
 				},
 				ServiceWebHtmlTemplates:{
 					serviceAdapter:'Loki.LocServiceAdapters.ServiceWebHtmlTemplates',
@@ -79,7 +79,7 @@
 				},
 				MobileAndroid:{
 					serviceAdapter:'Loki.LocServiceAdapters.MobileAndroid',
-					rootFolderPath:'../svn/rc/Android/RCAB620-Branch/RingCentral/res'
+					rootFolderPath:'../git-ods/rc.android/res'
 				},
 				CloudCti:{
 					serviceAdapter:'Loki.LocServiceAdapters.CloudCti',
