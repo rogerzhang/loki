@@ -4,13 +4,15 @@ Uize.module ({
 		'Uize.Data.MacStrings',
 		'Uize.Services.FileSystem',
 		'Uize.Parse.Code.StringLiteral',
-		'Uize.Util.RegExpComposition'
+		'Uize.Util.RegExpComposition',
+		'Uize.Str.Search'
 	],
 	superclass:'Uize.Services.LocAdapter',
 	builder:function (_superclass) {
 		'use strict';
 
 		var
+			_fileSystem = Uize.Services.FileSystem.singleton (),
 			_resourceFilePathRegExp = /(^|\/)en.lproj(\/Localizable\.strings)$/,
 			_macOsStringFormatSpecifierRegExpComposition = Uize.Util.RegExpComposition ({
 				// https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/Strings/Articles/formatSpecifiers.html
@@ -37,55 +39,84 @@ Uize.module ({
 				brandToken:/<[a-zA-Z_0-9]+>/,
 				token:_tokenRegExpComposition.get ('token'),
 				wordSplitter:/({whitespace}|{token}|{punctuation}|{number})/
-			})
+			}),
+
+			/*** Variables for Reference Scanning ***/
+				_getLineAndChar = Uize.Str.Search.getLineAndChar,
+				_localizerMethods = [
+					'NSLocalizedStringFromTableInBundle',
+					'NSLocalizedString',
+					'RCSPLocalizedString',
+					'RCSPLocalizedStringFromTableInBundle',
+					'RCLocalizedString'
+				],
+				_localizerMethodRegExp = new RegExp ('(' + _localizerMethods.join ('|') + ')\\s*\\(\\s*@','g'),
+				_stringLiteralParser = new Uize.Parse.Code.StringLiteral
 		;
+
+		/*** Private Instance Methods ***/
+			function _getCodeFolderPath (m) {
+				var _project = m.project;
+				return _project.codeFolderPath || _project.rootFolderPath;
+			}
 
 		return _superclass.subclass ({
 			instanceMethods:{
+				getReferencingCodeFiles:function () {
+					return _fileSystem.getFiles ({
+						path:_getCodeFolderPath (this),
+						pathMatcher:/\.m$/,
+						recursive:true
+					});
+				},
+
+				getReferencesFromCodeFile:function (_filePath) {
+					var
+						_referencesLookup = {},
+						_sourceFileText = _fileSystem.readFile ({path:_getCodeFolderPath (this) + '/' + _filePath}),
+						_match
+					;
+					_localizerMethodRegExp.lastIndex = 0;
+					while (_match = _localizerMethodRegExp.exec (_sourceFileText)) {
+						var
+							_referenceStart = _match.index,
+							_referenceIdStart = _referenceStart + _match [0].length
+						;
+						_stringLiteralParser.parse (_sourceFileText,_referenceIdStart);
+						var
+							_stringId = _stringLiteralParser.value,
+							_referenceEnd = _referenceIdStart + _stringLiteralParser.length
+						;
+						(_referencesLookup [_stringId] || (_referencesLookup [_stringId] = [])).push ({
+							filePath:_filePath,
+							reference:_sourceFileText.slice (_referenceStart,_referenceEnd),
+							start:_getLineAndChar (_sourceFileText,_referenceStart),
+							end:_getLineAndChar (_sourceFileText,_referenceEnd)
+						});
+					}
+					return _referencesLookup;
+				},
+
 				extract:function (_params,_callback) {
 					/* TODO:
 						- need to add support for extracting strings from .xib files
 					*/
 					var
 						m = this,
-						_project = m.project,
 						_strings = {},
 						_resources = {'RCSoftPhoneApp/Localizations/en.lproj/Localizable.strings':_strings},
-						_localizerMethods = [
-							'NSLocalizedStringFromTableInBundle',
-							'NSLocalizedString',
-							'RCSPLocalizedString',
-							'RCSPLocalizedStringFromTableInBundle',
-							'RCLocalizedString'
-						],
-						_localizerMethodRegExp = new RegExp ('(' + _localizerMethods.join ('|') + ')\\s*\\(\\s*@','g'),
-						_fileSystem = Uize.Services.FileSystem.singleton (),
-						_codeFolderPath = _project.codeFolderPath || _project.rootFolderPath,
-						_stringLiteralParser = new Uize.Parse.Code.StringLiteral,
-						_filesToScan = _fileSystem.getFiles ({
-							path:_codeFolderPath,
-							pathMatcher:/\.m$/,
-							recursive:true
-						}),
-						_filesToScanLength = _filesToScan.length
+						_filesToScan = this.getReferencingCodeFiles ()
 					;
 					m.prepareToExecuteMethod (_filesToScan.length + 2);
-					m.stepCompleted ('Obtained list of source code files to scan: ' + _filesToScanLength + ' files');
+					m.stepCompleted ('Obtained list of source code files to scan: ' + _filesToScan.length + ' files');
 					Uize.forEach (
 						_filesToScan,
 						function (_filePath) {
-							_localizerMethodRegExp.lastIndex = 0;
 							var
-								_totalExtractedStrings = 0,
-								_sourceFileText = _fileSystem.readFile ({path:_codeFolderPath + '/' + _filePath}),
-								_match
+								_stringIds = Uize.keys (m.getReferencesFromCodeFile (_filePath)),
+								_totalExtractedStrings = _stringIds.length
 							;
-							while (_match = _localizerMethodRegExp.exec (_sourceFileText)) {
-								_stringLiteralParser.parse (_sourceFileText,_match.index + _match [0].length);
-								var _string = _stringLiteralParser.value;
-								_strings [_string] = _string;
-								_totalExtractedStrings++;
-							}
+							Uize.forEach (_stringIds,function (_stringId) {_strings [_stringId] = _stringId});
 							m.stepCompleted (
 								'Scanned file and extracted strings' + ' ' +
 								(_totalExtractedStrings ? '█' : ':') + ' ' +
@@ -94,7 +125,7 @@ Uize.module ({
 							);
 						}
 					);
-					m.distributeResources (_resources,_project.primaryLanguage);
+					m.distributeResources (_resources,m.project.primaryLanguage);
 					m.stepCompleted ('Updated resource files for primary language');
 					_callback ();
 				},
