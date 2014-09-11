@@ -79,7 +79,8 @@
 				},
 				MobileAndroid:{
 					serviceAdapter:'Loki.LocServiceAdapters.MobileAndroid',
-					rootFolderPath:'../git-ods/rc.android/res'
+					rootFolderPath:'../git-ods/rc.android/app/src/main/res',
+					codeFolderPath:'../git-ods/rc.android/app/src/main'
 				},
 				CloudCti:{
 					serviceAdapter:'Loki.LocServiceAdapters.CloudCti',
@@ -88,6 +89,13 @@
 				GwFunnels:{
 					serviceAdapter:'Loki.LocServiceAdapters.GwFunnels',
 					rootFolderPath:'../git-ods/funnels'
+				},
+				EmailTemplates:{
+					serviceAdapter:'Loki.LocServiceAdapters.EmailTemplates',
+					rootFolderPath:'../email-templates',
+					pseudoLocalization:{
+						wrapper:''
+					}
 				}
 			}
 		},
