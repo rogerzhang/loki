@@ -37,7 +37,10 @@ Uize.module ({
 		return _superclass.subclass ({
 			instanceMethods:{
 				getLanguageResourcePath:function (_primaryLanguageResourcePath,_language) {
-					return _primaryLanguageResourcePath.replace (_resourceFilePathRegExp,'$1-' + _language + '$2');
+					return _primaryLanguageResourcePath.replace (
+						_resourceFilePathRegExp,
+						'$1-' + _language.replace ('-','-r') + '$2'
+					);
 				},
 
 				isTranslatableString:function (_stringInfo) {
