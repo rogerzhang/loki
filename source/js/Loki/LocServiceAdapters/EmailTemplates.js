@@ -1,6 +1,9 @@
 Uize.module ({
 	name:'Loki.LocServiceAdapters.EmailTemplates',
-	required:'Uize.Util.RegExpComposition',
+	required:[
+		'Uize.Util.RegExpComposition',
+		'Uize.Services.FileSystem'
+	],
 	superclass:'Uize.Services.LocAdapter',
 	builder:function (_superclass) {
 		'use strict';
@@ -49,6 +52,56 @@ Uize.module ({
 
 				serializeResourceFile:function (_strings) {
 					return _strings.contents;
+				},
+
+				preview:function (_params,_callback) {
+					var
+						m = this,
+						_languages = m.getLanguages (),
+						_primaryLanguageResources = m.gatherResources (),
+						_fileSystem = Uize.Services.FileSystem.singleton (),
+						_tokens = m.project.tokens || {}
+					;
+					m.prepareToExecuteMethod (_languages.length);
+					Uize.forEach (
+						_languages,
+						function (_language) {
+							Uize.forEach (
+								_primaryLanguageResources,
+								function (_resourceFileStrings,_resourceFileSubPath) {
+									var _resourceFileSubPathMatch = _resourceFileSubPath.match (_resourceFileRegExp);
+									_fileSystem.writeFile ({
+										path:
+											m.workingFolderPath + 'previews/' +
+											(
+												_resourceFileSubPath.match (_resourceFileRegExp) [3] == 'bodyhtml'
+													? _resourceFileSubPath.replace (/\.txt$/,'.html')
+													: _resourceFileSubPath
+											),
+										contents:_resourceFileStrings.contents.replace (
+											m.tokenRegExp,
+											function () {
+												for (
+													var
+														_arguments = arguments,
+														_argumentNo = _arguments.length - 2, // last 2 arguments are index and source
+														_tokenName
+													;
+													!_tokenName && --_argumentNo >= 1;
+												)
+													_tokenName = _arguments [_argumentNo]
+												;
+												var _token = _tokens [_tokenName];
+												return (_token && _token.value) || _arguments [0];
+											}
+										)
+									});
+								}
+							);
+							m.stepCompleted ('Created previews for language ' + _language);
+						}
+					);
+					_callback ();
 				}
 			},
 
