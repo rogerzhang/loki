@@ -25,7 +25,7 @@ Uize.module ({
 				getLanguageResourcePath:function (_primaryLanguageResourcePath,_language) {
 					return _primaryLanguageResourcePath.replace (
 						_resourceFileRegExp,
-						(_language == this.project.primaryLanguage ? '' : '-' + _language) + '.html'
+						(_language == this.project.primaryLanguage ? '' : '-' + _language.replace ('-','_')) + '.html'
 					);
 				},
 
