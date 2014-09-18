@@ -90,11 +90,194 @@
 					serviceAdapter:'Loki.LocServiceAdapters.GwFunnels',
 					rootFolderPath:'../git-ods/funnels'
 				},
+				SoftPhone:{
+					serviceAdapter:'Loki.LocServiceAdapters.SoftPhone',
+					rootFolderPath:'../git-ods/spartanSoftphone/modanoProj/ui'
+				},
 				EmailTemplates:{
 					serviceAdapter:'Loki.LocServiceAdapters.EmailTemplates',
 					rootFolderPath:'../email-templates',
 					pseudoLocalization:{
 						wrapper:''
+					},
+					tokens:{
+						AccountFullNumber: {
+							value: ''
+						},
+						AccountNumber: {
+							value: ''
+						},
+						Address: {
+							value: ''
+						},
+						Admin_FirstName: {
+							value: ''
+						},
+						Admin_LastName: {
+							value: ''
+						},
+						BrandDisplayName: {
+							value: ''
+						},
+						CCState: {
+							value: ''
+						},
+						CallerNamePhone: {
+							value: ''
+						},
+						CfnaPhone: {
+							value: ''
+						},
+						City: {
+							value: ''
+						},
+						CopyRightYear: {
+							value: ''
+						},
+						CurrentYear: {
+							value: ''
+						},
+						CustomerServiceNumberEmail: {
+							value: ''
+						},
+						CustomerSupportNumber3: {
+							value: ''
+						},
+						Dear: {
+							value: ''
+						},
+						DefaultMinutes: {
+							value: ''
+						},
+						DepartmentName: {
+							value: ''
+						},
+						DisplayName: {
+							value: ''
+						},
+						Extension: {
+							value: ''
+						},
+						FOCDate: {
+							value: ''
+						},
+						FaxPages: {
+							value: ''
+						},
+						FileName: {
+							value: ''
+						},
+						FirstName: {
+							value: ''
+						},
+						FullName: {
+							value: ''
+						},
+						LastName: {
+							value: ''
+						},
+						LoginLink: {
+							value: ''
+						},
+						LoginURL: {
+							value: ''
+						},
+						MainNumber: {
+							value: ''
+						},
+						MessageHTML: {
+							value: ''
+						},
+						PIN: {
+							value: ''
+						},
+						Pages: {
+							value: ''
+						},
+						PasswordResetLink: {
+							value: ''
+						},
+						Period: {
+							value: ''
+						},
+						PhoneNumber: {
+							value: ''
+						},
+						PortedOrderNumber: {
+							value: ''
+						},
+						PortingContact: {
+							value: ''
+						},
+						PortingPhoneContact: {
+							value: ''
+						},
+						RenderingResult: {
+							value: ''
+						},
+						ResetPasswordURL: {
+							value: ''
+						},
+						Result: {
+							value: ''
+						},
+						SSWebUrl: {
+							value: ''
+						},
+						SalutationName: {
+							value: ''
+						},
+						SendingDateTime: {
+							value: ''
+						},
+						ServiceURL: {
+							value: ''
+						},
+						ShippingCo: {
+							value: ''
+						},
+						ShippingNo: {
+							value: ''
+						},
+						Status: {
+							value: ''
+						},
+						SupportInfo01: {
+							value: ''
+						},
+						SupportPhoneNumber: {
+							value: ''
+						},
+						SupportPhoneNumber2: {
+							value: '123456789'
+						},
+						TierName: {
+							value: ''
+						},
+						ToName: {
+							value: ''
+						},
+						TrackingNo: {
+							value: ''
+						},
+						TrackingURL: {
+							value: ''
+						},
+						UserName: {
+							value: ''
+						},
+						Zip: {
+							value: ''
+						},
+						banner01: {
+							value: ''
+						},
+						color01: {
+							value: ''
+						},
+						picture13: {
+							value: ''
+						}
 					}
 				}
 			}
