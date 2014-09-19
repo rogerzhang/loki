@@ -26,7 +26,7 @@ Uize.module ({
 					return _primaryLanguageResourcePath.replace (
 						_resourceFileRegExp,
 						function (_match,_start,_folderLanguageCode,_slashAndFileName) {
-							return _start + _language + _slashAndFileName;
+							return _start + _language.replace ('-','_') + _slashAndFileName;
 						}
 					);
 				},
