@@ -1,8 +1,9 @@
 Uize.module ({
 	name:'Loki.LocServiceAdapters.SoftPhone',
 	required:[
+		'Uize.Loc.FileFormats.QtTs',
 		'Uize.Util.RegExpComposition',
-		'Uize.Loc.FileFormats.QtTs'
+		'Uize.Util.RegExpComposition.Printf'
 	],
 	superclass:'Uize.Services.LocAdapter',
 	builder:function (_superclass) {
@@ -15,10 +16,12 @@ Uize.module ({
 				number:/\d+(?:\.\d+)?/,
 				whitespace:/\s+/,
 				htmlTag:/<(?:.|[\r\n\f])+?>/,
-				// TODO: provide support for correct token format (appears to be sprintf)
-				tokenName:/[a-zA-Z0-9_]+/,
-				token:/<\${tokenName}\$>|\[{tokenName}\]/,
-				tokenWithCapture:/<\$({tokenName})\$>|\[({tokenName})\]/,
+				printfToken:Uize.Util.RegExpComposition.Printf.get ('specifier'),
+				printfTokenWithCapture:Uize.Util.RegExpComposition.Printf.get ('specifierWithCapture'),
+				argToken:/%\d+/,
+				argTokenWithCapture:/%(\d+)/,
+				token:/{printfToken}|{argToken}/,
+				tokenWithCapture:/{printfTokenWithCapture}|{argTokenWithCapture}/,
 				wordSplitter:/({htmlTag}|{token}|{whitespace}|{punctuation}|{number})/
 			})
 		;
