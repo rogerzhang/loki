@@ -106,7 +106,7 @@ Uize.module ({
 							return (
 								'RC.ns(\'' + _namespace + '\');\n' +
 								'RC.utils.Lang.extend(' + _namespace + ', ' +
-								Uize.Json.to (_strings [_namespace],{keyDelimiter:' : '}).replace (
+								Uize.Json.to (_strings [_namespace],{keyDelimiter:' : ',indentChars:'    '}).replace (
 									_dereferenceTokenRegExp,
 									function (_match,_dereference) {return '\' + ' + _dereference + ' + \''}
 								) +

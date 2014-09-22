@@ -56,7 +56,7 @@ Uize.module ({
 				},
 
 				serializeResourceFile:function (_messages) {
-					return 'RCM.Message = ' + Uize.Json.to (_messages);
+					return 'RCM.Message = ' + Uize.Json.to (_messages,{indentChars:'    '});
 				}
 			},
 
