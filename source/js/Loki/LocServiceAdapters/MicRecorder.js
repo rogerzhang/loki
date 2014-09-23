@@ -10,7 +10,7 @@ Uize.module ({
 		'use strict';
 
 		var
-			_resourceFileRegExp = /(^|\/)(en)(\/Messages\.as)$/,
+			_resourceFileRegExp = /(^|\/)(en_US)(\/Messages\.as)$/,
 			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition ({
 				punctuation:/[\?!\.;,&=\-\(\)\[\]"]/,
 				number:/\d+(?:\.\d+)?/,
