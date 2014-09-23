@@ -5,8 +5,21 @@ Uize.module ({
 	builder:function (_superclass) {
 		'use strict';
 
+		/*
+			HTML Template Naming
+
+			- US English (primary language)...
+				foo.html
+				foo-[brandId].html
+
+			- translatable languages...
+				foo-[localeCode].html
+				foo-[brandId]-[localeCode].html
+		*/
+
 		var
-			_resourceFileRegExp = /\.html$/,
+			_htmlFileRegExp = /\.html$/,
+			_translatedHtmlFileRegExp = /-[a-zA-Z]+_[a-zA-Z]+\.html$/,
 			_brandResourceFileRegExp = /-(\d+)\.html$/,
 			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition ({
 				punctuation:/[\?!\.;,&=\-\(\)\[\]"]/,
@@ -24,7 +37,7 @@ Uize.module ({
 			instanceMethods:{
 				getLanguageResourcePath:function (_primaryLanguageResourcePath,_language) {
 					return _primaryLanguageResourcePath.replace (
-						_resourceFileRegExp,
+						_htmlFileRegExp,
 						(_language == this.project.primaryLanguage ? '' : '-' + _language.replace ('-','_')) + '.html'
 					);
 				},
@@ -35,7 +48,11 @@ Uize.module ({
 				},
 
 				isResourceFile:function (_filePath) {
-					return !/(^|\/)templates\//.test (_filePath) && _resourceFileRegExp.test (_filePath);
+					return (
+						!/(^|\/)templates\//.test (_filePath) &&
+						_htmlFileRegExp.test (_filePath) &&
+						!_translatedHtmlFileRegExp.test (_filePath)
+					);
 				},
 
 				parseResourceFile:function (_resourceFileText) {
