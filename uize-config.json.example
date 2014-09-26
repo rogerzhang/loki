@@ -1,30 +1,10 @@
 {
-	servicesSetup:'Loki.Build.ServicesSetup',
-	builtPath:'built',
-	tempPath:'temp',
-	memoryPath:'memory',
+	servicesSetup:'Uize.Build.ServicesSetup',
 	sourcePath:'source',
 	uizePath:'../UIZE-JavaScript-Framework/site-source',
 	modulesFolder:'js',
 	folderOrgNamespaces:[
 		'Loki'
-	],
-	isDev:'false',
-	headComments:{
-	},
-	scrunchedHeadComments:{
-		Uize:'Uize.Build.Templates.Module.ScrunchedHeadComment',
-		Loki:'Loki.Build.Templates.Module.HeadComment'
-	},
-	staleBefore:'now',
-	staticFilePathMatcher:/\.(gif|jpg|png|ico|html|css|htaccess|txt)$/,
-	buildSequence:[
-		'Uize.Build.Files.UnprocessedFiles',
-		'Uize.Build.Files.JsModules'
-	],
-	testSequence:[
-		'build.js Uize.Build.RunUnitTests silent=true',
-		'build.js Uize.Build.RunUnitTests useSource=false silent=true'
 	],
 	moduleConfigs:{
 		'Uize.Build.Loc':{
@@ -49,8 +29,7 @@
 			projects:{
 				ServiceWeb:{
 					serviceAdapter:'Loki.LocServiceAdapters.ServiceWeb',
-					rootFolderPath:'../git-repos/rc-web/WEB/src/desktop',
-					//rootFolderPath:'../svn/rc/amarosa_6-4_XMN_FT1/WEB/src/desktop'
+					rootFolderPath:'../git-repos/rc-web/WEB/src/desktop'
 				},
 				ServiceWebJedi:{
 					serviceAdapter:'Loki.LocServiceAdapters.ServiceWebJedi',
@@ -71,7 +50,6 @@
 				MobileWeb:{
 					serviceAdapter:'Loki.LocServiceAdapters.MobileWeb',
 					rootFolderPath:'../git-repos/rc-web/WEB/src/mobile/core/js/src'
-					//rootFolderPath:'../svn/rc/amarosa_6-4_XMN_FT1/WEB/src/mobile/core/js/src'
 				},
 				MobileIos:{
 					serviceAdapter:'Loki.LocServiceAdapters.MobileIos',
