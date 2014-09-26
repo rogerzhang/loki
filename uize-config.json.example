@@ -29,7 +29,11 @@
 			projects:{
 				ServiceWeb:{
 					serviceAdapter:'Loki.LocServiceAdapters.ServiceWeb',
-					rootFolderPath:'../git-repos/rc-web/WEB/src/desktop'
+					rootFolderPath:'../git-repos/rc-web/WEB/src/desktop',
+					resourceFileWhitespace:{
+						indentChars:'    ',
+						linebreakChars:'\n'
+					}
 				},
 				ServiceWebJedi:{
 					serviceAdapter:'Loki.LocServiceAdapters.ServiceWebJedi',
@@ -45,11 +49,19 @@
 				},
 				MicRecorder:{
 					serviceAdapter:'Loki.LocServiceAdapters.MicRecorder',
-					rootFolderPath:'../git-repos/rc-web/WEB/player/com/ringcentral/i18n'
+					rootFolderPath:'../git-repos/rc-web/WEB/player/com/ringcentral/i18n',
+					resourceFileWhitespace:{
+						indentChars:'    ',
+						linebreakChars:'\n'
+					}
 				},
 				MobileWeb:{
 					serviceAdapter:'Loki.LocServiceAdapters.MobileWeb',
-					rootFolderPath:'../git-repos/rc-web/WEB/src/mobile/core/js/src'
+					rootFolderPath:'../git-repos/rc-web/WEB/src/mobile/core/js/src',
+					resourceFileWhitespace:{
+						indentChars:'    ',
+						linebreakChars:'\n'
+					}
 				},
 				MobileIos:{
 					serviceAdapter:'Loki.LocServiceAdapters.MobileIos',
@@ -58,7 +70,11 @@
 				MobileAndroid:{
 					serviceAdapter:'Loki.LocServiceAdapters.MobileAndroid',
 					rootFolderPath:'../git-ods/rc.android/app/src/main/res',
-					codeFolderPath:'../git-ods/rc.android/app/src/main'
+					codeFolderPath:'../git-ods/rc.android/app/src/main',
+					resourceFileWhitespace:{
+						indentChars:'    ',
+						linebreakChars:'\n'
+					}
 				},
 				CloudCti:{
 					serviceAdapter:'Loki.LocServiceAdapters.CloudCti',

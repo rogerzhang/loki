@@ -16,8 +16,7 @@ Uize.module ({
 				number:/\d+(?:\.\d+)?/,
 				whitespace:/\s+/,
 				wordSplitter:/({whitespace}|{punctuation}|{number})/
-			}),
-			_indent = '    '
+			})
 		;
 
 		return _superclass.subclass ({
@@ -50,19 +49,18 @@ Uize.module ({
 				},
 
 				serializeResourceFile:function (_strings,_language) {
-					return (
-						'package com.ringcentral.i18n.' + _language.replace ('-','_') + ' {\n' +
-						_indent + 'public class Messages {\n' +
-						_indent + _indent + 'public function Messages() {\n' +
-						_indent + _indent + '}\n' +
-						'\n' +
-						_indent + _indent + 'public static const Messages : * = ' +
-							Uize.Str.Lines.indent (
-								Uize.Json.to (_strings,{indentChars:_indent}),2,_indent,false
-							) + '\n' +
-						_indent + '}\n' +
-						'}\n'
-					);
+					return [
+						'package com.ringcentral.i18n.' + _language.replace ('-','_') + ' {',
+						'	public class Messages {',
+						'		public function Messages() {',
+						'		}',
+						'',
+						'		public static const Messages : * = ' +
+							Uize.Str.Lines.indent (Uize.Json.to (_strings),2,'\t',false),
+						'	}',
+						'}',
+						''
+					].join ('\n');
 				}
 			},
 
