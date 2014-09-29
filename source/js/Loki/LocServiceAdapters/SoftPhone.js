@@ -1,3 +1,11 @@
+/* REFERENCE MATERIAL
+	- https://qt-project.org/wiki/QtInternationalization
+	- http://qt-project.org/doc/qt-4.8/linguist-ts-file-format.html
+	- http://qt-project.org/doc/qt-5/qstring.html#argument-formats
+	- http://pubs.opengroup.org/onlinepubs/009695399/functions/printf.html
+	- http://www.getlocalization.com/docs/file-formats/qt-ts/
+*/
+
 Uize.module ({
 	name:'Loki.LocServiceAdapters.SoftPhone',
 	required:[
