@@ -62,7 +62,7 @@ Uize.module ({
 
 				isTranslatableString:function (_stringInfo) {
 					return (
-						!/(^BRAND_ID$|^FAX_SETTING_EMAIL$|EMERGENCY_NUMBER|_VIDEO_ID$|_IMG$)/.test (_stringInfo.key) &&
+						!/(^BRAND_ID$|^FAX_SETTING_EMAIL$|_VIDEO_ID$|_IMG$)/.test (_stringInfo.key) &&
 						!/^(https?:\/\/)/.test (_stringInfo.value)
 					);
 				},
