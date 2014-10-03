@@ -52,7 +52,15 @@ Uize.module ({
 					if (_resourceFileInfo.isPrimaryLanguage) {
 						Uize.forEach (
 							_strings,
-							function (_contextStrings,_contextName) {Uize.map (_contextStrings,'key',_contextStrings)}
+							function (_contextStrings,_contextName) {
+								Uize.map (
+									_contextStrings,
+									function (_value,_key) {
+										return Uize.isArray (_value) ? Uize.map (_value,function () {return _key}) : _key;
+									},
+									_contextStrings
+								)
+							}
 						);
 					}
 					return _strings;
