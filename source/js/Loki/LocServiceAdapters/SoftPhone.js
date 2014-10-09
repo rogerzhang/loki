@@ -31,7 +31,14 @@ Uize.module ({
 				token:/{printfToken}|{argToken}/,
 				tokenWithCapture:/{printfTokenWithCapture}|{argTokenWithCapture}/,
 				wordSplitter:/({htmlTag}|{token}|{whitespace}|{punctuation}|{number})/
-			})
+			}),
+			_localeToFilenameLocaleMap = {
+				'en-GB':'uk',
+				'en-US':'us',
+				'fr-CA':'fr',
+				'ru-RU':'ru',
+				'en-ZZ':'tw'
+			}
 		;
 
 		return _superclass.subclass ({
@@ -39,7 +46,7 @@ Uize.module ({
 				getLanguageResourcePath:function (_primaryLanguageResourcePath,_language) {
 					return _primaryLanguageResourcePath.replace (
 						_resourceFileRegExp,
-						'$1_lang_' + _language.split ('-') [1].toLowerCase () + '.ts'
+						'$1_lang_' +  (_localeToFilenameLocaleMap [_language] || _language.replace ('-','_')) + '.ts'
 					);
 				},
 
