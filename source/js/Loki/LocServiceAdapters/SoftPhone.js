@@ -73,9 +73,8 @@ Uize.module ({
 					return _strings;
 				},
 
-				serializeResourceFile:function (_strings) {
-					// TODO: add support for providing language code to serializer, since the .ts file appear to need this
-					return Uize.Loc.FileFormats.QtTs.to (_strings);
+				serializeResourceFile:function (_strings,_language) {
+					return Uize.Loc.FileFormats.QtTs.to (_strings,{language:_language});
 				}
 			},
 
