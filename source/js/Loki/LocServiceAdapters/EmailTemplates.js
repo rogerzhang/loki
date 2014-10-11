@@ -1,3 +1,20 @@
+/* filename patterns...
+
+	e-mail templates...
+		email-7310-en_US-1501-branded-bodyhtml.txt
+		email-7310-en_US-1501-branded-bodytext.txt
+		email-7310-en_US-1501-branded-subject.txt
+
+	strresources...
+		string-en_US-20.txt
+
+	tiers...
+		tier-7310-en_US-7312.txt
+
+	banners...
+		smtp_nbanners-en_US-1310-banner01-1-bodyhtml.txt
+*/
+
 Uize.module ({
 	name:'Loki.LocServiceAdapters.EmailTemplates',
 	required:[
@@ -9,13 +26,15 @@ Uize.module ({
 		'use strict';
 
 		var
-			_resourceFileRegExp = /email-(\d+)-en_US-(\d+)-branded-(bodyhtml|bodytext|subject)\.txt$/,
-				/* examples...
-
-					email-7310-en_US-1501-branded-bodyhtml.txt
-					email-7310-en_US-1501-branded-bodytext.txt
-					email-7310-en_US-1501-branded-subject.txt
-				*/
+			_filenameLocaleCodeRegExp = /[a-z]{2}_[A-Z]{2}/,
+			_emailTemplateResourceFileRegExp = /email-(\d+)-en_US-(\d+)-branded-(bodyhtml|bodytext|subject)\.txt$/,
+			_resourceFileRegExp = /\.txt$/,
+			_brandedRegExpComposition = Uize.Util.RegExpComposition ({
+				filenameLocaleCode:_filenameLocaleCodeRegExp,
+				brandId:/\d{4}/,
+				branded:/({brandId})-{filenameLocaleCode}/
+			}),
+			_brandedRegExp = new RegExp (_brandedRegExpComposition.get ('branded').source), // strip the g
 			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition ({
 				punctuation:/[\?!\.;,&=\-\(\)\[\]"]/,
 				number:/\d+(?:\.\d+)?/,
@@ -31,14 +50,11 @@ Uize.module ({
 		return _superclass.subclass ({
 			instanceMethods:{
 				getLanguageResourcePath:function (_primaryLanguageResourcePath,_language) {
-					return _primaryLanguageResourcePath.replace (
-						_resourceFileRegExp,
-						'email-$1-' + _language.replace ('-','_') + '-$2-branded-$3.txt'
-					);
+					return _primaryLanguageResourcePath.replace (_filenameLocaleCodeRegExp,_language.replace ('-','_'));
 				},
 
 				getResourceFileBrand:function (_filePath) {
-					var _brandedMatch = _filePath.match (_resourceFileRegExp);
+					var _brandedMatch = _filePath.match (_brandedRegExp);
 					return _brandedMatch ? _brandedMatch [1] : '';
 				},
 
@@ -69,12 +85,12 @@ Uize.module ({
 							Uize.forEach (
 								_primaryLanguageResources,
 								function (_resourceFileStrings,_resourceFileSubPath) {
-									var _resourceFileSubPathMatch = _resourceFileSubPath.match (_resourceFileRegExp);
+									var _resourceFileSubPathMatch = _resourceFileSubPath.match (_emailTemplateResourceFileRegExp);
 									_fileSystem.writeFile ({
 										path:
 											m.workingFolderPath + 'previews/' +
 											(
-												_resourceFileSubPath.match (_resourceFileRegExp) [3] == 'bodyhtml'
+												_resourceFileSubPath.match (_emailTemplateResourceFileRegExp) [3] == 'bodyhtml'
 													? _resourceFileSubPath.replace (/\.txt$/,'.html')
 													: _resourceFileSubPath
 											),
