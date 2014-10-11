@@ -28,7 +28,7 @@ Uize.module ({
 		var
 			_filenameLocaleCodeRegExp = /[a-z]{2}_[A-Z]{2}/,
 			_emailTemplateResourceFileRegExp = /email-(\d+)-en_US-(\d+)-branded-(bodyhtml|bodytext|subject)\.txt$/,
-			_resourceFileRegExp = /\.txt$/,
+			_resourceFileRegExp = /\ben_US\b.*\.txt$/,
 			_brandedRegExpComposition = Uize.Util.RegExpComposition ({
 				filenameLocaleCode:_filenameLocaleCodeRegExp,
 				brandId:/\d{4}/,
