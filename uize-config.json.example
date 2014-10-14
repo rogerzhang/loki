@@ -88,6 +88,10 @@
 					serviceAdapter:'Loki.LocServiceAdapters.SoftPhone',
 					rootFolderPath:'../git-ods/spartanSoftphone/modanoProj/ui'
 				},
+				Prompts:{
+					serviceAdapter:'Loki.LocServiceAdapters.Prompts',
+					rootFolderPath:'../telephony-prompts',
+				},
 				EmailTemplates:{
 					serviceAdapter:'Loki.LocServiceAdapters.EmailTemplates',
 					rootFolderPath:'../email-templates',
