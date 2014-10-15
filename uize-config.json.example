@@ -86,7 +86,7 @@
 				},
 				SoftPhone:{
 					serviceAdapter:'Loki.LocServiceAdapters.SoftPhone',
-					rootFolderPath:'../git-ods/spartanSoftphone/modanoProj/ui'
+					rootFolderPath:'../git-ods/spartanSoftphone/modanoProj/tr'
 				},
 				Prompts:{
 					serviceAdapter:'Loki.LocServiceAdapters.Prompts',
