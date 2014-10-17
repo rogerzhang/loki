@@ -74,7 +74,7 @@ Uize.module ({
 				},
 
 				serializeResourceFile:function (_strings,_language) {
-					return Uize.Loc.FileFormats.QtTs.to (_strings,{language:_language});
+					return Uize.Loc.FileFormats.QtTs.to (_strings,{language:_language.language || _language});
 				}
 			},
 

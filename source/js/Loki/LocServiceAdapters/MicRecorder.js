@@ -50,7 +50,7 @@ Uize.module ({
 
 				serializeResourceFile:function (_strings,_language) {
 					return [
-						'package com.ringcentral.i18n.' + _language.replace ('-','_') + ' {',
+						'package com.ringcentral.i18n.' + (_language.language || _language).replace ('-','_') + ' {',
 						'	public class Messages {',
 						'		public function Messages() {',
 						'		}',
