@@ -28,9 +28,12 @@ Uize.module ({
 				printfTokenWithCapture:Uize.Util.RegExpComposition.Printf.get ('specifierWithCapture'),
 				argToken:/%\d+/,
 				argTokenWithCapture:/%(\d+)/,
-				token:/{printfToken}|{argToken}/,
-				tokenWithCapture:/{printfTokenWithCapture}|{argTokenWithCapture}/,
-				wordSplitter:/({htmlTag}|{token}|{whitespace}|{punctuation}|{number})/
+				namedTokenName:/(?:[A-Z][a-z0-9_]*)+/,
+				namedToken:/<{namedTokenName}>/,
+				namedTokenWithCapture:/<({namedTokenName})>/,
+				token:/{printfToken}|{argToken}|{namedToken}/,
+				tokenWithCapture:/{printfTokenWithCapture}|{argTokenWithCapture}|{namedTokenWithCapture}/,
+				wordSplitter:/({token}|{htmlTag}|{whitespace}|{punctuation}|{number})/
 			}),
 			_localeToFilenameLocaleMap = {
 				'en-GB':'uk',
@@ -52,6 +55,10 @@ Uize.module ({
 
 				isResourceFile:function (_filePath) {
 					return _resourceFileRegExp.test (_filePath);
+				},
+
+				stringHasHtml:function (_stringPath,_value) {
+					return /<[^<]+>/.test (_value.replace (this.tokenRegExp,''));
 				},
 
 				parseResourceFile:function (_resourceFileText,_resourceFileInfo) {
