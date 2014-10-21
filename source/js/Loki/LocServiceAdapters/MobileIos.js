@@ -88,7 +88,6 @@ Uize.module ({
 							_referenceEnd = _referenceIdStart + _stringLiteralParser.length
 						;
 						(_referencesLookup [_stringId] || (_referencesLookup [_stringId] = [])).push ({
-							filePath:_filePath,
 							reference:_sourceFileText.slice (_referenceStart,_referenceEnd),
 							start:_getLineAndChar (_sourceFileText,_referenceStart),
 							end:_getLineAndChar (_sourceFileText,_referenceEnd)

@@ -186,7 +186,6 @@ Uize.module ({
 								_stringId = _stringId.replace (_langLocalRegExp,_langLocal);
 							}
 							(_referencesLookup [_stringId] || (_referencesLookup [_stringId] = [])).push ({
-								filePath:_filePath,
 								reference:_match [0],
 								start:_match.start,
 								end:_match.end

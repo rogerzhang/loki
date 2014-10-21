@@ -85,7 +85,6 @@ Uize.module ({
 						function (_match) {
 							var _stringId = _match [1];
 							(_referencesLookup [_stringId] || (_referencesLookup [_stringId] = [])).push ({
-								filePath:_filePath,
 								reference:_match [0],
 								start:_match.start,
 								end:_match.end
