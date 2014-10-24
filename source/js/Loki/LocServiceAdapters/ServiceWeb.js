@@ -9,7 +9,8 @@ Uize.module ({
 		'Uize.Json',
 		'Uize.Util.RegExpComposition',
 		'Uize.Services.FileSystem',
-		'Uize.Str.Search'
+		'Uize.Str.Search',
+		'Loki.Utils.ExcludeUtils'
 	],
 	superclass:'Uize.Services.LocAdapter',
 	builder:function (_superclass) {
@@ -44,6 +45,13 @@ Uize.module ({
 			_langLocalRegExp = /^langLocal\./
 		;
 
+        function checkTranslatableString(projectConfig, _stringInfo){
+            if (!projectConfig.keyNameChecker) {
+                projectConfig.keyNameChecker = Loki.Utils.ExcludeUtils.loadExclides(projectConfig.rootFolderPath + "/" + 'exclude-resources');
+            }
+            return projectConfig.keyNameChecker.isTranslatableString(_stringInfo)
+        }
+
 		return _superclass.subclass ({
 			instanceMethods:{
 				getLanguageResourcePath:function (_primaryLanguageResourcePath,_language) {
@@ -60,42 +68,13 @@ Uize.module ({
 					return _brandedMatch ? _brandedMatch [1] : '';
 				},
 
-				isTranslatableString:function (_stringInfo) {
-					return (
-						//common non translated keys
-						!/(^BRAND_ID$|^FAX_SETTING_EMAIL$|_VIDEO_ID$|_IMG$)/.test (_stringInfo.key) &&
-
-						//URLS for TELUS
-						!/HOW_TO_DO_CALLER_MY_VOICEMAIL_LINK$/.test(_stringInfo.key) &&
-						!/HELP_PANEL_PHONES_AND_NUMBERS_OVERVIEW_LINK$/.test(_stringInfo.key) &&
-						!/CONFERENCING_LINK$/.test(_stringInfo.key) &&
-						!/HELP_PANEL_USER_EXTENSION_OVERVIEW_LINK$/.test(_stringInfo.key) &&
-						!/HELP_PANEL_MESSAGES_AND_NOTIFICATIONS_OVERVIEW_LINK$/.test(_stringInfo.key) &&
-						!/HELP_PANEL_OUTBOUND_FAX_SETTINGS_OVERVIEW_LINK$/.test(_stringInfo.key) &&
-						!/HELP_PANEL_SCREENING_GREETING_OVERVIEW_LINK$/.test(_stringInfo.key) &&
-						!/HELP_PANEL_CALL_HANDLING_AND_FORWARDING_OVERVIEW_LINK$/.test(_stringInfo.key) &&
-						!/HELP_PANEL_OUTBOUND_CALLER_ID_OVERVIEW_LINK$/.test(_stringInfo.key) &&
-						!/CONFERENCING_LINK$/.test(_stringInfo.key) &&
-						!/HOW_TO_DO_FORWARD_TO_PHONE_LINK$/.test(_stringInfo.key) &&
-						!/HOW_TO_DO_MY_NOTIFICATIONS_LINK$/.test(_stringInfo.key) &&
-						!/HOW_TO_DO_GET_MORE_HELP_LINK$/.test(_stringInfo.key) &&
-						!/HELP_PANEL_USERS_OVERVIEW_LINK$/.test(_stringInfo.key) &&
-						!/HELP_PANEL_DEPARTMENTS_OVERVIEW_LINK$/.test(_stringInfo.key) &&
-						!/HELP_PANEL_PAGING_ONLY_OVERVIEW_LINK$/.test(_stringInfo.key) &&
-						!/HELP_PANEL_COMPANY_INFO_OVERVIEW_LINK$/.test(_stringInfo.key) &&
-						!/HELP_PANEL_PHONES_OVERVIEW_LINK$/.test(_stringInfo.key) &&
-						!/HOW_TO_DO_CALLER_HEAR_LINK$/.test(_stringInfo.key) &&
-						!/HOW_TO_DO_CALL_FORWARDING_LINK$/.test(_stringInfo.key) &&
-						!/HOW_TO_DO_VOICEMAIL_LINK$/.test(_stringInfo.key) &&
-						!/HOW_TO_DO_NOTIFICATION_LINK$/.test(_stringInfo.key) &&
-						!/HOW_TO_DO_USE_DEPT_LINK$/.test(_stringInfo.key) &&
-						!/HOW_TO_DO_GET_HELP_LINK$/.test(_stringInfo.key) &&
-						!/HELP_PANEL_AUTO_RECEPTIONIST_OVERVIEW_LINK$/.test(_stringInfo.key) &&
-
-						//URLs
-						!/^(https?:\/\/)/.test (_stringInfo.value)
-					);
-				},
+                isTranslatableString: function(_stringInfo) {
+                    return (
+                        checkTranslatableString(this.project, _stringInfo) &&
+                        //URLs
+                        !/^(https?:\/\/)/.test(_stringInfo.value)
+                    );
+                },
 
 				isStringKeyValid:function (_path) {
 					return /^[A-Z][A-Z0-9$]*(_[A-Z0-9$]+)*$/.test (_path [_path.length - 1]);
