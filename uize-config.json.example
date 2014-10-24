@@ -14,10 +14,10 @@
 				brandLanguages:{
 					1210:['en-US'],         // RingCentral
 					3420:['en-US'],         // AT&T
-					3610:['en-CA'],         // RC Canada
+					3610:['en-US'],         // RC Canada
 					3710:['en-GB'],         // RC UK
 					3810:['en-US'],         // ClearWire
-					7310:['en-CA','fr-CA']  // TELUS
+					7310:['en-US','fr-CA']  // TELUS
 				},
 				primaryLanguage:'en-US',
 				pseudoLocale:'en-ZZ',
