@@ -18,7 +18,7 @@ Uize.module ({
 		'use strict';
 
 		var
-			_resourceFileRegExp = /(.+?)_lang_(us)\.ts$/,
+			_resourceFileRegExp = /(^|\/)lang_(en-US)\.ts$/,
 			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition ({
 				punctuation:/[\?!\.;,&=\-\(\)\[\]"]/,
 				number:/\d+(?:\.\d+)?/,
@@ -34,23 +34,13 @@ Uize.module ({
 				token:/{printfToken}|{argToken}|{namedToken}/,
 				tokenWithCapture:/{printfTokenWithCapture}|{argTokenWithCapture}|{namedTokenWithCapture}/,
 				wordSplitter:/({token}|{htmlTag}|{whitespace}|{punctuation}|{number})/
-			}),
-			_localeToFilenameLocaleMap = {
-				'en-GB':'uk',
-				'en-US':'us',
-				'fr-CA':'fr',
-				'ru-RU':'ru',
-				'en-ZZ':'tw'
-			}
+			})
 		;
 
 		return _superclass.subclass ({
 			instanceMethods:{
 				getLanguageResourcePath:function (_primaryLanguageResourcePath,_language) {
-					return _primaryLanguageResourcePath.replace (
-						_resourceFileRegExp,
-						'$1_lang_' +  (_localeToFilenameLocaleMap [_language] || _language.replace ('-','_')) + '.ts'
-					);
+					return _primaryLanguageResourcePath.replace (_resourceFileRegExp,'$1lang_' +  _language + '.ts');
 				},
 
 				isResourceFile:function (_filePath) {
