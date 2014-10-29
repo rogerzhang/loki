@@ -2,7 +2,8 @@ Uize.module ({
 	name:'Loki.LocServiceAdapters.MobileWeb',
 	required:[
 		'Uize.Json',
-		'Uize.Util.RegExpComposition'
+		'Uize.Util.RegExpComposition',
+		'Loki.Utils.ExcludeUtils'
 	],
 	superclass:'Uize.Services.LocAdapter',
 	builder:function (_superclass) {
@@ -21,6 +22,13 @@ Uize.module ({
 			})
 		;
 
+        function checkTranslatableString(projectConfig, _stringInfo){
+            if (!projectConfig.keyNameChecker) {
+                projectConfig.keyNameChecker = Loki.Utils.ExcludeUtils.loadExclides(projectConfig.rootFolderPath + "/" + 'exclude-resources');
+            }
+            return projectConfig.keyNameChecker.isTranslatableString(_stringInfo)
+        }
+
 		return _superclass.subclass ({
 			instanceMethods:{
 				getLanguageResourcePath:function (_primaryLanguageResourcePath,_language) {
@@ -38,12 +46,12 @@ Uize.module ({
 					return false;
 				},
 
-				isTranslatableString:function (_stringInfo) {
-					return (
-						!/(Email$|URL$)/.test (_stringInfo.key) &&
-						!/^(https?:\/\/)/.test (_stringInfo.value)
-					);
-				},
+                isTranslatableString: function(_stringInfo) {
+                    return (
+                        checkTranslatableString(this.project, _stringInfo) &&
+                        !/^(https?:\/\/)/.test(_stringInfo.value)
+                    );
+                },
 
 				isResourceFile:function (_filePath) {
 					return _resourceFilePathRegExp.test (_filePath);
