@@ -57,8 +57,23 @@ Uize.module ({
 					return /(^|\/)strings_branded\.xml$/.test (_filePath);
 				},
 
-				parseResourceFile:function (_resourceFileText) {
-					return _Uize_Loc_FileFormats_AndroidStrings.from (_resourceFileText);
+				parseResourceFile:function (_resourceFileText,_resourceFileInfo) {
+					var _strings = _Uize_Loc_FileFormats_AndroidStrings.from (_resourceFileText);
+					if (_resourceFileInfo.isPrimaryLanguage) {
+						Uize.forEach (
+							_strings,
+							function (_stringValue,_stringKey) {
+								if (Uize.isPlainObject (_stringValue)) {
+									var _other = _stringValue.other;
+									_stringValue.zero || (_stringValue.zero = _other);
+									_stringValue.two || (_stringValue.two = _other);
+									_stringValue.few || (_stringValue.few = _other);
+									_stringValue.many || (_stringValue.many = _other);
+								}
+							}
+						);
+					}
+					return _strings;
 				},
 
 				serializeResourceFile:function (_strings) {
