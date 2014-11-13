@@ -4,15 +4,11 @@ Uize.module({
     builder: function(_superclass) {
         'use strict';
 
-        function isTranslatableStringNoop() {
-            return true;
-        }
-
         return Uize.package({
             loadExclides: function(fileName) {
                 console.log('Reading excludes from: "' + fileName + '"');
 
-                var resultFunction = isTranslatableStringNoop;
+                var resultFunction = Uize.returnTrue;
 
                 var fs = Uize.Services.FileSystem.singleton();
                 if (fs.fileExists({path: fileName})) {
