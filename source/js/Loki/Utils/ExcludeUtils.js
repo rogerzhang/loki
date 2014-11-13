@@ -1,16 +1,6 @@
-/* TODO
- - add metrics for strings that contain HTML with inline style
- - maybe this can be done through some extensibility hook in the loc adapter base class that can allow the subclass to perform this additional, project-specific analysis
- */
-
 Uize.module({
     name: 'Loki.Utils.ExcludeUtils',
-    required: [
-        'Uize.Json',
-        'Uize.Util.RegExpComposition',
-        'Uize.Services.FileSystem',
-        'Uize.Str.Search'
-    ],
+    required:'Uize.Services.FileSystem',
     builder: function(_superclass) {
         'use strict';
 
