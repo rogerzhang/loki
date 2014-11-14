@@ -1,7 +1,7 @@
 Uize.module ({
 	name:'Loki.LocServiceAdapters.ServiceWebHtmlTemplates',
+	superclass:'Loki.LocServiceAdapters.WithExcludes',
 	required:'Uize.Util.RegExpComposition',
-	superclass:'Uize.Services.LocAdapter',
 	builder:function (_superclass) {
 		'use strict';
 
