@@ -5,14 +5,13 @@
 
 Uize.module ({
 	name:'Loki.LocServiceAdapters.ServiceWeb',
+	superclass:'Loki.LocServiceAdapters.WithExcludes',
 	required:[
 		'Uize.Json',
 		'Uize.Util.RegExpComposition',
 		'Uize.Services.FileSystem',
-		'Uize.Str.Search',
-		'Loki.Utils.ExcludeUtils'
+		'Uize.Str.Search'
 	],
-	superclass:'Uize.Services.LocAdapter',
 	builder:function (_superclass) {
 		'use strict';
 
@@ -45,13 +44,6 @@ Uize.module ({
 			_langLocalRegExp = /^langLocal\./
 		;
 
-        function checkTranslatableString(projectConfig, _stringInfo){
-            if (!projectConfig.keyNameChecker) {
-                projectConfig.keyNameChecker = Loki.Utils.ExcludeUtils.loadExclides(projectConfig.rootFolderPath + "/" + 'exclude-resources');
-            }
-            return projectConfig.keyNameChecker.isTranslatableString(_stringInfo)
-        }
-
 		return _superclass.subclass ({
 			instanceMethods:{
 				getLanguageResourcePath:function (_primaryLanguageResourcePath,_language) {
@@ -68,13 +60,12 @@ Uize.module ({
 					return _brandedMatch ? _brandedMatch [1] : '';
 				},
 
-                isTranslatableString: function(_stringInfo) {
-                    return (
-                        checkTranslatableString(this.project, _stringInfo) &&
-                        //URLs
-                        !/^(https?:\/\/)/.test(_stringInfo.value)
-                    );
-                },
+				isTranslatableString:function (_stringInfo) {
+					return (
+						this.checkTranslatableString(_stringInfo) && // URLs
+						!/^(https?:\/\/)/.test(_stringInfo.value)
+					);
+				},
 
 				isStringKeyValid:function (_path) {
 					return /^[A-Z][A-Z0-9$]*(_[A-Z0-9$]+)*$/.test (_path [_path.length - 1]);
