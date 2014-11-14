@@ -1,12 +1,12 @@
 Uize.module ({
 	name:'Loki.LocServiceAdapters.MobileAndroid',
+	superclass:'Uize.Services.LocAdapter',
 	required:[
 		'Uize.Util.RegExpComposition',
 		'Uize.Loc.FileFormats.AndroidStrings',
 		'Uize.Services.FileSystem',
 		'Uize.Str.Search'
 	],
-	superclass:'Uize.Services.LocAdapter',
 	builder:function (_superclass) {
 		'use strict';
 

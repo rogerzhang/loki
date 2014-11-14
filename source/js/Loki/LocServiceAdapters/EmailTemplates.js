@@ -17,11 +17,11 @@
 
 Uize.module ({
 	name:'Loki.LocServiceAdapters.EmailTemplates',
+	superclass:'Uize.Services.LocAdapter',
 	required:[
 		'Uize.Util.RegExpComposition',
 		'Uize.Services.FileSystem'
 	],
-	superclass:'Uize.Services.LocAdapter',
 	builder:function (_superclass) {
 		'use strict';
 

@@ -1,5 +1,6 @@
 Uize.module ({
 	name:'Loki.LocServiceAdapters.ServiceWebJedi',
+	superclass:'Uize.Services.LocAdapter',
 	required:[
 		'Uize.Util.RegExpComposition',
 		'Uize.Data.JavaProperties',
@@ -7,7 +8,6 @@ Uize.module ({
 		'Uize.Services.FileSystem',
 		'Uize.Str.Search'
 	],
-	superclass:'Uize.Services.LocAdapter',
 	builder:function (_superclass) {
 		'use strict';
 

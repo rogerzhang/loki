@@ -1,11 +1,11 @@
 Uize.module ({
 	name:'Loki.LocServiceAdapters.MicRecorder',
+	superclass:'Uize.Services.LocAdapter',
 	required:[
 		'Uize.Util.RegExpComposition',
 		'Uize.Json',
 		'Uize.Str.Lines'
 	],
-	superclass:'Uize.Services.LocAdapter',
 	builder:function (_superclass) {
 		'use strict';
 

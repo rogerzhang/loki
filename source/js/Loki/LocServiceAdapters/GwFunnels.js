@@ -1,10 +1,10 @@
 Uize.module ({
 	name:'Loki.LocServiceAdapters.GwFunnels',
+	superclass:'Uize.Services.LocAdapter',
 	required:[
 		'Uize.Json',
 		'Uize.Util.RegExpComposition'
 	],
-	superclass:'Uize.Services.LocAdapter',
 	builder:function (_superclass) {
 		'use strict';
 

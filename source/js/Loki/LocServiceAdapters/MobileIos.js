@@ -1,5 +1,6 @@
 Uize.module ({
 	name:'Loki.LocServiceAdapters.MobileIos',
+	superclass:'Uize.Services.LocAdapter',
 	required:[
 		'Uize.Data.MacStrings',
 		'Uize.Services.FileSystem',
@@ -7,7 +8,6 @@ Uize.module ({
 		'Uize.Util.RegExpComposition',
 		'Uize.Str.Search'
 	],
-	superclass:'Uize.Services.LocAdapter',
 	builder:function (_superclass) {
 		'use strict';
 

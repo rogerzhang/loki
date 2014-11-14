@@ -8,12 +8,12 @@
 
 Uize.module ({
 	name:'Loki.LocServiceAdapters.SoftPhone',
+	superclass:'Uize.Services.LocAdapter',
 	required:[
 		'Uize.Loc.FileFormats.QtTs',
 		'Uize.Util.RegExpComposition',
 		'Uize.Util.RegExpComposition.Printf'
 	],
-	superclass:'Uize.Services.LocAdapter',
 	builder:function (_superclass) {
 		'use strict';
 
