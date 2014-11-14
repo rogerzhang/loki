@@ -1,6 +1,6 @@
 Uize.module ({
 	name:'Loki.LocServiceAdapters.ServiceWebHtmlTemplates',
-	superclass:'Loki.LocServiceAdapters.WithExcludes',
+	superclass:'Uize.Services.LocAdapter',
 	required:'Uize.Util.RegExpComposition',
 	builder:function (_superclass) {
 		'use strict';
@@ -40,6 +40,10 @@ Uize.module ({
 						_htmlFileRegExp,
 						(_language == this.project.primaryLanguage ? '' : '-' + _language.replace ('-','_')) + '.html'
 					);
+				},
+
+				isTranslatableString:function (_stringInfo) {
+					return true;
 				},
 
 				getResourceFileBrand:function (_filePath) {
