@@ -66,6 +66,13 @@
 					},
  					skipEmptyValues: true
 				},
+				AdminWeb:{
+					serviceAdapter:'Loki.LocServiceAdapters.AdminWeb',
+					rootFolderPath:'../git-repos/admin-web',
+					resourceFileWhitespace:{
+						linebreakChars:'\r\n'
+					}
+				},
 				MobileIos:{
 					serviceAdapter:'Loki.LocServiceAdapters.MobileIos',
 					rootFolderPath:'../svn/rc/IOS-TELUS-RESKINNING'
@@ -94,6 +101,7 @@
 				Prompts:{
 					serviceAdapter:'Loki.LocServiceAdapters.Prompts',
 					rootFolderPath:'../telephony-prompts',
+					languages:['en-US','en-GB','fr-CA','ru-RU']
 				},
 				EmailTemplates:{
 					serviceAdapter:'Loki.LocServiceAdapters.EmailTemplates',
