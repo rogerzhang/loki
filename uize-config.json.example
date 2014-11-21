@@ -34,13 +34,13 @@
 						indentChars:'    ',
 						linebreakChars:'\n'
 					},
-					skipEmptyValues: true
+					skipEmptyValues:true
 				},
 				ServiceWebJedi:{
 					serviceAdapter:'Loki.LocServiceAdapters.ServiceWebJedi',
 					rootFolderPath:'../svn/rc/amarosa_trunk/JEDI/localStorage/rc-web/dictionaries',
 					codeFolderPath:'../svn/rc/amarosa_trunk/JEDI',
-					skipEmptyValues: true
+					skipEmptyValues:true
 				},
 				ServiceWebHtmlTemplates:{
 					serviceAdapter:'Loki.LocServiceAdapters.ServiceWebHtmlTemplates',
@@ -64,7 +64,7 @@
 						indentChars:'    ',
 						linebreakChars:'\n'
 					},
- 					skipEmptyValues: true
+ 					skipEmptyValues:true
 				},
 				AdminWeb:{
 					serviceAdapter:'Loki.LocServiceAdapters.AdminWeb',
