@@ -71,7 +71,8 @@
 					rootFolderPath:'../git-repos/admin-web',
 					resourceFileWhitespace:{
 						linebreakChars:'\r\n'
-					}
+					},
+					resourceFileEncoding:'ucs2'
 				},
 				MobileIos:{
 					serviceAdapter:'Loki.LocServiceAdapters.MobileIos',
