@@ -10,7 +10,8 @@ Uize.module ({
 		'Uize.Data.Csv',
 		'Uize.Data.NameValueRecords',
 		'Uize.Services.FileSystem',
-		'Uize.Array.Sort'
+		'Uize.Array.Sort',
+		'Uize.Str.BackslashEscapedLinebreaks'
 	],
 	builder:function (_superclass) {
 		'use strict';
@@ -83,7 +84,7 @@ Uize.module ({
 							_stringKeyColumnName,
 							_localeToLcid [_resourceFileInfo.language]
 						),
-						function (_value) {return _value ? _value.replace (/(^|[^\\])(\\\\)*\\n/g,'$1$2\n') : ''}
+						function (_stringValue) {return Uize.Str.BackslashEscapedLinebreaks.from (_stringValue || '')}
 					);
 				},
 
@@ -97,8 +98,9 @@ Uize.module ({
 						Uize.forEach (
 							_dictionaryRecords,
 							function (_resourceString) {
-								var _stringValue = _strings [_resourceString [_stringKeyColumnName]] || '';
-								_resourceString [_lcid] = _stringValue && _stringValue.replace (/\n/g,'\\n');
+								_resourceString [_lcid] = Uize.Str.BackslashEscapedLinebreaks.to (
+									_strings [_resourceString [_stringKeyColumnName]] || ''
+								);
 							}
 						);
 
