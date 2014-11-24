@@ -31,12 +31,10 @@ Uize.module ({
 				},
 
 				getStringBrand:function (_resourceStringPath) {
-					return _resourceStringPath [0] == 'BRANDS' ? _resourceStringPath [1] + '' : '';
+					return _resourceStringPath [1] == 'BRANDS' ? _resourceStringPath [2] + '' : '';
 				},
 
-				stringHasHtml:function () {
-					return false;
-				},
+				stringHasHtml:Uize.returnFalse,
 
 				isTranslatableString:function (_stringInfo) {
 					return (

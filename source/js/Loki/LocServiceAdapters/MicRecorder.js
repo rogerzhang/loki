@@ -32,7 +32,7 @@ Uize.module ({
 				},
 
 				getStringBrand:function (_resourceStringPath) {
-					return _resourceStringPath [0] == 'Brands' ? _resourceStringPath [1] + '' : '';
+					return _resourceStringPath [1] == 'Brands' ? _resourceStringPath [2] + '' : '';
 				},
 
 				isResourceFile:function (_filePath) {
