@@ -43,7 +43,10 @@ Uize.module ({
 				},
 
 				isTranslatableString:function (_stringInfo) {
-					return true;
+					var _filePath = _stringInfo.path [0];
+					return !(
+						/\/letterOfAuthorization\/.*TELUS\.html$/.test (_filePath)
+					);
 				},
 
 				getResourceFileBrand:function (_filePath) {
@@ -54,8 +57,14 @@ Uize.module ({
 				isResourceFile:function (_filePath) {
 					return (
 						!/(^|\/)templates\//.test (_filePath) &&
+							// ignore files under the "templates" folder
+						_filePath.indexOf ('/tests/') == -1 &&
+							// ignore files with paths that contain a "tests" folder
+						_filePath.indexOf ('rclibtest/') == -1 &&
+							// ignore files with paths that contain an "rclibtest" folder
 						_htmlFileRegExp.test (_filePath) &&
 						!_translatedHtmlFileRegExp.test (_filePath)
+							// ignore the translated HTML template files
 					);
 				},
 
