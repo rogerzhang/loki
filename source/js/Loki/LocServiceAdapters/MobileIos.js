@@ -13,7 +13,7 @@ Uize.module ({
 
 		var
 			_fileSystem = Uize.Services.FileSystem.singleton (),
-			_resourceFilePathRegExp = /(^|\/)en.lproj(\/Localizable\.strings)$/,
+			_resourceFilePathRegExp = /(^|\/)en-US(\.lproj\/Localizable\.strings)$/,
 			_macOsStringFormatSpecifierRegExpComposition = Uize.Util.RegExpComposition ({
 				// https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/Strings/Articles/formatSpecifiers.html
 				code:/[@%dDuUxXoOfeEgGcCsSPaAF]/,
@@ -130,10 +130,7 @@ Uize.module ({
 				},
 
 				getLanguageResourcePath:function (_primaryLanguageResourcePath,_language) {
-					return _primaryLanguageResourcePath.replace (
-						_resourceFilePathRegExp,
-						'$1' + _language.split ('-') [0] + '.lproj$2'
-					);
+					return _primaryLanguageResourcePath.replace (_resourceFilePathRegExp,'$1' + _language + '$2');
 				},
 
 				isTranslatableString:function (_stringInfo) {
