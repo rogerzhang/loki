@@ -103,7 +103,7 @@ Uize.module ({
 					var
 						m = this,
 						_strings = {},
-						_resources = {'RCSoftPhoneApp/Localizations/en.lproj/Localizable.strings':_strings},
+						_resources = {'RCSoftPhoneApp/Localizations/en-US.lproj/Localizable.strings':_strings},
 						_filesToScan = this.getReferencingCodeFiles ()
 					;
 					m.prepareToExecuteMethod (_filesToScan.length + 2);
