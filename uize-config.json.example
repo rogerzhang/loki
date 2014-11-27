@@ -80,8 +80,8 @@
 				},
 				MobileAndroid:{
 					serviceAdapter:'Loki.LocServiceAdapters.MobileAndroid',
-					rootFolderPath:'../git-ods/rc.android/app/src/main/res',
-					codeFolderPath:'../git-ods/rc.android/app/src/main',
+					rootFolderPath:'../git-ods/rc-android/app/src/main/res',
+					codeFolderPath:'../git-ods/rc-android/app/src/main',
 					resourceFileWhitespace:{
 						indentChars:'    ',
 						linebreakChars:'\n'
