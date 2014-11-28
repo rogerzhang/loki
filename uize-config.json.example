@@ -76,7 +76,7 @@
 				},
 				MobileIos:{
 					serviceAdapter:'Loki.LocServiceAdapters.MobileIos',
-					rootFolderPath:'../svn/rc/IOS-TELUS-RESKINNING'
+					rootFolderPath:'../git-ods/rc-ios'
 				},
 				MobileAndroid:{
 					serviceAdapter:'Loki.LocServiceAdapters.MobileAndroid',
