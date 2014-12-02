@@ -78,6 +78,11 @@
 					serviceAdapter:'Loki.LocServiceAdapters.MobileIos',
 					rootFolderPath:'../git-ods/rc-ios'
 				},
+				MobileIosJs:{
+					serviceAdapter:'Loki.LocServiceAdapters.MobileIosJs',
+					rootFolderPath:'../git-ods/rc-ios',
+					resourceFileEncoding:'ucs2'
+				},
 				MobileAndroid:{
 					serviceAdapter:'Loki.LocServiceAdapters.MobileAndroid',
 					rootFolderPath:'../git-ods/rc-android/app/src/main/res',
