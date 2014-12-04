@@ -21,7 +21,18 @@ Uize.module({
 
 					if (checkerRegexp) {
 						resultFunction = function(_stringInfo) {
-							return !checkerRegexp.test(_stringInfo.key);
+							//Example of _stringInfo
+							//{ key: 'HEADER_USER_PASSWORD',
+							//	value: 'Voice Manager Password',
+							//	path:
+							//	[ 'en_US/messages.js',           //File name
+							//		'BRANDS',                    //the rest are parts of JS namespace
+							//		'7310',
+							//		'mailboxSecurity',
+							//		'HEADER_USER_PASSWORD' ] }
+							//So, we are analyzing only JS namespace info (without file path)
+
+							return !checkerRegexp.test(_stringInfo.path.slice(1).join('.'));
 						}
 					}
 				}
