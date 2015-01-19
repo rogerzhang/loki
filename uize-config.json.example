@@ -12,12 +12,14 @@
 			common:{
 				languages:[],
 				brandLanguages:{
-					1210:['en-US'],         // RingCentral
-					3420:['en-US'],         // AT&T
-					3610:['en-US'],         // RC Canada
-					3710:['en-GB'],         // RC UK
-					3810:['en-US'],         // ClearWire
-					7310:['en-US','fr-CA']  // TELUS
+					1210:['en-US'],          // RingCentral
+					3420:['en-US'],          // AT&T
+					3610:['en-US'],          // RC Canada
+					3710:['en-GB'],          // RC UK
+					3810:['en-US'],          // ClearWire
+					7310:['en-US','fr-CA'],  // TELUS
+					7710:['en-GB'],          // BT
+					8510:['en-US']           // T-Mobile
 				},
 				primaryLanguage:'en-US',
 				pseudoLocale:'en-ZZ',
@@ -29,7 +31,7 @@
 			projects:{
 				ServiceWeb:{
 					serviceAdapter:'Loki.LocServiceAdapters.ServiceWeb',
-					rootFolderPath:'../git-repos/rc-web/WEB/src/desktop',
+					rootFolderPath:'../svn/rc/amarosa_trunk/WEB/src/desktop',
 					resourceFileWhitespace:{
 						indentChars:'    ',
 						linebreakChars:'\n'
@@ -59,7 +61,7 @@
 				},
 				MobileWeb:{
 					serviceAdapter:'Loki.LocServiceAdapters.MobileWeb',
-					rootFolderPath:'../git-repos/rc-web/WEB/src/mobile/core/js/src',
+					rootFolderPath:'../svn/rc/amarosa_trunk/WEB/src/mobile',
 					resourceFileWhitespace:{
 						indentChars:'    ',
 						linebreakChars:'\n'
@@ -106,7 +108,7 @@
 				},
 				Prompts:{
 					serviceAdapter:'Loki.LocServiceAdapters.Prompts',
-					rootFolderPath:'../telephony-prompts',
+					rootFolderPath:'../svn/rc/amarosa_trunk/Vportal/Telephony/crossplatform/pts/pts_lib',
 					languages:['en-US','en-GB','fr-CA','ru-RU']
 				},
 				EmailTemplates:{
