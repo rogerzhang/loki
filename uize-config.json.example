@@ -61,7 +61,7 @@
 				},
 				MobileWeb:{
 					serviceAdapter:'Loki.LocServiceAdapters.MobileWeb',
-					rootFolderPath:'../svn/rc/amarosa_trunk/WEB/src/mobile',
+					rootFolderPath:'../svn/rc/amarosa_trunk/WEB/src/mobile/core/js/src',
 					resourceFileWhitespace:{
 						indentChars:'    ',
 						linebreakChars:'\n'
@@ -109,7 +109,7 @@
 				Prompts:{
 					serviceAdapter:'Loki.LocServiceAdapters.Prompts',
 					rootFolderPath:'../svn/rc/amarosa_trunk/Vportal/Telephony/crossplatform/pts/pts_lib',
-					languages:['en-US','en-GB','fr-CA','ru-RU']
+					languages:['en-US','fr-CA','ru-RU']
 				},
 				EmailTemplates:{
 					serviceAdapter:'Loki.LocServiceAdapters.EmailTemplates',
