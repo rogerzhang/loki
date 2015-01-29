@@ -56,6 +56,8 @@ Uize.module ({
 
 				isResourceFile:function (_filePath) {
 					return (
+						!/^widgets\//.test (_filePath) &&
+							// ignore files under the "widgets" folder (these are PoC files for new Web modules)
 						!/(^|\/)templates\//.test (_filePath) &&
 							// ignore files under the "templates" folder
 						_filePath.indexOf ('/tests/') == -1 &&
