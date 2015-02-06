@@ -87,34 +87,36 @@ Quick Start Guide
 		.........................................................................................
 
 	Doing Pseudo-localization
-		In order to perform pseudo-localization for a project, you need to run the localization script and execute the "export" method, as follows...
+		There are two ways that pseudo-localization can be performed: one is through the regular translation process (using the "export -> exportJobs -> translate -> importJobs -> import" flow), and the other is a convenient short cut that can be used iteratively during development by using the special "pseudoLocalize" method.
 
-		.........................................................................................
-		node [pathToUize]build.js Uize.Build.Loc project=ServiceWeb method=export console=verbose
-		.........................................................................................
+		Pseudo-localizing Resources During Development
+			At any time during development, the pseudo-localized resource strings can easily be generated / updated by executing the "pseudoLocalize" method in the local development environment.
 
-		You should find various language resources files, as follows...
+			EXAMPLE
+			.................................................................................................
+			node [pathToUize]build.js Uize.Build.Loc project=ServiceWeb method=pseudoLocalize console=verbose
+			.................................................................................................
 
-		- loc/ServiceWeb/en-GB.json
-		- loc/ServiceWeb/en-US.json -- the primary language resource strings
-		- loc/ServiceWeb/fr-CA.json
-		- loc/ServiceWeb/en-ZZ.json -- the pseudo-localized resource strings
+			Executing the "pseudoLocalize" method will generate the pseudo-localized resource strings from the primary language resource strings (en-US, typically) and generate pseudo-localized resource files as necessary. Executing this method will not modify the JSON master resource files from the previous translation flow - the previous versions of those files will remain untouched.
 
-		If no previous translations have been made for the non-primary languages, then the string values for all the strings will be empty / blank. The pseudo-localized string are automatically generated during the export process, since no translation is needed as they are derived from the primary language strings.
+			Target
+				The optional target parameter lets you specify whether the pseudo-localized strings should be written to the resource files of the pseudo-locale or the resource files of the primary language.
 
-		Importing the Pseudo-localized Strings
-			Once you have executed the "export" method and you have the generated pseudo-localized resources file, you need to import the pseudo-localized strings back into your project's codebase.
+				- "pseudo" (default) - the pseudo-localized resource strings will be written to the resource files for the pseudo-locale
+				- "primary" - the pseudo-localized resource strings will be written to the resource files for the primary language
 
-			.........................................................................................
-			node [pathToUize]build.js Uize.Build.Loc project=ServiceWeb method=import console=verbose
-			.........................................................................................
+			Poor Man's Pseudo-localization (not recommended)
+				If the project does not support the pseudo-locale as one of the possible locales that the application can be switched into at runtime, then the value "primary" can be specified for the target parameter.
 
-			Ideally, the project being localized would fully support pseudo-locales, so that the pseudo-locale is selectable at runtime.
+				This approach is *not* the preferred approach, but if you need to do it this way, then follow these steps...
 
-			Poor Man's Pseudo-localization
-				If the project does not support pseudo-locale as one of the possible locales that the application can be switched into, pseudo-localization can be performed in a less elegant way by following these steps...
-
-				- you will be temporarily changing all the primary language resource files, so make sure you can revert your changes later once you've tested pseudo-localization
-				- use the "pseudoLocalize" localization method to pseudo-localize the resource strings in the resource files of the primary language
+				- you will be temporarily changing all the primary language resource files, so make sure to commit any uncommited changes first
+				- use the "pseudoLocalize" method to pseudo-localize the resource strings in the resource files of the primary language, by specifying target=primary
 				- now, build and launch the application as you normally would in the primary language - you should see all the pseudo-localized strings in the UI
+				- remember to revert the changes to the primary language resource files once you've tested with the pseudo-localized strings
+
+		Pseudo-localizing Resources During Translation
+			During the normal translation flow, there is nothing special that needs to be done in order to update the pseudo-localized strings in the resource files for the pseudo-locale.
+
+			This is because the resource files for the pseudo-locale are automatically updated as a consequence of executing the "export" and then "import" methods.
 
