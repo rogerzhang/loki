@@ -28,7 +28,7 @@ Uize.module ({
 				'RCMobile':'1210',
 				'RCUK':'3710',
 				'Rogers':'',
-				'T-Mobile':'',
+				'T-Mobile':'8510',
 				'TELUS':'7310'
 			},
 			_bomChar = '﻿',
