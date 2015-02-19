@@ -20,10 +20,8 @@ Uize.module ({
 			_brandResourceFileRegExp = /(?:^|\/)en_US-(\d+)\.js$/,
 			_dereferenceRegExpComposition = Uize.Util.RegExpComposition ({
 				allowedDereference:/RC(\.[a-zA-Z0-9_$]+)+/,
-				dereferenceToken:/\{({allowedDereference})\}/,
 				token:/\{({allowedDereference}|\d+)\}/
 			}),
-			_dereferenceTokenRegExp = _dereferenceRegExpComposition.get ('dereferenceToken'),
 			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition ({
 				punctuation:/[\?!\.;,&=\-\(\)\[\]"]/,
 				number:/\d+(?:\.\d+)?/,
