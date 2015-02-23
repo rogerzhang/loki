@@ -9,8 +9,8 @@ Uize.module ({
 		'use strict';
 
 		var
-			_resourceFilePathRegExp = /(^|\/)(en\/US|en_us\/([a-z0-9]+))(\.php)$/,
-			_brandResourceFileRegExp = /\/([0-9]+)\.php$/,
+			_resourceFilePathRegExp = /(^|\/)(en\/US|en_us\/([a-z0-9-]+))(\.php)$/,
+			_brandResourceFileRegExp = /\/brand-([0-9]+)\.php$/,
 			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition ({
 				punctuation:/[\?!\.;,&=\-\(\)\[\]"<>]/,
 				number:/\d+(?:\.\d+)?/,
