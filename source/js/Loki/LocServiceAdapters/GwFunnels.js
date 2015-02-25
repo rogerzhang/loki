@@ -9,7 +9,8 @@ Uize.module ({
 		'use strict';
 
 		var
-			_resourceFilePathRegExp = /(^|\/)(en\/US|en_us\/common)(\.php)$/,
+			_resourceFilePathRegExp = /(^|\/)(en\/US|en_us\/([a-z0-9-]+))(\.php)$/,
+			_brandResourceFileRegExp = /\/brand-([0-9]+)\.php$/,
 			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition ({
 				punctuation:/[\?!\.;,&=\-\(\)\[\]"<>]/,
 				number:/\d+(?:\.\d+)?/,
@@ -27,13 +28,13 @@ Uize.module ({
 				getLanguageResourcePath:function (_primaryLanguageResourcePath,_language) {
 					return _primaryLanguageResourcePath.replace (
 						_resourceFilePathRegExp,
-						function (_match,_start,_folderLanguageCode,_fileExtension) {
+						function (_match,_start,_folderLanguageCode, _fileName,_fileExtension) {
 							return (
 								_start +
 								(
 									_folderLanguageCode == 'en/US'
 										? _language.replace ('-','/')
-										: _language.replace ('-','_').toLowerCase () + '/common'
+										: _language.replace ('-','_').toLowerCase () + '/' + _fileName
 								) +
 								_fileExtension
 							);
@@ -43,10 +44,15 @@ Uize.module ({
 
 				getStringBrand:function (_resourceStringPath) {
 					/* NOTE:
-						It's unfortunate that we have to do this kind of hackery to try to determine the brand for a resource string, but the GW funnel code does not have a more definitive / deliberate provision for brand-specific resource at this stage.
+						this behavior is deprecated and will be removed in release 7.2
 					*/
 					var _stringKey = _resourceStringPath [_resourceStringPath.length - 1];
 					return _stringKey.indexOf ('TELUS') > -1 ? '7310' : _stringKey.indexOf ('AT&T') > -1 ? '3420' : '';
+				},
+
+				getResourceFileBrand:function (_resourceFilePath) {
+					var _brandedMatch = _resourceFilePath.match (_brandResourceFileRegExp);
+					return _brandedMatch ? _brandedMatch [1] : '';
 				},
 
 				isResourceFile:function (_filePath) {
