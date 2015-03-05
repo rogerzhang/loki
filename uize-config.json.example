@@ -92,7 +92,8 @@
 					resourceFileWhitespace:{
 						indentChars:'    ',
 						linebreakChars:'\n'
-					}
+					},
+					plurals:true
 				},
 				CloudCti:{
 					serviceAdapter:'Loki.LocServiceAdapters.CloudCti',
