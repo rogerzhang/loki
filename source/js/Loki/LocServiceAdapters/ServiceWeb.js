@@ -16,12 +16,17 @@ Uize.module ({
 		'use strict';
 
 		var
+			_fileSystem = Uize.Services.FileSystem.singleton (),
 			_resourceFileRegExp = /(^|\/)(en_US)(-\d+)?(\.js)$/,
 			_brandResourceFileRegExp = /(?:^|\/)en_US-(\d+)\.js$/,
 			_dereferenceRegExpComposition = Uize.Util.RegExpComposition ({
 				allowedDereference:/RC(\.[a-zA-Z0-9_$]+)+/,
+				dereference:/([:\+]\s*)({allowedDereference})\b/,
+				dereferenceToken:/\{({allowedDereference})\}/,
 				token:/\{({allowedDereference}|\d+)\}/
 			}),
+			_dereferenceRegExp = _dereferenceRegExpComposition.get ('dereference'),
+			_dereferenceTokenRegExp = _dereferenceRegExpComposition.get ('dereferenceToken'),
 			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition ({
 				punctuation:/[\?!\.;,&=\-\(\)\[\]"]/,
 				number:/\d+(?:\.\d+)?/,
@@ -39,6 +44,11 @@ Uize.module ({
 			_langCommonRegExp = /^langCommon\./,
 			_langLocalRegExp = /^langLocal\./
 		;
+
+		/*** Private Instance Methods ***/
+			function _allowJsExpressions (m) {
+				return m.project.allowJsExpressions == null || !!m.project.allowJsExpressions;
+			}
 
 		return _superclass.subclass ({
 			instanceMethods:{
@@ -91,18 +101,31 @@ Uize.module ({
 							}
 						}
 					;
-					eval (_resourceFileText);
+					eval (
+						_allowJsExpressions (this)
+							? _resourceFileText.replace (_dereferenceRegExp,'$1\'{$2}\'')
+							: _resourceFileText
+					);
 					return _strings;
 				},
 
 				serializeResourceFile:function (_strings) {
+					var _mustAllowJsExpressions = _allowJsExpressions (this);
 					return Uize.map (
 						Uize.keys (_strings),
 						function (_namespace) {
+							var _stringsAsJson = Uize.Json.to (_strings [_namespace],{keyDelimiter:' : '});
 							return (
 								'RC.ns(\'' + _namespace + '\');\n' +
 								'RC.utils.Lang.extend(' + _namespace + ', ' +
-								Uize.Json.to (_strings [_namespace],{keyDelimiter:' : '}) +
+								(
+									_mustAllowJsExpressions
+										? _stringsAsJson.replace (
+											_dereferenceTokenRegExp,
+											function (_match,_dereference) {return '\' + ' + _dereference + ' + \''}
+										)
+										: _stringsAsJson
+								) +
 								');\n'
 							);
 						}
@@ -110,7 +133,7 @@ Uize.module ({
 				},
 
 				getReferencingCodeFiles:function () {
-					return Uize.Services.FileSystem.singleton ().getFiles ({
+					return _fileSystem.getFiles ({
 						path:this.project.rootFolderPath,
 						pathMatcher:/\.js$/,
 						recursive:true
@@ -125,9 +148,7 @@ Uize.module ({
 					*/
 					var
 						_referencesLookup = {},
-						_fileText = Uize.Services.FileSystem.singleton ().readFile ({
-							path:this.project.rootFolderPath + '/' + _filePath
-						}),
+						_fileText = _fileSystem.readFile ({path:this.project.rootFolderPath + '/' + _filePath}),
 						_langLocal
 					;
 					Uize.forEach (
@@ -158,6 +179,22 @@ Uize.module ({
 						}
 					);
 					return _referencesLookup;
+				},
+
+				init:function (_params,_callback) {
+					/*** load local Loki config, if present in project codebase ***/
+						var
+							_project = _params.project,
+							_localConfigFilePath = _project.rootFolderPath + '/loki-config.json'
+						;
+						if (_fileSystem.fileExists ({path:_localConfigFilePath}))
+							Uize.mergeInto (
+								_project,
+								Uize.Json.from (_fileSystem.readFile ({path:_localConfigFilePath}))
+							)
+						;
+
+					_superclass.doMy (this,'init',arguments);
 				}
 			},
 
