@@ -1,0 +1,37 @@
+<%
+	@required ('Uize.Str.Lines')
+%>function (_value) {
+	var
+		_valueStr = +_value + '',
+		_integerAndFractional = _valueStr.split ('.'),
+		_fractional = _integerAndFractional [1] || '',
+		_fractionalWithoutTrailing = _fractional.replace (/0+$/,''),
+		n = Math.abs (+_value)
+	;
+	return (
+<%=
+		Uize.Str.Lines.indent (input.pluralRulesFunction,2)
+%>	) (
+		n,                                 // absolute value of the source number (integer and decimals)
+		Math.floor (n),                    // integer digits of n
+		_fractional.length,                // number of visible fraction digits in n, with trailing zeros
+		_fractionalWithoutTrailing.length, // number of visible fraction digits in n, without trailing zeros
+		+_fractional,                      // visible fractional digits in n, with trailing zeros
+		+_fractionalWithoutTrailing,       // visible fractional digits in n, without trailing zeros
+
+		function (_value,_rangeItems) {
+			var _result = false;
+			for (
+				var _rangeItemNo = -1, _rangeItemsLength = _rangeItems.length, _rangeItem;
+				++_rangeItemNo < _rangeItemsLength &&
+					!(
+						_result = _isList (_rangeItem = _rangeItems [_rangeItemNo])
+							? _value >= _rangeItem [0] && _value <= _rangeItem [1]
+							: _value == _rangeItem
+					)
+				;
+			);
+			return _result;
+		}
+	);
+}
