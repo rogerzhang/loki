@@ -21,6 +21,9 @@
 
 		function (_value,_rangeItems) {
 			var _result = false;
+			function _isList (_value) {
+				return _value && typeof _value == 'object' && typeof _value.length == 'number';
+			}
 			for (
 				var _rangeItemNo = -1, _rangeItemsLength = _rangeItems.length, _rangeItem;
 				++_rangeItemNo < _rangeItemsLength &&
