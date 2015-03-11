@@ -6,7 +6,8 @@ Uize.module ({
 		'Uize.Loc.Plurals.RuleParser',
 		'Uize.Build.Util',
 		'Uize.Build.Loc',
-		'Uize.Services.LocAdapter'
+		'Uize.Services.LocAdapter',
+		'Uize.Str.Trim'
 	],
 	builder:function () {
 		'use strict';
@@ -49,7 +50,9 @@ Uize.module ({
 						),
 						function (_language) {
 							_fileSystem.writeFile ({
-								path:_rootFolderPath + '/' + _pluralModulePathTemplate ({language:_language}),
+								path:
+									_rootFolderPath + '/' +
+									Uize.Str.Trim.trim (_pluralModulePathTemplate ({language:_language})),
 								contents:_pluralModuleTemplate ({
 									pluralCategoryFunction:_pluralCategoryFunction ({
 										pluralRulesFunction:Uize.Loc.Plurals.RuleParser.rulesToJsFunctionStr (
