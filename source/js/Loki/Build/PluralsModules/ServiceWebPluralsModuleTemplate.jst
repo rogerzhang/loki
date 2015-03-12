@@ -1,1 +1,7 @@
+<%
+	@required ('Uize.Str.Lines')
+%>RC.ns("RC.Lang.Common.Plurals");
+RC.extend(RC.Lang.Common.Plurals, {
+	getPluralCategory:<%= Uize.Str.Lines.indent (input.pluralCategoryFunction,1,'\t',false) %>
+});
 
