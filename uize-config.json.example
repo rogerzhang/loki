@@ -36,7 +36,8 @@
 						indentChars:'    ',
 						linebreakChars:'\n'
 					},
-					skipEmptyValues:true
+					skipEmptyValues:true,
+					plurals:true
 				},
 				ServiceWebJedi:{
 					serviceAdapter:'Loki.LocServiceAdapters.ServiceWebJedi',
@@ -66,7 +67,8 @@
 						indentChars:'    ',
 						linebreakChars:'\n'
 					},
- 					skipEmptyValues:true
+ 					skipEmptyValues:true,
+					plurals:true
 				},
 				AdminWeb:{
 					serviceAdapter:'Loki.LocServiceAdapters.AdminWeb',
@@ -300,12 +302,29 @@
 				}
 			}
 		},
+		'Loki.Build.PluralsModules':{
+			cldrPluralsPath:'source/js/Loki/Build/plurals.json',
+			projects:{
+				ServiceWeb:{
+					pluralModulePathTemplate:'source/js/Loki/Build/PluralsModules/ServiceWebPluralsModulePathTemplate.jst',
+					pluralModuleTemplate:'source/js/Loki/Build/PluralsModules/ServiceWebPluralsModuleTemplate.jst'
+				},
+				MobileWeb:{
+					pluralModulePathTemplate:'source/js/Loki/Build/PluralsModules/MobileWebPluralsModulePathTemplate.jst',
+					pluralModuleTemplate:'source/js/Loki/Build/PluralsModules/MobileWebPluralsModuleTemplate.jst'
+				}
+			}
+		},
 		'Uize.Build.Search':{
 			presets:{
+				i18nFormatDate:{
+					pathMatcher:/\.js$/,
+					matcher:/formatDateTime.+MMMM[^'"]+['"]/
+				},
 				i18nAlert:{
 					pathMatcher:/\.js$/,
-					matcher:/alert\s*\(('[^']+'|"[^"]+")/,
-					pathFilter:/(^|\/)rclibtest\//
+					matcher:/[^\/]alert\s*\(('[^']+'|"[^"]+")/,
+					pathFilter:/(^|\/)rclibtest\/|test/
 				},
 				i18nButtonLabel:{
 					pathMatcher:/\.js$/,
@@ -384,7 +403,7 @@
 				},
 				wastefulRcUiMessageCalls:{
 					pathMatcher:/\.js$/,
-					matcher:/RC\.UI\.Message\(\w+(\.\w+)*\)/,
+					matcher:/RC\.UI\.Message\(('[^']+'|"[^"]+")\)/,
 					description:'reveals cases of calling RC.UI.Message with just a resource string, which is pointless and adds wasteful extra code and function calls'
 					/*
 						NOTE: instances like this could be easily modified using a regular expression search-and-replace...
