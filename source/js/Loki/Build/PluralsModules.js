@@ -54,6 +54,7 @@ Uize.module ({
 									_rootFolderPath + '/' +
 									Uize.Str.Trim.trim (_pluralModulePathTemplate ({language:_language})),
 								contents:_pluralModuleTemplate ({
+									language: _language,
 									pluralCategoryFunction:_pluralCategoryFunction ({
 										pluralRulesFunction:Uize.Loc.Plurals.RuleParser.rulesToJsFunctionStr (
 											_pluralRulesMapsByLanguage [_language] ||

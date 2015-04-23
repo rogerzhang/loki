@@ -1,5 +1,6 @@
 <%
 	@required ('Uize.Str.Lines')
-%>RCM.Plurals = {
+%>RCM.Plurals = RCM.Plurals || {}; 
+RCM.Plurals.<%. language.replace ('-','_') %> = {
 	getPluralCategory:<%= Uize.Str.Lines.indent (input.pluralCategoryFunction,1,'\t',false) %>
 };
