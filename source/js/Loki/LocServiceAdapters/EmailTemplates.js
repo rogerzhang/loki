@@ -40,7 +40,7 @@ Uize.module ({
 				number:/\d+(?:\.\d+)?/,
 				whitespace:/\s+/,
 				htmlTag:/<(?:.|[\r\n\f])+?>/,
-				tokenName:/[a-zA-Z0-9_]+/,
+				tokenName:/@?[a-zA-Z0-9_]+/,
 				token:/<\${tokenName}\$>|\[{tokenName}\]/,
 				tokenWithCapture:/<\$({tokenName})\$>|\[({tokenName})\]/,
 				wordSplitter:/({htmlTag}|{token}|{whitespace}|{punctuation}|{number})/
