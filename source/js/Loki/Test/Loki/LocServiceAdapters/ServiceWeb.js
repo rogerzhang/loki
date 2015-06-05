@@ -33,6 +33,37 @@ Uize.module ({
 					''
 				].join ('\n'),
 
+			/*** string arrays ***/
+				_stringsStringArrays = {
+					'RC.Lang.Wizard.Foo':{
+						STRING_ARRAY_ONE:[
+							'This is string one',
+							'This is string two',
+							'This is string three'
+						],
+						STRING_ARRAY_TWO:[
+							'This is another string one'
+						],
+						STRING_ARRAY_THREE:[
+						]
+					}
+				},
+				_fileStringArrays = [
+					'RC.ns(\'RC.Lang.Wizard.Foo\');',
+					'RC.utils.Lang.extend(RC.Lang.Wizard.Foo, {',
+					'	STRING_ARRAY_ONE : [',
+					'		\'This is string one\',',
+					'		\'This is string two\',',
+					'		\'This is string three\'',
+					'	],',
+					'	STRING_ARRAY_TWO : [',
+					'		\'This is another string one\'',
+					'	],',
+					'	STRING_ARRAY_THREE : []',
+					'});',
+					''
+				].join ('\n'),
+
 			/*** hierarchical strings ***/
 				_stringsHierarchicalStrings = {
 					'RC.Lang.Wizard.Foo':{
@@ -146,6 +177,10 @@ Uize.module ({
 							_fileMultipleStrings,
 							Uize.clone (_stringsMultipleStrings)
 						],
+						['A resource file being parsed may contain string arrays',
+							_fileStringArrays,
+							Uize.clone (_stringsStringArrays)
+						],
 						['A resource file being parsed may contain hierarchically structured strings',
 							_fileHierarchicalStrings,
 							Uize.clone (_stringsHierarchicalStrings)
@@ -167,6 +202,10 @@ Uize.module ({
 						['A strings object being serialized may contain multiple strings',
 							Uize.clone (_stringsMultipleStrings),
 							_fileMultipleStrings
+						],
+						['A strings object being serialized may contain string arrays',
+							Uize.clone (_stringsStringArrays),
+							_fileStringArrays
 						],
 						['A strings object being serialized may contain a hierarchy of strings',
 							Uize.clone (_stringsHierarchicalStrings),
