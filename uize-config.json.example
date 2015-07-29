@@ -114,6 +114,10 @@
 					rootFolderPath:'../svn/rc/amarosa_trunk/Vportal/Telephony/crossplatform/pts/pts_lib',
 					languages:['en-US','fr-CA','ru-RU']
 				},
+				GoogleChrome:{
+					serviceAdapter:'Loki.LocServiceAdapters.GoogleChrome',
+					rootFolderPath:'../github/googlechrome/web/app/i18n'
+				},
 				EmailTemplates:{
 					serviceAdapter:'Loki.LocServiceAdapters.EmailTemplates',
 					rootFolderPath:'../email-templates',
