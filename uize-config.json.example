@@ -31,7 +31,7 @@
 			projects:{
 				ServiceWeb:{
 					serviceAdapter:'Loki.LocServiceAdapters.ServiceWeb',
-					rootFolderPath:'../svn/rc/amarosa_trunk/WEB/src/desktop',
+					rootFolderPath:'../hg/sw/web/src/desktop',
 					resourceFileWhitespace:{
 						indentChars:'    ',
 						linebreakChars:'\n'
