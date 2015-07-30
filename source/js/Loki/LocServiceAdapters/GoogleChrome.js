@@ -1,6 +1,6 @@
 Uize.module ({
 	name:'Loki.LocServiceAdapters.GoogleChrome',
-	superclass:'Uize.Services.LocAdapter',
+	superclass:'Loki.LocServiceAdapters.WithExcludes',
 	required:[
 		'Uize.Util.RegExpComposition',
 		'Uize.Util.RegExpComposition.PrintfWithParam',
