@@ -47,14 +47,14 @@
 				},
 				ServiceWebHtmlTemplates:{
 					serviceAdapter:'Loki.LocServiceAdapters.ServiceWebHtmlTemplates',
-					rootFolderPath:'../svn/rc/amarosa_trunk/WEB/src/desktop',
+					rootFolderPath:'../hg/sw/web/src/desktop',
 					pseudoLocalization:{
 						wrapper:''
 					}
 				},
 				MicRecorder:{
 					serviceAdapter:'Loki.LocServiceAdapters.MicRecorder',
-					rootFolderPath:'../svn/rc/amarosa_trunk/WEB/player/com/ringcentral/i18n',
+					rootFolderPath:'../hg/sw/web/player/com/ringcentral/i18n',
 					resourceFileWhitespace:{
 						indentChars:'    ',
 						linebreakChars:'\n'
@@ -62,7 +62,7 @@
 				},
 				MobileWeb:{
 					serviceAdapter:'Loki.LocServiceAdapters.MobileWeb',
-					rootFolderPath:'../svn/rc/amarosa_trunk/WEB/src/mobile/core/js/src',
+					rootFolderPath:'../hg/sw/web/src/mobile/core/js/src',
 					resourceFileWhitespace:{
 						indentChars:'    ',
 						linebreakChars:'\n'
