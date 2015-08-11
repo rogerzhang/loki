@@ -10,7 +10,8 @@ Uize.module ({
 		'Uize.Json',
 		'Uize.Util.RegExpComposition',
 		'Uize.Services.FileSystem',
-		'Uize.Str.Search'
+		'Uize.Str.Search',
+		'Uize.Util.Html.Encode'
 	],
 	builder:function (_superclass) {
 		'use strict';
@@ -31,9 +32,10 @@ Uize.module ({
 				punctuation:/[\?!\.;,&=\-\(\)\[\]"]/,
 				number:/\d+(?:\.\d+)?/,
 				whitespace:/\s+/,
+				htmlEntity:Uize.Util.Html.Encode.entityRegExp,
 				htmlTag:/<(?:.|[\r\n\f])+?>/,
 				token:/\{[^\}]+\}/,
-				wordSplitter:/({htmlTag}|{token}|{whitespace}|{punctuation}|{number})/
+				wordSplitter:/({htmlTag}|{htmlEntity}|{token}|{whitespace}|{punctuation}|{number})/
 			}),
 			_stringReferenceRegExpComposition = Uize.Util.RegExpComposition ({
 				identifier:/[a-zA-Z_$][a-zA-Z0-9_$]*/,
