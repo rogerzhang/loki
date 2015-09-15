@@ -1,7 +1,12 @@
 Uize.module ({
 	name:'Loki.LocServiceAdapters.ServiceWebHtmlTemplates',
 	superclass:'Uize.Services.LocAdapter',
-	required:'Uize.Util.RegExpComposition',
+	required:[
+		'Uize.Util.RegExpComposition',
+		'Uize.Util.Matchers.AttributeMatcher',
+		'Uize.Loc.Pseudo.Xml',
+		'Uize.Util.Html.Encode'
+	],
 	builder:function (_superclass) {
 		'use strict';
 
@@ -25,12 +30,20 @@ Uize.module ({
 				punctuation:/[\?!\.;,&=\-\(\)\[\]"]/,
 				number:/\d+(?:\.\d+)?/,
 				whitespace:/\s+/,
+				htmlEntity:Uize.Util.Html.Encode.entityRegExp,
 				htmlTag:/<(?:.|[\r\n\f])+?>/,
 				tokenName:/[a-zA-Z0-9_\.]+/,
 				token:/%{tokenName}%/,
 				tokenWithCapture:/%({tokenName})%/,
-				wordSplitter:/({htmlTag}|{token}|{whitespace}|{punctuation}|{number})/
-			})
+				wordSplitter:/({htmlTag}|{htmlEntity}|{token}|{whitespace}|{punctuation}|{number})/
+			}),
+			_xmlPseudoLocalizeOptions = {
+				attributeMatcher:Uize.Util.Matchers.AttributeMatcher.resolve ([
+					'title',
+					'img@alt',
+					'[input|textarea]@placeholder'
+				])
+			}
 		;
 
 		return _superclass.subclass ({
@@ -47,6 +60,24 @@ Uize.module ({
 					return !(
 						/\/letterOfAuthorization\/.*TELUS\.html$/.test (_filePath)
 					);
+				},
+
+				pseudoLocalizeString:function (_stringInfo,_pseudoLocalizeOptions) {
+					var
+						_stringValue = _stringInfo.value,
+						_pseudoLocalized = Uize.Loc.Pseudo.Xml.pseudoLocalize (
+							_stringValue
+								.replace (/(<(?:img|input)\s+[^>]+[^\/])>/gi,'$1/>')
+								.replace (/<br>/gi,'<br/>')
+								.replace (/<RingCentral>/g,'&lt;RingCentral&gt;'),
+							Uize.copyInto (_xmlPseudoLocalizeOptions,_pseudoLocalizeOptions)
+						)
+					;
+					if (_pseudoLocalized.length < _stringValue.length * .8)
+						// there must be some other errors in the HTML that prevent it from being parsed correctly
+						_pseudoLocalized = _superclass.doMy (this,'pseudoLocalizeString',arguments)
+					;
+					return _pseudoLocalized;
 				},
 
 				getResourceFileBrand:function (_filePath) {
