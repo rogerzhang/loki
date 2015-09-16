@@ -78,6 +78,10 @@
 					},
 					resourceFileEncoding:'ucs2'
 				},
+				AWP: {
+                    serviceAdapter: "Loki.LocServiceAdapters.AWP",
+                    rootFolderPath: "../svn/rc/amarosa_trunk/Vportal/WEB/WebAdminSSO/web/resources/js"
+                },
 				MobileIos:{
 					serviceAdapter:'Loki.LocServiceAdapters.MobileIos',
 					rootFolderPath:'../git-ods/rc-ios'
