@@ -10,7 +10,8 @@ Uize.module ({
 		'Uize.Json',
 		'Uize.Util.RegExpComposition',
 		'Uize.Services.FileSystem',
-		'Uize.Str.Search'
+		'Uize.Str.Search',
+		'Uize.Util.Html.Encode'
 	],
 	builder:function (_superclass) {
 		'use strict';
@@ -31,9 +32,10 @@ Uize.module ({
 				punctuation:/[\?!\.;,&=\-\(\)\[\]"]/,
 				number:/\d+(?:\.\d+)?/,
 				whitespace:/\s+/,
+				htmlEntity:Uize.Util.Html.Encode.entityRegExp,
 				htmlTag:/<(?:.|[\r\n\f])+?>/,
 				token:/\{[^\}]+\}/,
-				wordSplitter:/({htmlTag}|{token}|{whitespace}|{punctuation}|{number})/
+				wordSplitter:/({htmlTag}|{htmlEntity}|{token}|{whitespace}|{punctuation}|{number})/
 			}),
 			_stringReferenceRegExpComposition = Uize.Util.RegExpComposition ({
 				identifier:/[a-zA-Z_$][a-zA-Z0-9_$]*/,
@@ -51,6 +53,58 @@ Uize.module ({
 			}
 
 		return _superclass.subclass ({
+			staticMethods:{
+				parseResourceFile:function (_resourceFileText,_mustAllowJsExpressions) {
+					var
+						_strings = {},
+						RC = {
+							ns:function (_namespace) {
+								var _path = '';
+								Uize.forEach (
+									_namespace.split ('.'),
+									function (_namespacePart) {
+										eval (_path + _namespacePart + ' || (' + _path + _namespacePart + ' = {})');
+										_path += _namespacePart + '.';
+									}
+								);
+								_strings [_namespace] = eval ('(' + _namespace + ')');
+							},
+							utils:{
+								Lang:{extend:Uize.copyInto}
+							}
+						}
+					;
+					eval (
+						_mustAllowJsExpressions
+							? _resourceFileText.replace (_dereferenceRegExp,'$1\'{$2}\'')
+							: _resourceFileText
+					);
+					return _strings;
+				},
+
+				serializeResourceFile:function (_strings,_mustAllowJsExpressions) {
+					return Uize.map (
+						Uize.keys (_strings),
+						function (_namespace) {
+							var _stringsAsJson = Uize.Json.to (_strings [_namespace],{keyDelimiter:' : '});
+							return (
+								'RC.ns(\'' + _namespace + '\');\n' +
+								'RC.utils.Lang.extend(' + _namespace + ', ' +
+								(
+									_mustAllowJsExpressions
+										? _stringsAsJson.replace (
+											_dereferenceTokenRegExp,
+											function (_match,_dereference) {return '\' + ' + _dereference + ' + \''}
+										)
+										: _stringsAsJson
+								) +
+								');\n'
+							);
+						}
+					).join ('\n\n');
+				}
+			},
+
 			instanceMethods:{
 				getLanguageResourcePath:function (_primaryLanguageResourcePath,_language) {
 					return _primaryLanguageResourcePath.replace (
@@ -82,54 +136,11 @@ Uize.module ({
 				},
 
 				parseResourceFile:function (_resourceFileText) {
-					var
-						_strings = {},
-						RC = {
-							ns:function (_namespace) {
-								var _path = '';
-								Uize.forEach (
-									_namespace.split ('.'),
-									function (_namespacePart) {
-										eval (_path + _namespacePart + ' || (' + _path + _namespacePart + ' = {})');
-										_path += _namespacePart + '.';
-									}
-								);
-								_strings [_namespace] = eval ('(' + _namespace + ')');
-							},
-							utils:{
-								Lang:{extend:Uize.copyInto}
-							}
-						}
-					;
-					eval (
-						_allowJsExpressions (this)
-							? _resourceFileText.replace (_dereferenceRegExp,'$1\'{$2}\'')
-							: _resourceFileText
-					);
-					return _strings;
+					return this.Class.parseResourceFile (_resourceFileText,_allowJsExpressions (this));
 				},
 
 				serializeResourceFile:function (_strings) {
-					var _mustAllowJsExpressions = _allowJsExpressions (this);
-					return Uize.map (
-						Uize.keys (_strings),
-						function (_namespace) {
-							var _stringsAsJson = Uize.Json.to (_strings [_namespace],{keyDelimiter:' : '});
-							return (
-								'RC.ns(\'' + _namespace + '\');\n' +
-								'RC.utils.Lang.extend(' + _namespace + ', ' +
-								(
-									_mustAllowJsExpressions
-										? _stringsAsJson.replace (
-											_dereferenceTokenRegExp,
-											function (_match,_dereference) {return '\' + ' + _dereference + ' + \''}
-										)
-										: _stringsAsJson
-								) +
-								');\n'
-							);
-						}
-					).join ('\n\n');
+					return this.Class.serializeResourceFile (_strings,_allowJsExpressions (this));
 				},
 
 				getReferencingCodeFiles:function () {

@@ -48,7 +48,7 @@ Uize.module ({
 				},
 
 				stringHasHtml:function (_stringPath,_value) {
-					return /<[^<]+>/.test (_value.replace (this.tokenRegExp,''));
+					return _superclass.doMy (this,'stringHasHtml',[_stringPath,_value.replace (this.tokenRegExp,'')]);
 				},
 
 				parseResourceFile:function (_resourceFileText,_resourceFileInfo) {

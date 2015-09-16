@@ -3,6 +3,7 @@ Uize.module ({
 	superclass:'Uize.Services.LocAdapter',
 	required:[
 		'Uize.Util.RegExpComposition',
+		'Uize.Util.RegExpComposition.PrintfWithParam',
 		'Uize.Loc.FileFormats.AndroidStrings',
 		'Uize.Services.FileSystem',
 		'Uize.Str.Search'
@@ -12,18 +13,7 @@ Uize.module ({
 
 		var
 			_resourceFilePathRegExp = /((?:^|\/)values)(\/strings(_[^\/\.]+)?\.xml)$/,
-			_printfFormatPlaceholderRegExpComposition = Uize.Util.RegExpComposition ({
-				// http://en.wikipedia.org/wiki/Printf_format_string#Format_placeholders
-				parameter:/\d+\$/,
-				flags:/[\+ \-#0]{0,5}/, // this isn't robust, since it shouldn't be possible to have 5 of the same flag
-				width:/-?\d+/,
-				precision:/\d+/,
-				length:/hh?|ll?|[Lzjt]/,
-				type:/[diufFeEgGxXoscPaAn%]/,
-				specifier:/(?:{parameter})?(?:{flags})?(?:{width})?(?:\.{precision})?(?:{length})?{type}/,
-				placeholder:/%{specifier}/,
-				placeholderWithCapture:/%({specifier})/
-			}),
+			_printfFormatPlaceholderRegExpComposition = Uize.Util.RegExpComposition.PrintfWithParam,
 			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition ({
 				punctuation:/[\?!\.;,&=\-\(\)\[\]"<>]/,
 				number:/\d+(?:\.\d+)?/,

@@ -30,6 +30,7 @@ Uize.module ({
 			}),
 			_bomChar = '﻿',
 			_stringKeyColumnName = 'strConstant',
+			_emptyStringCode = '~',
 			_localeToLcid = {
 				'da':'1030',
 				'de-AT':'3079',
@@ -72,34 +73,31 @@ Uize.module ({
 		}
 
 		return _superclass.subclass ({
-			instanceMethods:{
-				getLanguageResourcePath:Uize.returnX,
-
-				isResourceFile:function (_filePath) {return _resourceFileRegExp.test (_filePath)},
-
-				parseResourceFile:function (_resourceFileText,_resourceFileInfo) {
+			staticMethods:{
+				parseResourceFile:function (_resourceFileText,_language) {
 					return Uize.map (
 						Uize.Data.NameValueRecords.toHash (
 							_parseCsvFromResourceFileText (_resourceFileText),
 							_stringKeyColumnName,
-							_localeToLcid [_resourceFileInfo.language]
+							_localeToLcid [_language]
 						),
-						function (_stringValue) {return Uize.Str.BackslashEscapedLinebreaks.from (_stringValue || '')}
+						function (_stringValue) {
+							_stringValue = Uize.Str.BackslashEscapedLinebreaks.from (_stringValue || '');
+							return _stringValue == _emptyStringCode ? '' : _stringValue;
+						}
 					);
 				},
 
-				serializeResourceFile:function (_strings,_resourceFileInfo) {
-					var _dictionaryRecords = _parseCsvFromResourceFileText (
-						_fileSystem.readFile ({path:_resourceFileInfo.path,encoding:this.project.resourceFileEncoding})
-					);
+				serializeResourceFile:function (_strings,_language,_resourceFileText) {
+					var _dictionaryRecords = _parseCsvFromResourceFileText (_resourceFileText);
 
 					/*** stitch in column for language ***/
-						var _lcid = _localeToLcid [_resourceFileInfo.language];
+						var _lcid = _localeToLcid [_language];
 						Uize.forEach (
 							_dictionaryRecords,
 							function (_resourceString) {
 								_resourceString [_lcid] = Uize.Str.BackslashEscapedLinebreaks.to (
-									_strings [_resourceString [_stringKeyColumnName]] || ''
+									_strings [_resourceString [_stringKeyColumnName]] || _emptyStringCode
 								);
 							}
 						);
@@ -117,6 +115,24 @@ Uize.module ({
 								}
 							)
 						);
+				}
+			},
+
+			instanceMethods:{
+				getLanguageResourcePath:Uize.returnX,
+
+				isResourceFile:function (_filePath) {return _resourceFileRegExp.test (_filePath)},
+
+				parseResourceFile:function (_resourceFileText,_resourceFileInfo) {
+					return this.Class.parseResourceFile (_resourceFileText,_resourceFileInfo.language);
+				},
+
+				serializeResourceFile:function (_strings,_resourceFileInfo) {
+					return this.Class.serializeResourceFile (
+						_strings,
+						_resourceFileInfo.language,
+						_fileSystem.readFile ({path:_resourceFileInfo.path,encoding:this.project.resourceFileEncoding})
+					);
 				}
 			},
 
