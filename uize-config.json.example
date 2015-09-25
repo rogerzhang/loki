@@ -101,6 +101,10 @@
 					},
 					plurals:true
 				},
+				Platform:{
+					serviceAdapter:'Loki.LocServiceAdapters.Platform',
+					rootFolderPath:'../hg/platform/apiserver/web-server/platform-server-war/src/main/resources'
+				},
 				CloudCti:{
 					serviceAdapter:'Loki.LocServiceAdapters.CloudCti',
 					rootFolderPath:'../svn/rc/simplion-opencti-0a0e6250af6b/js/lang'
