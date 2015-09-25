@@ -28,7 +28,7 @@ Uize.module ({
 				getLanguageResourcePath:function (_primaryLanguageResourcePath,_language) {
 					return _primaryLanguageResourcePath.replace (
 						_resourceFilePathRegExp,
-						function (_match,_start,_folderLanguageCode, _fileName,_fileExtension) {
+						function (_match,_start,_folderLanguageCode,_fileName,_fileExtension) {
 							return (
 								_start +
 								(
