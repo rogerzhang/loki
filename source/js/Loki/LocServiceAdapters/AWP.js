@@ -1,10 +1,7 @@
 Uize.module({
     name: 'Loki.LocServiceAdapters.AWP',
     superclass: 'Loki.LocServiceAdapters.WithExcludes',
-    required: [
-        'Uize.Json',
-        'Uize.Util.RegExpComposition'
-    ],
+    required:'Uize.Util.RegExpComposition',
     builder: function (_superclass) {
         'use strict';
 
