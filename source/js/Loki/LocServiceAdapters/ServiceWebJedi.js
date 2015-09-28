@@ -3,7 +3,7 @@ Uize.module ({
 	superclass:'Uize.Services.LocAdapter',
 	required:[
 		'Uize.Util.RegExpComposition',
-		'Uize.Data.JavaProperties',
+		'Uize.Loc.FileFormats.JavaProperties',
 		'Uize.Data.Flatten',
 		'Uize.Services.FileSystem',
 		'Uize.Str.Search'
@@ -55,11 +55,11 @@ Uize.module ({
 				},
 
 				parseResourceFile:function (_resourceFileText) {
-					return Uize.Data.Flatten.unflatten (Uize.Data.JavaProperties.from (_resourceFileText),'.');
+					return Uize.Data.Flatten.unflatten (Uize.Loc.FileFormats.JavaProperties.from (_resourceFileText),'.');
 				},
 
 				serializeResourceFile:function (_strings) {
-					return Uize.Data.JavaProperties.to (Uize.Data.Flatten.flatten (_strings,'.'));
+					return Uize.Loc.FileFormats.JavaProperties.to (Uize.Data.Flatten.flatten (_strings,'.'));
 				},
 
 				getReferencingCodeFiles:function () {
