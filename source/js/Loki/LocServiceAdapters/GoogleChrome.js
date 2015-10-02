@@ -41,7 +41,7 @@ Uize.module ({
 			},
 
 			instanceProperties:{
-				tokenRegExp:_printfFormatPlaceholderRegExpComposition.get ('placeholderWithCapture'),
+				tokenRegExp:_printfFormatPlaceholderRegExpComposition.get ('placeholder'),
 				wordSplitter:_wordSplitterRegExpComposition.get ('wordSplitter')
 			}
 		});

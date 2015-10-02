@@ -24,7 +24,7 @@ Uize.module ({
 				number:/\d+(?:\.\d+)?/,
 				whitespace:/\s+/,
 				htmlTag:/<(?:.|[\r\n\f])+?>/,
-				printfToken:Uize.Util.RegExpComposition.Printf.get ('specifierWithCapture'),
+				printfToken:Uize.Util.RegExpComposition.Printf.get ('specifier'),
 				argToken:/%(\d+)/,
 				namedTokenName:/(?:[A-Z][a-z0-9_]*)+/,
 				namedToken:/<({namedTokenName})>/,
