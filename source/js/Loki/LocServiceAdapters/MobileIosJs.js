@@ -16,8 +16,7 @@ Uize.module ({
 				number:/\d+(?:\.\d+)?/,
 				whitespace:/\s+/,
 				tokenName:/[\da-zA-Z_]+/,
-				token:/%{tokenName}%/,
-				tokenWithNameCapture:/%({tokenName})%/,
+				token:/%({tokenName})%/,
 				wordSplitter:/({whitespace}|{token}|{punctuation}|{number})/
 			}),
 			_rcTragetFolderNameToBrandId = {
@@ -76,7 +75,7 @@ Uize.module ({
 			},
 
 			instanceProperties:{
-				tokenRegExp:_wordSplitterRegExpComposition.get ('tokenWithNameCapture'),
+				tokenRegExp:_wordSplitterRegExpComposition.get ('token'),
 				wordSplitter:_wordSplitterRegExpComposition.get ('wordSplitter')
 			}
 		});

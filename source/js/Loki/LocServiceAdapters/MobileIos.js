@@ -2,7 +2,7 @@ Uize.module ({
 	name:'Loki.LocServiceAdapters.MobileIos',
 	superclass:'Uize.Services.LocAdapter',
 	required:[
-		'Uize.Data.MacStrings',
+		'Uize.Loc.FileFormats.MacStrings',
 		'Uize.Services.FileSystem',
 		'Uize.Parse.Code.StringLiteral',
 		'Uize.Util.RegExpComposition',
@@ -19,18 +19,13 @@ Uize.module ({
 				code:/[@%dDuUxXoOfeEgGcCsSPaAF]/,
 				lengthModifier:/hh?|ll?|[qLztj]/,
 				lengthModifierAndCode:/(?:{lengthModifier})?{code}/,
-				specifier:/%{lengthModifierAndCode}/,
-				specifierWithCapture:/%({lengthModifierAndCode})/
+				specifier:/%({lengthModifierAndCode})/
 			}),
 			_tokenRegExpComposition = Uize.Util.RegExpComposition ({
 				macOsStringFormatSpecifier:_macOsStringFormatSpecifierRegExpComposition.get ('specifier'),
-				macOsStringFormatSpecifierWithCapture:
-					_macOsStringFormatSpecifierRegExpComposition.get ('specifierWithCapture'),
 				brandTokenName:/[a-zA-Z_0-9]+/,
-				brandToken:/<{brandTokenName}>/,
-				brandTokenWithNameCapture:/<({brandTokenName})>/,
-				token:/{macOsStringFormatSpecifier}|{brandToken}/,
-				tokenWithNameCapture:/{macOsStringFormatSpecifierWithCapture}|{brandTokenWithNameCapture}/,
+				brandToken:/<({brandTokenName})>/,
+				token:/{macOsStringFormatSpecifier}|{brandToken}/
 			}),
 			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition ({
 				punctuation:/[\?!\.;,&=\-\(\)\[\]"<>]/,
@@ -142,16 +137,16 @@ Uize.module ({
 				},
 
 				parseResourceFile:function (_resourceFileText) {
-					return Uize.Data.MacStrings.from (_resourceFileText);
+					return Uize.Loc.FileFormats.MacStrings.from (_resourceFileText);
 				},
 
 				serializeResourceFile:function (_messages) {
-					return Uize.Data.MacStrings.to (_messages);
+					return Uize.Loc.FileFormats.MacStrings.to (_messages);
 				}
 			},
 
 			instanceProperties:{
-				tokenRegExp:_tokenRegExpComposition.get ('tokenWithNameCapture'),
+				tokenRegExp:_tokenRegExpComposition.get ('token'),
 				wordSplitter:_wordSplitterRegExpComposition.get ('wordSplitter')
 			}
 		});

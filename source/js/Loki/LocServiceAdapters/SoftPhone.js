@@ -24,15 +24,11 @@ Uize.module ({
 				number:/\d+(?:\.\d+)?/,
 				whitespace:/\s+/,
 				htmlTag:/<(?:.|[\r\n\f])+?>/,
-				printfToken:Uize.Util.RegExpComposition.Printf.get ('specifier'),
-				printfTokenWithCapture:Uize.Util.RegExpComposition.Printf.get ('specifierWithCapture'),
-				argToken:/%\d+/,
-				argTokenWithCapture:/%(\d+)/,
+				printfToken:Uize.Util.RegExpComposition.Printf.get ('specifierWithCapture'),
+				argToken:/%(\d+)/,
 				namedTokenName:/(?:[A-Z][a-z0-9_]*)+/,
-				namedToken:/<{namedTokenName}>/,
-				namedTokenWithCapture:/<({namedTokenName})>/,
+				namedToken:/<({namedTokenName})>/,
 				token:/{printfToken}|{argToken}|{namedToken}/,
-				tokenWithCapture:/{printfTokenWithCapture}|{argTokenWithCapture}|{namedTokenWithCapture}/,
 				wordSplitter:/({token}|{htmlTag}|{whitespace}|{punctuation}|{number})/
 			})
 		;
@@ -77,7 +73,7 @@ Uize.module ({
 
 			instanceProperties:{
 				wordSplitter:_wordSplitterRegExpComposition.get ('wordSplitter'),
-				tokenRegExp:_wordSplitterRegExpComposition.get ('tokenWithCapture')
+				tokenRegExp:_wordSplitterRegExpComposition.get ('token')
 			}
 		});
 	}

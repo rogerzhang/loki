@@ -33,8 +33,7 @@ Uize.module ({
 				htmlEntity:Uize.Util.Html.Encode.entityRegExp,
 				htmlTag:/<(?:.|[\r\n\f])+?>/,
 				tokenName:/[a-zA-Z0-9_\.]+/,
-				token:/%{tokenName}%/,
-				tokenWithCapture:/%({tokenName})%/,
+				token:/%({tokenName})%/,
 				wordSplitter:/({htmlTag}|{htmlEntity}|{token}|{whitespace}|{punctuation}|{number})/
 			}),
 			_xmlPseudoLocalizeOptions = {
@@ -112,7 +111,7 @@ Uize.module ({
 
 			instanceProperties:{
 				wordSplitter:_wordSplitterRegExpComposition.get ('wordSplitter'),
-				tokenRegExp:_wordSplitterRegExpComposition.get ('tokenWithCapture')
+				tokenRegExp:_wordSplitterRegExpComposition.get ('token')
 			}
 		});
 	}

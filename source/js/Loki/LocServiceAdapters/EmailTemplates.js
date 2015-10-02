@@ -41,8 +41,7 @@ Uize.module ({
 				whitespace:/\s+/,
 				htmlTag:/<(?:.|[\r\n\f])+?>/,
 				tokenName:/@?[a-zA-Z0-9_]+/,
-				token:/<\${tokenName}\$>|\[{tokenName}\]/,
-				tokenWithCapture:/<\$({tokenName})\$>|\[({tokenName})\]/,
+				token:/<\$({tokenName})\$>|\[({tokenName})\]/,
 				wordSplitter:/({htmlTag}|{token}|{whitespace}|{punctuation}|{number})/
 			})
 		;
@@ -123,7 +122,7 @@ Uize.module ({
 
 			instanceProperties:{
 				wordSplitter:_wordSplitterRegExpComposition.get ('wordSplitter'),
-				tokenRegExp:_wordSplitterRegExpComposition.get ('tokenWithCapture')
+				tokenRegExp:_wordSplitterRegExpComposition.get ('token')
 			}
 		});
 	}

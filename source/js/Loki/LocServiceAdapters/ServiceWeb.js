@@ -39,9 +39,8 @@ Uize.module ({
 			}),
 			_stringReferenceRegExpComposition = Uize.Util.RegExpComposition ({
 				identifier:/[a-zA-Z_$][a-zA-Z0-9_$]*/,
-				reference:/(?:RC\.Lang\.{identifier}|langCommon|langLocal)(?:\.{identifier})+/,
-				referenceWithCapture:/({reference})/,
-				langLocalDeclarationWithCapture:/langLocal\s*=\s*(RC\.Lang(?:\.{identifier})+)/
+				reference:/((?:RC\.Lang\.{identifier}|langCommon|langLocal)(?:\.{identifier})+)/,
+				langLocalDeclaration:/langLocal\s*=\s*(RC\.Lang(?:\.{identifier})+)/
 			}),
 			_langCommonRegExp = /^langCommon\./,
 			_langLocalRegExp = /^langLocal\./
@@ -165,7 +164,7 @@ Uize.module ({
 					Uize.forEach (
 						Uize.Str.Search.search (
 							_fileText,
-							_stringReferenceRegExpComposition.get ('referenceWithCapture')
+							_stringReferenceRegExpComposition.get ('reference')
 						),
 						function (_match) {
 							var _stringId = _match [1];
@@ -174,9 +173,7 @@ Uize.module ({
 							} else if (_langLocalRegExp.test (_stringId)) {
 								if (!_langLocal) {
 									var _langLocalMatch = _fileText.match (
-										new RegExp (
-											_stringReferenceRegExpComposition.get ('langLocalDeclarationWithCapture').source
-										)
+										new RegExp (_stringReferenceRegExpComposition.get ('langLocalDeclaration').source)
 									);
 									_langLocal = (_langLocalMatch ? _langLocalMatch [1] : 'RC.Lang.ZZZ') + '.';
 								}
