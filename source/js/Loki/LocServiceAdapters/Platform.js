@@ -2,7 +2,7 @@ Uize.module ({
 	name:'Loki.LocServiceAdapters.Platform',
 	superclass:'Uize.Services.LocAdapter',
 	required:[
-		'Uize.Util.RegExpComposition',
+		'Uize.Util.RegExpComposition.WordSplitter',
 		'Uize.Loc.FileFormats.JavaPropertiesUnicode'
 	],
 	builder:function (_superclass) {
@@ -10,10 +10,7 @@ Uize.module ({
 
 		var
 			_resourceFileRegExp = /(.+_)(en_US)(\.properties)$/,
-			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition ({
-				punctuation:/[\?!\.;,&=\-\(\)\[\]"]/,
-				number:/\d+(?:\.\d+)?/,
-				whitespace:/\s+/,
+			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition.WordSplitter.extend ({
 				tokenName:/[\da-zA-Z_]+/,
 				token:/\$\{({tokenName})\}/,
 				wordSplitter:/({token}|{whitespace}|{punctuation}|{number})/

@@ -3,7 +3,7 @@ Uize.module ({
 	superclass:'Uize.Services.LocAdapter',
 	required:[
 		'Uize.Json',
-		'Uize.Util.RegExpComposition'
+		'Uize.Util.RegExpComposition.WordSplitter'
 	],
 	builder:function (_superclass) {
 		'use strict';
@@ -11,10 +11,7 @@ Uize.module ({
 		var
 			_resourceFilePathRegExp =
 				/(^|\/RCTargets\/)([^\/]+)(\/RCSPSetupAndSettings\.rcswv\/mobileweb\/core\/js\/src\/messages_)en_US(\.js)$/,
-			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition ({
-				punctuation:/[\?!\.;,&=\-\(\)\[\]"<>]/,
-				number:/\d+(?:\.\d+)?/,
-				whitespace:/\s+/,
+			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition.WordSplitter.extend ({
 				tokenName:/[\da-zA-Z_]+/,
 				token:/%({tokenName})%/,
 				wordSplitter:/({whitespace}|{token}|{punctuation}|{number})/

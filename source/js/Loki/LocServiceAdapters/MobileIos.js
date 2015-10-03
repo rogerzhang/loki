@@ -6,6 +6,7 @@ Uize.module ({
 		'Uize.Services.FileSystem',
 		'Uize.Parse.Code.StringLiteral',
 		'Uize.Util.RegExpComposition',
+		'Uize.Util.RegExpComposition.WordSplitter',
 		'Uize.Str.Search'
 	],
 	builder:function (_superclass) {
@@ -21,18 +22,11 @@ Uize.module ({
 				lengthModifierAndCode:/(?:{lengthModifier})?{code}/,
 				specifier:/%({lengthModifierAndCode})/
 			}),
-			_tokenRegExpComposition = Uize.Util.RegExpComposition ({
+			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition.WordSplitter.extend ({
 				macOsStringFormatSpecifier:_macOsStringFormatSpecifierRegExpComposition.get ('specifier'),
 				brandTokenName:/[a-zA-Z_0-9]+/,
 				brandToken:/<({brandTokenName})>/,
-				token:/{macOsStringFormatSpecifier}|{brandToken}/
-			}),
-			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition ({
-				punctuation:/[\?!\.;,&=\-\(\)\[\]"<>]/,
-				number:/\d+(?:\.\d+)?/,
-				whitespace:/\s+/,
-				brandToken:/<[a-zA-Z_0-9]+>/,
-				token:_tokenRegExpComposition.get ('token'),
+				token:/{macOsStringFormatSpecifier}|{brandToken}/,
 				wordSplitter:/({whitespace}|{token}|{punctuation}|{number})/
 			}),
 
@@ -146,7 +140,7 @@ Uize.module ({
 			},
 
 			instanceProperties:{
-				tokenRegExp:_tokenRegExpComposition.get ('token'),
+				tokenRegExp:_wordSplitterRegExpComposition.get ('token'),
 				wordSplitter:_wordSplitterRegExpComposition.get ('wordSplitter')
 			}
 		});

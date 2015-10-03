@@ -11,7 +11,7 @@ Uize.module ({
 	superclass:'Uize.Services.LocAdapter',
 	required:[
 		'Uize.Loc.FileFormats.QtTs',
-		'Uize.Util.RegExpComposition',
+		'Uize.Util.RegExpComposition.WordSplitterHtml',
 		'Uize.Util.RegExpComposition.Printf'
 	],
 	builder:function (_superclass) {
@@ -19,17 +19,13 @@ Uize.module ({
 
 		var
 			_resourceFileRegExp = /(^|\/)lang_(en-US)\.ts$/,
-			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition ({
-				punctuation:/[\?!\.;,&=\-\(\)\[\]"]/,
-				number:/\d+(?:\.\d+)?/,
-				whitespace:/\s+/,
-				htmlTag:/<(?:.|[\r\n\f])+?>/,
+			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition.WordSplitterHtml.extend ({
 				printfToken:Uize.Util.RegExpComposition.Printf.get ('specifier'),
 				argToken:/%(\d+)/,
 				namedTokenName:/(?:[A-Z][a-z0-9_]*)+/,
 				namedToken:/<({namedTokenName})>/,
 				token:/{printfToken}|{argToken}|{namedToken}/,
-				wordSplitter:/({token}|{htmlTag}|{whitespace}|{punctuation}|{number})/
+				wordSplitter:/({token}|{htmlTag}|{htmlEntity}|{whitespace}|{punctuation}|{number})/
 			})
 		;
 

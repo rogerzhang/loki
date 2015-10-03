@@ -3,7 +3,7 @@ Uize.module ({
 	superclass:'Uize.Services.LocAdapter',
 	required:[
 		'Uize.Json',
-		'Uize.Util.RegExpComposition'
+		'Uize.Util.RegExpComposition.WordSplitterHtml'
 	],
 	builder:function (_superclass) {
 		'use strict';
@@ -11,14 +11,10 @@ Uize.module ({
 		var
 			_resourceFilePathRegExp = /(^|\/)(en\/US|en_us\/([a-z0-9-]+))(\.php)$/,
 			_brandResourceFileRegExp = /\/brand-([0-9]+)\.php$/,
-			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition ({
-				punctuation:/[\?!\.;,&=\-\(\)\[\]"<>]/,
-				number:/\d+(?:\.\d+)?/,
-				whitespace:/\s+/,
-				htmlTag:/<(?:.|[\r\n\f])+?>/,
+			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition.WordSplitterHtml.extend ({
 				tokenName:/[\da-zA-Z_]+/,
 				token:/\{({tokenName})\}/,
-				wordSplitter:/({htmlTag}|{token}|{whitespace}|{punctuation}|{number})/
+				wordSplitter:/({htmlTag}|{htmlEntity}|{token}|{whitespace}|{punctuation}|{number})/
 			})
 		;
 

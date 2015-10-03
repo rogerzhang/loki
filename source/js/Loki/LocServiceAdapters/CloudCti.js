@@ -3,21 +3,12 @@ Uize.module ({
 	superclass:'Uize.Services.LocAdapter',
 	required:[
 		'Uize.Json',
-		'Uize.Util.RegExpComposition'
+		'Uize.Util.RegExpComposition.WordSplitterHtml'
 	],
 	builder:function (_superclass) {
 		'use strict';
 
-		var
-			_resourceFileRegExp = /(^|\/)(en)(\.js)$/,
-			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition ({
-				punctuation:/[\?!\.;,&=\-\(\)\[\]"]/,
-				number:/\d+(?:\.\d+)?/,
-				whitespace:/\s+/,
-				htmlTag:/<(?:.|[\r\n\f])+?>/,
-				wordSplitter:/({htmlTag}|{whitespace}|{punctuation}|{number})/
-			})
-		;
+		var _resourceFileRegExp = /(^|\/)(en)(\.js)$/;
 
 		return _superclass.subclass ({
 			instanceMethods:{
@@ -60,7 +51,7 @@ Uize.module ({
 			},
 
 			instanceProperties:{
-				wordSplitter:_wordSplitterRegExpComposition.get ('wordSplitter'),
+				wordSplitter:Uize.Util.RegExpComposition.WordSplitterHtml.get ('wordSplitter'),
 				tokenRegExp:null
 			}
 		});

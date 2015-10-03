@@ -6,7 +6,7 @@ Uize.module ({
 	name:'Loki.LocServiceAdapters.AdminWeb',
 	superclass:'Uize.Services.LocAdapter',
 	required:[
-		'Uize.Util.RegExpComposition',
+		'Uize.Util.RegExpComposition.WordSplitter',
 		'Uize.Data.Csv',
 		'Uize.Data.NameValueRecords',
 		'Uize.Services.FileSystem',
@@ -19,10 +19,7 @@ Uize.module ({
 		var
 			_fileSystem = Uize.Services.FileSystem.singleton (),
 			_resourceFileRegExp = /(?:^|[\/\\])LanguageDictionary\.csv$/,
-			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition ({
-				punctuation:/[\?!\.;,&=\-\(\)\[\]"]/,
-				number:/\d+(?:\.\d+)?/,
-				whitespace:/\s+/,
+			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition.WordSplitter.extend ({
 				tokenName:/[a-zA-Z0-9_]+/,
 				token:/{({tokenName})}/,
 				wordSplitter:/({token}|{whitespace}|{punctuation}|{number})/

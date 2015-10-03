@@ -2,7 +2,7 @@ Uize.module ({
 	name:'Loki.LocServiceAdapters.GoogleChrome',
 	superclass:'Loki.LocServiceAdapters.WithExcludes',
 	required:[
-		'Uize.Util.RegExpComposition',
+		'Uize.Util.RegExpComposition.WordSplitterHtml',
 		'Uize.Util.RegExpComposition.PrintfWithParam',
 		'Uize.Json'
 	],
@@ -11,13 +11,10 @@ Uize.module ({
 
 		var
 			_resourceFileRegExp = /(?:^|[\/\\])en-us\/strings\.js$/,
-			_printfFormatPlaceholderRegExpComposition = Uize.Util.RegExpComposition.PrintfWithParam,
-			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition ({
-				punctuation:/[\?!\.;,&=\-\(\)\[\]"]/,
-				number:/\d+(?:\.\d+)?/,
-				whitespace:/\s+/,
-				token:_printfFormatPlaceholderRegExpComposition.get ('placeholder'),
-				wordSplitter:/({token}|{whitespace}|{punctuation}|{number})/
+			_printfFormatPlaceholderRegExp = Uize.Util.RegExpComposition.PrintfWithParam.get ('placeholder'),
+			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition.WordSplitterHtml.extend ({
+				token:_printfFormatPlaceholderRegExp,
+				wordSplitter:/({htmlTag}|{htmlEntity}|{whitespace}|{punctuation}|{number})/
 			})
 		;
 
@@ -41,7 +38,7 @@ Uize.module ({
 			},
 
 			instanceProperties:{
-				tokenRegExp:_printfFormatPlaceholderRegExpComposition.get ('placeholder'),
+				tokenRegExp:_printfFormatPlaceholderRegExp,
 				wordSplitter:_wordSplitterRegExpComposition.get ('wordSplitter')
 			}
 		});

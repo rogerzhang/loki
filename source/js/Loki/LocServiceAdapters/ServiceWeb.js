@@ -9,6 +9,7 @@ Uize.module ({
 	required:[
 		'Uize.Json',
 		'Uize.Util.RegExpComposition',
+		'Uize.Util.RegExpComposition.WordSplitterHtml',
 		'Uize.Services.FileSystem',
 		'Uize.Str.Search',
 		'Uize.Util.Html.Encode'
@@ -28,12 +29,7 @@ Uize.module ({
 			}),
 			_dereferenceRegExp = _dereferenceRegExpComposition.get ('dereference'),
 			_dereferenceTokenRegExp = _dereferenceRegExpComposition.get ('dereferenceToken'),
-			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition ({
-				punctuation:/[\?!\.;,&=\-\(\)\[\]"]/,
-				number:/\d+(?:\.\d+)?/,
-				whitespace:/\s+/,
-				htmlEntity:Uize.Util.Html.Encode.entityRegExp,
-				htmlTag:/<(?:.|[\r\n\f])+?>/,
+			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition.WordSplitterHtml.extend ({
 				token:/\{[^\}]+\}/,
 				wordSplitter:/({htmlTag}|{htmlEntity}|{token}|{whitespace}|{punctuation}|{number})/
 			}),

@@ -2,22 +2,14 @@ Uize.module ({
 	name:'Loki.LocServiceAdapters.MicRecorder',
 	superclass:'Uize.Services.LocAdapter',
 	required:[
-		'Uize.Util.RegExpComposition',
+		'Uize.Util.RegExpComposition.WordSplitter',
 		'Uize.Json',
 		'Uize.Str.Lines'
 	],
 	builder:function (_superclass) {
 		'use strict';
 
-		var
-			_resourceFileRegExp = /(^|\/)(en_US)(\/Messages\.as)$/,
-			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition ({
-				punctuation:/[\?!\.;,&=\-\(\)\[\]"]/,
-				number:/\d+(?:\.\d+)?/,
-				whitespace:/\s+/,
-				wordSplitter:/({whitespace}|{punctuation}|{number})/
-			})
-		;
+		var _resourceFileRegExp = /(^|\/)(en_US)(\/Messages\.as)$/;
 
 		return _superclass.subclass ({
 			instanceMethods:{
@@ -65,7 +57,7 @@ Uize.module ({
 			},
 
 			instanceProperties:{
-				wordSplitter:_wordSplitterRegExpComposition.get ('wordSplitter')
+				wordSplitter:Uize.Util.RegExpComposition.WordSplitter.get ('wordSplitter')
 			}
 		});
 	}

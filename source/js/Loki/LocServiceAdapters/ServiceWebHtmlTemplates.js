@@ -2,7 +2,7 @@ Uize.module ({
 	name:'Loki.LocServiceAdapters.ServiceWebHtmlTemplates',
 	superclass:'Uize.Services.LocAdapter',
 	required:[
-		'Uize.Util.RegExpComposition',
+		'Uize.Util.RegExpComposition.WordSplitterHtml',
 		'Uize.Util.Matchers.AttributeMatcher',
 		'Uize.Loc.Pseudo.Xml',
 		'Uize.Util.Html.Encode'
@@ -26,12 +26,7 @@ Uize.module ({
 			_htmlFileRegExp = /\.html$/,
 			_translatedHtmlFileRegExp = /-[a-zA-Z]+_[a-zA-Z]+\.html$/,
 			_brandResourceFileRegExp = /-(\d+)\.html$/,
-			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition ({
-				punctuation:/[\?!\.;,&=\-\(\)\[\]"]/,
-				number:/\d+(?:\.\d+)?/,
-				whitespace:/\s+/,
-				htmlEntity:Uize.Util.Html.Encode.entityRegExp,
-				htmlTag:/<(?:.|[\r\n\f])+?>/,
+			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition.WordSplitterHtml.extend ({
 				tokenName:/[a-zA-Z0-9_\.]+/,
 				token:/%({tokenName})%/,
 				wordSplitter:/({htmlTag}|{htmlEntity}|{token}|{whitespace}|{punctuation}|{number})/

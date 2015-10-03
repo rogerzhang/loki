@@ -2,7 +2,7 @@ Uize.module ({
 	name:'Loki.LocServiceAdapters.MobileAndroid',
 	superclass:'Uize.Services.LocAdapter',
 	required:[
-		'Uize.Util.RegExpComposition',
+		'Uize.Util.RegExpComposition.WordSplitter',
 		'Uize.Util.RegExpComposition.PrintfWithParam',
 		'Uize.Loc.FileFormats.AndroidStrings',
 		'Uize.Services.FileSystem',
@@ -14,10 +14,7 @@ Uize.module ({
 		var
 			_resourceFilePathRegExp = /((?:^|\/)values)(\/strings(_[^\/\.]+)?\.xml)$/,
 			_printfFormatPlaceholderRegExpComposition = Uize.Util.RegExpComposition.PrintfWithParam,
-			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition ({
-				punctuation:/[\?!\.;,&=\-\(\)\[\]"<>]/,
-				number:/\d+(?:\.\d+)?/,
-				whitespace:/\s+/,
+			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition.WordSplitter.extend ({
 				token:_printfFormatPlaceholderRegExpComposition.get ('placeholder'),
 				wordSplitter:/(^@.+$|{whitespace}|{token}|{punctuation}|{number})/
 			}),

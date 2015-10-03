@@ -1,16 +1,13 @@
 Uize.module({
     name: 'Loki.LocServiceAdapters.AWP',
     superclass: 'Loki.LocServiceAdapters.WithExcludes',
-    required:'Uize.Util.RegExpComposition',
+    required:'Uize.Util.RegExpComposition.WordSplitter',
     builder: function (_superclass) {
         'use strict';
 
         var
             _resourceFilePathRegExp = /(^|\/)en_US(\/messages\.json)$/,
-            _wordSplitterRegExpComposition = Uize.Util.RegExpComposition({
-                punctuation: /[\?!\.;,&=\-\(\)\[\]"<>]/,
-                number: /\d+(?:\.\d+)?/,
-                whitespace: /\s+/,
+            _wordSplitterRegExpComposition = Uize.Util.RegExpComposition.WordSplitter.extend({
                 tokenName: /[\da-zA-Z_]+/,
                 token: /%({tokenName})%/,
                 wordSplitter: /({whitespace}|{token}|{punctuation}|{number})/

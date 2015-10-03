@@ -20,6 +20,7 @@ Uize.module ({
 	superclass:'Uize.Services.LocAdapter',
 	required:[
 		'Uize.Util.RegExpComposition',
+		'Uize.Util.RegExpComposition.WordSplitterHtml',
 		'Uize.Services.FileSystem'
 	],
 	builder:function (_superclass) {
@@ -35,14 +36,10 @@ Uize.module ({
 				branded:/({brandId})-{filenameLocaleCode}/
 			}),
 			_brandedRegExp = new RegExp (_brandedRegExpComposition.get ('branded').source), // strip the g
-			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition ({
-				punctuation:/[\?!\.;,&=\-\(\)\[\]"]/,
-				number:/\d+(?:\.\d+)?/,
-				whitespace:/\s+/,
-				htmlTag:/<(?:.|[\r\n\f])+?>/,
+			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition.WordSplitterHtml.extend ({
 				tokenName:/@?[a-zA-Z0-9_]+/,
 				token:/<\$({tokenName})\$>|\[({tokenName})\]/,
-				wordSplitter:/({htmlTag}|{token}|{whitespace}|{punctuation}|{number})/
+				wordSplitter:/({htmlTag}|{htmlEntity}|{token}|{whitespace}|{punctuation}|{number})/
 			})
 		;
 
