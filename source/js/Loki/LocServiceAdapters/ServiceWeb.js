@@ -31,7 +31,7 @@ Uize.module ({
 			_dereferenceTokenRegExp = _dereferenceRegExpComposition.get ('dereferenceToken'),
 			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition.WordSplitterHtml.extend ({
 				token:/\{[^\}]+\}/,
-				wordSplitter:/({htmlTag}|{htmlEntity}|{token}|{whitespace}|{punctuation}|{number})/
+				wordSplitter:/{htmlTag}|{htmlEntity}|{token}|{whitespace}|{punctuation}|{number}/
 			}),
 			_stringReferenceRegExpComposition = Uize.Util.RegExpComposition ({
 				identifier:/[a-zA-Z_$][a-zA-Z0-9_$]*/,

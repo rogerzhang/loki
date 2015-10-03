@@ -25,7 +25,7 @@ Uize.module ({
 				namedTokenName:/(?:[A-Z][a-z0-9_]*)+/,
 				namedToken:/<({namedTokenName})>/,
 				token:/{printfToken}|{argToken}|{namedToken}/,
-				wordSplitter:/({token}|{htmlTag}|{htmlEntity}|{whitespace}|{punctuation}|{number})/
+				wordSplitter:/{token}|{htmlTag}|{htmlEntity}|{whitespace}|{punctuation}|{number}/
 			})
 		;
 

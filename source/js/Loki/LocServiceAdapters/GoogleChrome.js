@@ -14,7 +14,7 @@ Uize.module ({
 			_printfFormatPlaceholderRegExp = Uize.Util.RegExpComposition.PrintfWithParam.get ('placeholder'),
 			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition.WordSplitterHtml.extend ({
 				token:_printfFormatPlaceholderRegExp,
-				wordSplitter:/({htmlTag}|{htmlEntity}|{whitespace}|{punctuation}|{number})/
+				wordSplitter:/{htmlTag}|{htmlEntity}|{whitespace}|{punctuation}|{number}/
 			})
 		;
 

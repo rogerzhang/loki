@@ -27,7 +27,7 @@ Uize.module ({
 				brandTokenName:/[a-zA-Z_0-9]+/,
 				brandToken:/<({brandTokenName})>/,
 				token:/{macOsStringFormatSpecifier}|{brandToken}/,
-				wordSplitter:/({whitespace}|{token}|{punctuation}|{number})/
+				wordSplitter:/{whitespace}|{token}|{punctuation}|{number}/
 			}),
 
 			/*** Variables for Reference Scanning ***/

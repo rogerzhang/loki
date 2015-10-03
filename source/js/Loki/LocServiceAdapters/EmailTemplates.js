@@ -39,7 +39,7 @@ Uize.module ({
 			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition.WordSplitterHtml.extend ({
 				tokenName:/@?[a-zA-Z0-9_]+/,
 				token:/<\$({tokenName})\$>|\[({tokenName})\]/,
-				wordSplitter:/({htmlTag}|{htmlEntity}|{token}|{whitespace}|{punctuation}|{number})/
+				wordSplitter:/{htmlTag}|{htmlEntity}|{token}|{whitespace}|{punctuation}|{number}/
 			})
 		;
 

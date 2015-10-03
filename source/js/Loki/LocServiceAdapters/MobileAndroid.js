@@ -16,7 +16,7 @@ Uize.module ({
 			_printfFormatPlaceholderRegExpComposition = Uize.Util.RegExpComposition.PrintfWithParam,
 			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition.WordSplitter.extend ({
 				token:_printfFormatPlaceholderRegExpComposition.get ('placeholder'),
-				wordSplitter:/(^@.+$|{whitespace}|{token}|{punctuation}|{number})/
+				wordSplitter:/^@.+$|{whitespace}|{token}|{punctuation}|{number}/
 			}),
 			_Uize_Loc_FileFormats_AndroidStrings = Uize.Loc.FileFormats.AndroidStrings
 		;

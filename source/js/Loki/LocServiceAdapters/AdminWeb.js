@@ -22,7 +22,7 @@ Uize.module ({
 			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition.WordSplitter.extend ({
 				tokenName:/[a-zA-Z0-9_]+/,
 				token:/{({tokenName})}/,
-				wordSplitter:/({token}|{whitespace}|{punctuation}|{number})/
+				wordSplitter:/{token}|{whitespace}|{punctuation}|{number}/
 			}),
 			_bomChar = '﻿',
 			_stringKeyColumnName = 'strConstant',

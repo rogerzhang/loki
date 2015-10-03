@@ -13,7 +13,7 @@ Uize.module ({
 			_wordSplitterRegExpComposition = Uize.Util.RegExpComposition.WordSplitter.extend ({
 				tokenName:/[^<>]+/,
 				token:/<({tokenName})>/,
-				wordSplitter:/({token}|{whitespace}|{punctuation}|{number})/
+				wordSplitter:/{token}|{whitespace}|{punctuation}|{number}/
 			})
 		;
 
