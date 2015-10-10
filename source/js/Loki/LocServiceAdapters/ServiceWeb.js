@@ -11,8 +11,7 @@ Uize.module ({
 		'Uize.Util.RegExpComposition',
 		'Uize.Util.RegExpComposition.WordSplitterHtml',
 		'Uize.Services.FileSystem',
-		'Uize.Str.Search',
-		'Uize.Util.Html.Encode'
+		'Uize.Str.Search'
 	],
 	builder:function (_superclass) {
 		'use strict';

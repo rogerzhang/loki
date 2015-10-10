@@ -4,8 +4,7 @@ Uize.module ({
 	required:[
 		'Uize.Util.RegExpComposition.WordSplitterHtml',
 		'Uize.Util.Matchers.AttributeMatcher',
-		'Uize.Loc.Pseudo.Xml',
-		'Uize.Util.Html.Encode'
+		'Uize.Loc.Pseudo.Xml'
 	],
 	builder:function (_superclass) {
 		'use strict';
