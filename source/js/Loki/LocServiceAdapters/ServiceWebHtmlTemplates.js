@@ -3,8 +3,7 @@ Uize.module ({
 	superclass:'Uize.Services.LocAdapter',
 	required:[
 		'Uize.Util.RegExpComposition.WordSplitterHtml',
-		'Uize.Util.Matchers.AttributeMatcher',
-		'Uize.Loc.Pseudo.Xml'
+		'Uize.Services.LocAdapter.mHtmlPseudoLocalization'
 	],
 	builder:function (_superclass) {
 		'use strict';
@@ -29,17 +28,12 @@ Uize.module ({
 				tokenName:/[a-zA-Z0-9_\.]+/,
 				token:/%({tokenName})%/,
 				wordSplitter:/{htmlTag}|{htmlEntity}|{token}|{whitespace}|{punctuation}|{number}/
-			}),
-			_xmlPseudoLocalizeOptions = {
-				attributeMatcher:Uize.Util.Matchers.AttributeMatcher.resolve ([
-					'title',
-					'img@alt',
-					'[input|textarea]@placeholder'
-				])
-			}
+			})
 		;
 
 		return _superclass.subclass ({
+			mixins:Uize.Services.LocAdapter.mHtmlPseudoLocalization,
+
 			instanceMethods:{
 				getLanguageResourcePath:function (_primaryLanguageResourcePath,_language) {
 					return _primaryLanguageResourcePath.replace (
@@ -57,22 +51,9 @@ Uize.module ({
 
 				stringHasHtml:Uize.returnTrue,
 
-				pseudoLocalizeString:function (_stringInfo,_pseudoLocalizeOptions) {
-					var
-						_stringValue = _stringInfo.value,
-						_pseudoLocalized = Uize.Loc.Pseudo.Xml.pseudoLocalize (
-							_stringValue
-								.replace (/(<(?:img|input)\s+[^>]+[^\/])>/gi,'$1/>')
-								.replace (/<br>/gi,'<br/>')
-								.replace (/<RingCentral>/g,'&lt;RingCentral&gt;'),
-							Uize.copyInto (_xmlPseudoLocalizeOptions,_pseudoLocalizeOptions)
-						)
-					;
-					if (_pseudoLocalized.length < _stringValue.length * .8)
-						// there must be some other errors in the HTML that prevent it from being parsed correctly
-						_pseudoLocalized = _superclass.doMy (this,'pseudoLocalizeString',arguments)
-					;
-					return _pseudoLocalized;
+				pseudoLocalizeString:function _method (_stringInfo,_pseudoLocalizeOptions) {
+					_stringInfo.value = _stringInfo.value.replace (/<RingCentral>/g,'&lt;RingCentral&gt;');
+					return _method.former.apply (this,arguments);
 				},
 
 				getResourceFileBrand:function (_filePath) {
