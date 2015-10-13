@@ -40,6 +40,11 @@ Uize.module ({
 					);
 				},
 
+				getStringBrand:function (_resourceStringPath) {
+					var _brand = +_resourceStringPath [_resourceStringPath.length - 1];
+					return (_brand || '') + '';
+				},
+
 				isResourceFile:function (_filePath) {
 					return _resourceFileRegExp.test (_filePath);
 				},
