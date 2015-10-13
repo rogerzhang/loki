@@ -55,6 +55,8 @@ Uize.module ({
 					);
 				},
 
+				stringHasHtml:Uize.returnTrue,
+
 				pseudoLocalizeString:function (_stringInfo,_pseudoLocalizeOptions) {
 					var
 						_stringValue = _stringInfo.value,
