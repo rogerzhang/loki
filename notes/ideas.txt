@@ -1,0 +1,21 @@
+- need to integrate the automated process into a CI / build process like Jenkins
+
+- generally, integration point for localization vendor can be source control repository, containing the XLIFF files for all projects
+
+- interesting analyses
+	- the following metrics would be interesting
+		- resource strings that contain inline style attributes
+			- total count
+			- total count of inline style attributes
+			- as a percentage of the strings
+			- as a percentage of the overall string size
+			- as a percentage of the total word count
+
+- localization projects
+	- master project, sub-projects
+	- potentially hierarchical
+	- ability to define project base class and subclasses
+	- need to address mutiple concurrent branches of same project
+		- release branch with patches
+		- development branch for next release
+
