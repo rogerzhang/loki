@@ -133,6 +133,30 @@
 					serviceAdapter:'Loki.LocServiceAdapters.GoogleChrome',
 					rootFolderPath:'../github/googlechrome/web/app/i18n'
 				},
+				ZoomIos:{
+					serviceAdapter:'Loki.LocServiceAdapters.ZoomMacAndIos',
+					rootFolderPath:'../zoom/ios'
+				},
+				ZoomAndroid:{
+					serviceAdapter:'Loki.LocServiceAdapters.ZoomAndroid',
+					rootFolderPath:'../zoom/android',
+					resourceFileWhitespace:{
+						indentChars:'    ',
+						linebreakChars:'\n'
+					}
+				},
+				ZoomMac:{
+					serviceAdapter:'Loki.LocServiceAdapters.ZoomMacAndIos',
+					rootFolderPath:'../zoom/mac'
+				},
+				ZoomWin:{
+					serviceAdapter:'Loki.LocServiceAdapters.ZoomWin',
+					rootFolderPath:'../zoom/win',
+					resourceFileWhitespace:{
+						indentChars:'    ',
+						linebreakChars:'\r\n'
+					}
+				},
 				UnsTemplates:{
 					serviceAdapter:'Loki.LocServiceAdapters.UnsTemplates',
 					rootFolderPath:'../hg/common/uns/templateStorage',
