@@ -15,7 +15,7 @@
 					1210:['en-US','en-GB','fr-CA','fr-FR','de-DE','es-ES','es-419'],  // RingCentral
 					3420:['en-US'],                                                   // AT&T
 					3610:['en-US','en-GB','fr-CA','fr-FR','de-DE','es-ES','es-419'],  // RC Canada
-					3710:['en-GB','fr-FR','de-DE','es-ES','es-419'],                  // RC UK
+					3710:['en-GB','fr-CA','fr-FR','de-DE','es-ES','es-419'],          // RC UK
 					3810:['en-US'],                                                   // ClearWire
 					7310:['en-US','fr-CA'],                                           // TELUS
 					7710:['en-GB'],                                                   // BT
