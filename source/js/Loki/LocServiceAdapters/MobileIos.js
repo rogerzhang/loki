@@ -37,7 +37,8 @@ Uize.module ({
 					'NSLocalizedString',
 					'RCSPLocalizedString',
 					'RCSPLocalizedStringFromTableInBundle',
-					'RCLocalizedString'
+					'RCLocalizedString',
+					'RCDLocalizedString'
 				],
 				_localizerMethodRegExp = new RegExp ('(' + _localizerMethods.join ('|') + ')\\s*\\(\\s*@','g'),
 				_stringLiteralParser = new Uize.Parse.Code.StringLiteral
