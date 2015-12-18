@@ -17,13 +17,8 @@ Uize.module ({
 			})
 		;
 
-		/*** Utility Functions ***/
-			function _staticMethodCaller (_methodName) {
-				return function () {return this.Class [_methodName].apply (this,arguments)};
-			}
-
 		return _superclass.subclass ({
-			staticMethods:{
+			dualContextMethods:{
 				getLanguageResourcePath:function (_primaryLanguageResourcePath,_language) {
 					return _primaryLanguageResourcePath.replace (
 						_resourceFileRegExp,
@@ -51,14 +46,6 @@ Uize.module ({
 				serializeResourceFile:function (_strings) {
 					return 'export default ' + Uize.Json.to (_strings,{keyDelimiter:' : '}) + ';';
 				}
-			},
-
-			instanceMethods:{
-				getLanguageResourcePath:_staticMethodCaller ('getLanguageResourcePath'),
-				getStringBrand:_staticMethodCaller ('getStringBrand'),
-				isResourceFile:_staticMethodCaller ('isResourceFile'),
-				parseResourceFile:_staticMethodCaller ('parseResourceFile'),
-				serializeResourceFile:_staticMethodCaller ('serializeResourceFile')
 			},
 
 			instanceProperties:{
