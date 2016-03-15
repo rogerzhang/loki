@@ -89,6 +89,14 @@
 						linebreakChars:'\r\n'
 					}
 				},
+				D3ReportsPhp:{
+				   serviceAdapter: "Loki.LocServiceAdapters.D3ReportsPhp",
+				   rootFolderPath: "../d3_redesign_repo/php"
+				},
+				D3ReportsJs:{
+				   serviceAdapter: "Loki.LocServiceAdapters.D3ReportsJs",
+				   rootFolderPath: "../d3_redesign_repo/js"
+				},
 				MobileIos:{
 					serviceAdapter:'Loki.LocServiceAdapters.MobileIos',
 					rootFolderPath:'../git-ods/rc-ios'
@@ -111,6 +119,10 @@
 				Platform:{
 					serviceAdapter:'Loki.LocServiceAdapters.Platform',
 					rootFolderPath:'../hg/platform/apiserver/web-server/platform-server-war/src/main/resources'
+				},
+				Platform_RNP: {
+				    serviceAdapter: "Loki.LocServiceAdapters.Platform",
+				    rootFolderPath: "../hg/platform/apiserver/web-server/permission/src/main/resources/rnp_localization"
 				},
 				CloudCti:{
 					serviceAdapter:'Loki.LocServiceAdapters.CloudCti',
