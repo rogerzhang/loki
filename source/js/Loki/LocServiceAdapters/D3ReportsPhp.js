@@ -1,5 +1,5 @@
 Uize.module({
-    name: 'Loki.LocServiceAdapters.D3RedesignPhp',
+    name: 'Loki.LocServiceAdapters.D3ReportsPhp',
     superclass: 'Loki.LocServiceAdapters.WithExcludes',
     required: [
         'Uize.Util.RegExpComposition.WordSplitter'
@@ -43,7 +43,7 @@ Uize.module({
                     }
 
                     if(doubleQuote.test(orgStr)) {
-                        console.warn("DONT use \" outside:", orgStr );
+                        console.warn("WARN! DON'T use \" outside:", orgStr );
                         str = doubleQuote.exec(orgStr)[1].replace(/\\"/g,'"');
                     }
 
@@ -58,7 +58,7 @@ Uize.module({
                 });
 
                 var strArr = [
-                    '<php?',
+                    '<?php',
                     'return array(',
                     items.join(',\n'),
                     ');'
@@ -73,7 +73,7 @@ Uize.module({
                 getLanguageResourcePath: function (_primaryLanguageResourcePath, _language) {
                     return _primaryLanguageResourcePath.replace(
                         _resourceFilePathRegExp,
-                        '$1' + _language.replace('-', '_') + '$2'
+                        '$1' + _language.toLowerCase() + '$2'
                     );
                 },
 

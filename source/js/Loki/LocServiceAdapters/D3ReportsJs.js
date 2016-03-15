@@ -1,5 +1,5 @@
 Uize.module({
-    name: 'Loki.LocServiceAdapters.D3RedesignWeb',
+    name: 'Loki.LocServiceAdapters.D3ReportsJs',
     superclass: 'Loki.LocServiceAdapters.WithExcludes',
     required:'Uize.Util.RegExpComposition.WordSplitter',
     builder: function (_superclass) {
@@ -19,7 +19,7 @@ Uize.module({
                 getLanguageResourcePath: function (_primaryLanguageResourcePath, _language) {
                     return _primaryLanguageResourcePath.replace(
                         _resourceFilePathRegExp,
-                        '$1' + _language.replace('-', '_') + '$2'
+                        '$1' + _language.toLowerCase() + '$2'
                     );
                 },
 
