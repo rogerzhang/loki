@@ -168,6 +168,13 @@
 						linebreakChars:'\r\n'
 					}
 				},
+				ZoomEmailTemplates:{
+					serviceAdapter:'Loki.LocServiceAdapters.ZoomEmailTemplates',
+					rootFolderPath:'../zoom/Zoom_web-resources',
+					pseudoLocalization:{
+						wrapper:''
+					}
+				},
 				UnsTemplates:{
 					serviceAdapter:'Loki.LocServiceAdapters.UnsTemplates',
 					rootFolderPath:'../hg/common/uns/templateStorage',
